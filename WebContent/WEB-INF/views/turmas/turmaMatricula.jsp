@@ -75,39 +75,79 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 		<section class="mb-5">
 			<div class="card">
 				<div class="card-body title">
-					<i class="fa-solid fa-people-roof fa-lg"></i> <span>Turmas</span>
+					<i class="fa-solid fa-bars-staggered fa-lg"></i> <span>Turmas Matricula</span>
 				</div>
 			</div>
 		</section>
-		<section class="pt-4 card card-table px-5 py-3">
-			<div class="mt-3 mb-3"
-				style="display: flex; align-items: center; justify-content: end;">
+		
+		<section id="containerInfoAluno" class="mb-5">
+			<div class="card p-3 ">
 
-				<div class="d-flex align-items-center gap-2">
-					<button id="limpa-filtros" class="btn btn-sm btn-danger">Limpar
-						Filtros</button>
-					<button id="exportar-excel"
-						class="btn btn-sm btn-success d-flex align-items-center gap-2">
-						<i class="fa-solid fa-file-export"></i> Exportar
-					</button>
-					<a href="turmas-nova-turma"
-						class="btn btn-primary btn-sm btn-new-alter px-3 py-1 ms-auto">Novo
-						Cadastro</a>
+				<div class="title mb-3">
+					<i class="fa-solid fa-people-roof fa-lg"></i> <span>Informações
+						da Turma</span>
 				</div>
+
+				<div class="row mb-3">
+
+					<div class=" col-md-6">
+						<label for="obsAprovacao" class="form-label">Escola: </label> <input
+							type="text" id="escola" autocomplete="off" name="obsAprovacao"
+							class="form-control" disabled />
+					</div>
+
+					<div class="col-md-6">
+						<label for="obsAprovacao" class="form-label">Nome da Turma: </label> <input
+							type="text" id="nomeTurma" autocomplete="off" name="obsAprovacao"
+							class="form-control" disabled />
+					</div>
+
+				</div>
+
+				<div class="row mb-3">
+					<div class="col-md-6">
+						<label for="obsAprovacao" class="form-label">Periodo Letivo: </label> <input
+							type="text" id="periodoLetivo" autocomplete="off"
+							name="obsAprovacao" class="form-control" disabled />
+					</div>
+
+					<div class=" col-md-6">
+						<label for="obsAprovacao" class="form-label">Turno: </label> <input
+							type="text" id="turno" autocomplete="off"
+							name="obsAprovacao" class="form-control" disabled />
+					</div>
+					
+				</div>
+				
+				<div class="row mb-3">
+				
+				<div class=" col-md-6">
+						<label for="obsAprovacao" class="form-label">Disciplina: </label> <input
+							type="text" id="disciplina" autocomplete="off"
+							name="obsAprovacao" class="form-control" disabled />
+					</div>
+				</div>
+				
+				
+
+
 
 			</div>
 
+		</section>
+		<section class="pt-4 card card-table px-5 py-3">
+
 			<table
 				class="table tabela-cadastro table-striped table-bordered mb-0 caption-top mx-auto">
-				<caption>Itens Cadastrados</caption>
+				<caption>Alunos</caption>
 				<thead>
 					<tr>
-						<th scope="col" class="sortable border-end" data-column="escolaId">
+						<th scope="col" class="sortable border-end" data-column="matricula">
 							<div
 								class='d-flex align-items-center justify-content-between pe-2'>
 								<div
 									class="col d-flex align-items-center justify-content-between">
-									<span>Escola</span> <i class="fas fa-sort me-3"
+									<span>Matricula</span> <i class="fas fa-sort me-3"
 										style="color: #dddddd"></i>
 								</div>
 								<div class="dropdown-form">
@@ -124,50 +164,12 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								</div>
 							</div>
 						</th>
-						<th scope="col" class="sortable border-end"
-							data-column="anoVigente">
+						<th scope="col" class="sortable border-end" data-column="nomeCompleto">
 							<div
 								class='d-flex align-items-center justify-content-between pe-2'>
 								<div
 									class="col d-flex align-items-center justify-content-between">
-									<span>Ano Vigênte</span> <i class="fas fa-sort me-3"
-										style="color: #dddddd"></i>
-								</div>
-								<div class="dropdown-form">
-									<div class="dropdown-toggle-form" id="dropdownButton2">
-										<i class="fas fa-search" style="color: #dddddd"></i>
-									</div>
-									<div
-										class="dropdown-content-form rounded-3 dropdown-content-left"
-										id="dropdownContent2">
-										<select class="form-select mb-3 searchInput"
-											aria-label="anoVigenteSelect" id="anoVigenteSelect" required
-											name="anoVigenteSelect">
-											<option value='' selected disabled>Selecione o Ano</option>
-																					</select>
-										<button class='btn btn-sm col-12 btn-success searchButton'>Buscar</button>
-									</div>
-								</div>
-							</div>
-						</th>
-						<th scope="col" class="sortable border-end"
-							data-column="anoEscolarId">
-							<div
-								class='d-flex align-items-center justify-content-between pe-2'>
-								<div
-									class="col d-flex align-items-center justify-content-between">
-									<span>Ano Escolar</span> <i class="fas fa-sort"
-										style="color: #dddddd"></i>
-								</div>
-
-							</div>
-						</th>
-						<th scope="col" class="sortable border-end" data-column="numTurma">
-							<div
-								class='d-flex align-items-center justify-content-between pe-2'>
-								<div
-									class="col d-flex align-items-center justify-content-between">
-									<span>Nº Turma</span> <i class="fas fa-sort me-3"
+									<span>Nome</span> <i class="fas fa-sort me-3"
 										style="color: #dddddd"></i>
 								</div>
 								<div class="dropdown-form">
@@ -177,7 +179,52 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 									<div
 										class="dropdown-content-form rounded-3 dropdown-content-left"
 										id="dropdownContent3">
-										<input type="number" class='form-control mb-3 searchInput'
+										<input type="text" class='form-control mb-3 searchInput'
+											placeholder="Digite aqui..">
+										<button class='btn btn-sm col-12 btn-success searchButton'>Buscar</button>
+									</div>
+								</div>
+							</div>
+						</th>
+					
+						<th scope="col" class="sortable border-end" data-column="tipoIngresso">
+							<div
+								class='d-flex align-items-center justify-content-between pe-2'>
+								<div
+									class="col d-flex align-items-center justify-content-between">
+									<span>Situação</span> <i class="fas fa-sort me-3"
+										style="color: #dddddd"></i>
+								</div>
+								<div class="dropdown-form">
+									<div class="dropdown-toggle-form" id="dropdownButton3">
+										<i class="fas fa-search" style="color: #dddddd"></i>
+									</div>
+									<div
+										class="dropdown-content-form rounded-3 dropdown-content-left"
+										id="dropdownContent3">
+										<input type="text" class='form-control mb-3 searchInput'
+											placeholder="Digite aqui..">
+										<button class='btn btn-sm col-12 btn-success searchButton'>Buscar</button>
+									</div>
+								</div>
+							</div>
+						</th>
+						<th scope="col" class="sortable border-end" data-column="tipoIngresso">
+							<div
+								class='d-flex align-items-center justify-content-between pe-2'>
+								<div
+									class="col d-flex align-items-center justify-content-between">
+									<span>Tipo Ingresso</span> <i class="fas fa-sort me-3"
+										style="color: #dddddd"></i>
+								</div>
+								<div class="dropdown-form">
+									<div class="dropdown-toggle-form" id="dropdownButton3">
+										<i class="fas fa-search" style="color: #dddddd"></i>
+									</div>
+									<div
+										class="dropdown-content-form rounded-3 dropdown-content-left"
+										id="dropdownContent3">
+										<input type="text" class='form-control mb-3 searchInput'
 											placeholder="Digite aqui..">
 										<button class='btn btn-sm col-12 btn-success searchButton'>Buscar</button>
 									</div>
@@ -185,41 +232,6 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 							</div>
 						</th>
 
-						<th scope="col" class="sortable border-end" data-column="turnoId">
-							<div
-								class='d-flex align-items-center justify-content-between pe-2'>
-								<div
-									class="col d-flex align-items-center justify-content-between">
-									<span>Turno</span> <i class="fas fa-sort"
-										style="color: #dddddd"></i>
-								</div>
-
-							</div>
-						</th>
-
-						<th scope="col" class="sortable border-end"
-							data-column="modalidadeEscolaId">
-							<div
-								class='d-flex align-items-center justify-content-between pe-2'>
-								<div
-									class="col d-flex align-items-center justify-content-between">
-									<span>Modalidade</span> <i class="fas fa-sort"
-										style="color: #dddddd"></i>
-								</div>
-
-							</div>
-						</th>
-						<th scope="col" class="sortable border-end" data-column="vagas">
-							<div
-								class='d-flex align-items-center justify-content-between pe-2'>
-								<div
-									class="col d-flex align-items-center justify-content-between">
-									<span>Vagas</span> <i class="fas fa-sort"
-										style="color: #dddddd"></i>
-								</div>
-
-							</div>
-						</th>
 						<th scope="col" class="border-end pe-2 th-sem-filtro">Ações</th>
 					</tr>
 				</thead>
@@ -257,9 +269,9 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 		crossorigin="anonymous"></script>
 	<script charset="UTF-8" 
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-
-	<script charset="UTF-8"  src="<%=contextPath%>/resources/assets/js/turmas/turmas.js"></script>
 	<script charset="UTF-8"  src="<%=contextPath%>/resources/assets/js/comum.js"></script>
+	<script charset="UTF-8"  src="<%=contextPath%>/resources/assets/js/turmas/turmaMatricula.js"></script>
+	
 	<script charset="UTF-8" 
 		src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 </body>
