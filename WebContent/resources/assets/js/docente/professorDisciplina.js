@@ -21,6 +21,24 @@ $(document).ready(function () {
   $(".container-table").hide();
   $("#btn-save").hide();
   $.ajax({
+    url: url_base + "/areaConhecimento/conta/" + contaId,
+    type: "GET",
+    async: false,
+  })
+    .done(function (data) {
+      console.log("Dados de Área de Conhecimento:", data);
+      preencherOpcoes(
+        data,
+        "#areaConhecimentoOption",
+        "#areaConhecimentoId",
+        "#areaConhecimentoSearch"
+      );
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+      console.error("Erro na solicitação AJAX:", textStatus, errorThrown);
+    });
+
+  $.ajax({
     url: url_base + "/disciplina/conta/" + contaId,
     type: "GET",
     async: false,
@@ -48,6 +66,33 @@ $(document).ready(function () {
     selecionarMatricula(idProfessorPes);
   }
 
+  $("#areaConhecimentoOption").click(() => {
+    $("#disciplinaId").empty();
+    $("#disciplinaOption").empty();
+    $("#disciplinaId").removeAttr("disabled");
+    $("#disciplinaId").append(
+      `<option value='0' selected disabled>Selecione a disciplina</option>`
+    );
+
+    let area = $("#areaConhecimentoId").val();
+    $.ajax({
+      url: url_base + "/disciplina/areaConhecimento/" + area,
+      type: "GET",
+      async: false,
+    })
+      .done(function (data) {
+        preencherOpcoes(
+          data,
+          "#disciplinaOptions",
+          "#disciplinaId",
+          "#disciplinaSearch"
+        );
+      })
+      .fail(function (jqXHR, textStatus, errorThrown) {
+        console.error("Erro na solicitação AJAX:", textStatus, errorThrown);
+      });
+  });
+
   function preencherOpcoes(dados, optionsListId, selectId, searchId) {
     const $optionsList = $(optionsListId);
     const $escolaId = $(selectId);
@@ -60,13 +105,21 @@ $(document).ready(function () {
       );
 
     $.each(dados, function (index, item) {
+      const optionText =
+        item.codDiscip && item.nome
+          ? `${item.codDiscip} - ${item.nome}`
+          : item.areaConhecimento
+          ? `${item.areaConhecimento}`
+          : "Opção Inválida";
       $optionsList.append(
-        `<li data-value="${item.idDisciplina}">${item.codDiscip} - ${item.nome}</li>`
+        `<li data-value="${
+          item.idDisciplina || item.idAreaConhecimento
+        }">${optionText}</li>`
       );
       $escolaId.append(
         $("<option>", {
-          value: item.idDisciplina,
-          text: item.nome,
+          value: item.idAreaConhecimento ?? item.idDisciplina ?? "",
+          text: optionText || "Valor Inválido",
         })
       );
     });
