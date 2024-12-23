@@ -220,16 +220,54 @@ const buscar = () => {
       $('input[data-toggle="toggle"]').bootstrapToggle();
     });
   } else {
-    $.ajax({
-      url: url_base + "/prova",
-      type: "GET",
-    }).done(function (data) {
+    fetchData()
+  }
+};
+
+function fetchData() {
+  // Captura os valores dos selects
+  const escolaId = $('#escolaId').val();
+  const ano = $('#ano').val();
+  const periodo = $('#periodo').val();
+  const turno = $('#turno').val();
+  const disciplinaId = $('#disciplinaId').val();
+  const turmaId = $('#turmaId').val();
+
+  // Verifica se todos os campos foram preenchidos
+  if (!escolaId || !ano || !periodo || !turno || !disciplinaId || !turmaId) {
+    alert('Por favor, preencha todos os campos antes de continuar.');
+    return;
+  }
+
+  // Monta os parâmetros para a URL
+  const params = {
+    idEscola: escolaId,
+    ano: ano,
+    periodoLetivo: periodo,
+    idTurno: turno,
+    idDisciplina: disciplinaId,
+    idTurma: turmaId,
+  };
+
+  // Converte os parâmetros para a string de query
+  const queryString = $.param(params);
+
+  // Faz a requisição GET com os parâmetros
+  $.ajax({
+    url: `${url_base}/prova?${queryString}`,
+    type: 'GET',
+  })
+    .done(function (data) {
+      console.log('Dados recebidos:', data);
       listaAvaliacao = data;
       listarDados(data);
       $('input[data-toggle="toggle"]').bootstrapToggle();
+    })
+    .fail(function (error) {
+      console.error('Erro na requisição:', error);
+      alert('Ocorreu um erro ao buscar os dados. Tente novamente.');
     });
-  }
-};
+}
 
 function formatarDataParaBR(data) {
   var dataObj = new Date(data);
