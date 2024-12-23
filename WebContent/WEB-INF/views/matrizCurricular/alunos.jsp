@@ -132,7 +132,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 						</th>
 						
 						<th scope="col" class="sortable border-end"
-							data-column="matriculaPes">
+							data-column="nomePes">
 							<div
 								class="d-flex align-items-center justify-content-between pe-2">
 								<div
@@ -156,7 +156,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 							</div>
 						</th>
 						<th scope="col" class="sortable border-end"
-							data-column="matriculaPes">
+							data-column="cursoPes">
 							<div
 								class="d-flex align-items-center justify-content-between pe-2">
 								<div
@@ -205,7 +205,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 							</div>
 						</th>
 						<th scope="col" class="sortable border-end"
-							data-column="matriculaPes">
+							data-column="escolaPes">
 							<div
 								class="d-flex align-items-center justify-content-between pe-2">
 								<div
@@ -229,7 +229,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 							</div>
 						</th>
 						<th scope="col" class="sortable border-end"
-							data-column="matriculaPes">
+							data-column="turnoPes">
 							<div
 								class="d-flex align-items-center justify-content-between pe-2">
 								<div

@@ -47,6 +47,35 @@ const editarAluno = () => {
 	$('#municipioNascimentoId').attr('disabled', false);
 }
 
+const listarDados = (dados) => {
+	var html = dados
+		.map(function(item) {
+
+			return (
+				"<tr>" +
+				"<td>" +
+				item.matricula.turma.nomeTurma +
+				"</td>" +
+				"<td>" +
+				item.matricula.turma.gradeCurricular.disciplina.nome +
+				"</td>" +
+				"<td>" +
+				item.matricula.turma.periodoLetivo.ano +
+				"</td>" +
+				"<td>" +
+				item.matricula.turma.periodoLetivo.periodo + '/' + item.matricula.turma.periodoLetivo.descricao +
+				"</td>" +
+				"<td>" +
+				item.situacaoAluno.situacaoAluno +
+				"</td>" +
+				"</tr>"
+			);
+		})
+		.join("");
+
+	$("#cola-tabela-matricula").html(html);
+}
+
 
 const getDadosAcademicos = () => {
 	$('#escolaId').val(aluno.escola.idEscola)
@@ -77,6 +106,25 @@ const getDadosAluno = () => {
 		idPessoa = response.pessoa
 		aluno = response
 		let data = response.pessoa
+
+		$.ajax({
+			url: url_base + "/matricula/matricula/" + res.aluno,
+			type: "GET",
+			async: false,
+			error: function(e) {
+				console.log(e)
+				Swal.fire({
+					icon: "error",
+					title: "Oops...",
+					text: "Não foi possível realizar esse comando!"
+
+				});
+			}
+		}).done((response) => {
+			res.matricula = response[0]
+			listarDados([res])
+		})
+
 
 		nomeCandidato = data.nomeCompleto
 
@@ -170,7 +218,7 @@ const getDadosAluno = () => {
 			$('#certidaoNascimentoCartorio').val(data.certidaoNascimentoCartorio);
 
 			$('#certidaoNascimentoUfCartorioId').val(data.certidaoNascimentoMunicipioCartorio != null ? data.certidaoNascimentoMunicipioCartorio.ufId : "")
-			
+
 			$('#certidaoNascimentoDataEmissao').val(data.certidaoNascimentoDataEmissao);
 			$('#certidaoNascimentoFolha').val(data.certidaoNascimentoFolha);
 			$('#certidaoNascimentoLivro').val(data.certidaoNascimentoLivro);
