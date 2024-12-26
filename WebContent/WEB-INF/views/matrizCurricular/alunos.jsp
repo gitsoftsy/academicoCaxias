@@ -83,15 +83,15 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 		</section>
 		<section class="pt-4 card card-table px-5 py-3">
 			<div class="mt-3 mb-3"
-				style="display: flex; align-items: center; justify-content: space-between;">
-				<div class='col-6'>
+				style="display: flex; align-items: center; justify-content: end;">
+				<!-- <div class='col-6'>
 					<div class="input-group">
 						<input id="inputBusca" type="text" class="form-control inputForm"
 							placeholder="Buscar" /> <span
 							class="input-group-text icone-pesquisa"><i
 							class="fas fa-search"></i></span>
 					</div>
-				</div>
+				</div> -->
 				<div class="d-flex align-items-center gap-2 ">
 					<button id="limpa-filtros" class="btn btn-sm btn-danger">
 						Limpar Filtros</button>
@@ -130,14 +130,36 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								</div>
 							</div>
 						</th>
-						
-						<th scope="col" class="sortable border-end"
-							data-column="nomePes">
+
+						<th scope="col" class="sortable border-end" data-column="nomePes">
 							<div
 								class="d-flex align-items-center justify-content-between pe-2">
 								<div
 									class="col d-flex align-items-center justify-content-between">
 									<span>Nome</span> <i class="fas fa-sort me-3"
+										style="color: #dddddd"></i>
+								</div>
+								<div class="dropdown-form">
+									<div class="dropdown-toggle-form" id="dropdownButton3">
+										<i class="fas fa-search" style="color: #dddddd"></i>
+									</div>
+									<div
+										class="dropdown-content-form rounded-3 dropdown-content-left"
+										id="dropdownContent3">
+										<input type="text" class="form-control mb-3 searchInput"
+											placeholder="Digite..." />
+										<button class="btn btn-sm col-12 btn-success searchButton">
+											Buscar</button>
+									</div>
+								</div>
+							</div>
+						</th>
+						<th scope="col" class="sortable border-end" data-column="cpfPes">
+							<div
+								class="d-flex align-items-center justify-content-between pe-2">
+								<div
+									class="col d-flex align-items-center justify-content-between">
+									<span>CPF</span> <i class="fas fa-sort me-3"
 										style="color: #dddddd"></i>
 								</div>
 								<div class="dropdown-form">

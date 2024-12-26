@@ -35,6 +35,7 @@ $(document).ready(function() {
 			item.turnoPes = item.turno.turno
 			item.emailPes = item.emailInterno
 			item.situacaoAlunoPes = item.situacaoAluno.situacaoAluno
+			item.cpfPes = item.pessoa.cpf
 
 			console.log(item)
 			var valueToCheck = item[columnToSearch] ? item[columnToSearch].toString().toLowerCase() : '';
@@ -116,6 +117,8 @@ function listarDados(dados) {
 		} else {
 			ativo = "<i style='color:#2eaa3a' class='fa-solid iconeTabela fa-circle-check'></i> Sim";
 		}
+		
+		const cpf = item.pessoa.cpf == null ? 'não possui' : item.pessoa.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")
 
 		return (
 			"<tr>" +
@@ -126,6 +129,10 @@ function listarDados(dados) {
 
 			"<td>" +
 			item.pessoa.nomeCompleto +
+			"</td>" +
+
+			"<td>" +
+			cpf +
 			"</td>" +
 
 			"<td>" +
