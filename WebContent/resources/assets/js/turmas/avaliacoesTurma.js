@@ -69,26 +69,7 @@ $(document).ready(function() {
 		});
 	});
 
-	$.ajax({
-		url: url_base + "/periodoletivo/conta/" + contaId,
-		type: "GET",
-	}).done(function(data) {
-		$.each(data, function(index, item) {
-			$("#periodo").append(
-				$("<option>", {
-					value: item.idPeriodoLetivo,
-					text:
-						item.ano +
-						"/" +
-						item.periodo +
-						" - " +
-						formatarPeriodo(item.tipoPeriodicidade) +
-						" - " +
-						item.descricao,
-				})
-			);
-		});
-	});
+
 
 	$.ajax({
 		url: url_base + "/turno/conta/" + contaId,
@@ -104,38 +85,35 @@ $(document).ready(function() {
 		});
 	});
 
-	$.ajax({
-		url: url_base + "/turma",
-		type: "GET",
-	}).done(function(data) {
-		$.each(data, function(index, item) {
-			$("#turmaId").append(
-				$("<option>", {
-					value: item.idTurma,
-					text: item.nomeTurma + " - " + item.gradeCurricular.disciplina.nome,
-				})
-			);
-		});
-	});
-
-	$.ajax({
-		url: url_base + "/disciplina/conta/" + contaId,
-		type: "GET",
-	}).done(function(data) {
-		$.each(data, function(index, item) {
-			$("#disciplinaId").append(
-				$("<option>", {
-					value: item.idDisciplina,
-					text: `${item.codDiscip} - ${item.nome}`,
-				})
-			);
-		});
-	});
-
 	$("#escolaId, #disciplinaId, #turno, #turmaId, #ano, #periodo").select2();
 	$("#turmaId").select2();
 
 	if (idTurma != undefined) {
+
+		$.ajax({
+			url: url_base + "/periodoletivo/conta/" + contaId,
+			type: "GET",
+		}).done(function(data) {
+			$.each(data, function(index, item) {
+				$("#periodo").append(
+					$("<option>", {
+						value: item.idPeriodoLetivo,
+						text:
+							item.ano +
+							"/" +
+							item.periodo +
+							" - " +
+							formatarPeriodo(item.tipoPeriodicidade) +
+							" - " +
+							item.descricao,
+					})
+				);
+			});
+		});
+
+
+
+
 		$.ajax({
 			url: url_base + "/turma/" + idTurma,
 			type: "GET",
@@ -162,50 +140,171 @@ $(document).ready(function() {
 
 $("#ano").change(() => {
 	$("#periodo").prop("disabled", false).val(null).trigger("change");
-	$("#turno, #turmaId, #disciplinaId")
-		.prop("disabled", true)
-		.val(null)
-		.trigger("change");
 
-	$("#turno, #turmaId, #disciplinaId").prop("disabled", true);
+	$.ajax({
+		url: url_base + `/periodoletivo/conta/${contaId}/ano/` + $("#ano").val(),
+		type: "GET",
+	}).done(function(data) {
+		$("#periodo").empty()
+		$("#periodo").append(
+			`<option value='0' selected disabled>Selecione um período</option>`
+		);
+		$.each(data, function(index, item) {
+			$("#periodo").append(
+				$("<option>", {
+					value: item.idPeriodoLetivo,
+					text:
+						item.periodo +
+						" - " +
+						formatarPeriodo(item.tipoPeriodicidade) +
+						" - " +
+						item.descricao,
+				})
+			);
+		});
+
+		$("#turno, #turmaId, #disciplinaId")
+			.prop("disabled", true)
+			.val(null)
+			.trigger("change");
+
+		$("#turno, #turmaId, #disciplinaId").prop("disabled", true);
+	})
+
+
 });
 
 $("#escolaId").change(() => {
 	$("#ano").prop("disabled", false).val(null).trigger("change");
 
-	$("#periodo, #turno, #turmaId, #disciplinaId")
-		.prop("disabled", true)
-		.val(null)
-		.trigger("change");
+	$.ajax({
+		url: url_base + `/periodoletivo/conta/${contaId}/ano`,
+		type: "GET",
+	}).done(function(data) {
+		$("#ano").empty()
+		$("#ano").append(
+			`<option value='0' selected disabled>Selecione um ano</option>`
+		);
+		$.each(data.anos, function(index, item) {
+			$("#ano").append(
+				$("<option>", {
+					value: item,
+					text: item,
+				})
+			);
+		});
+		$("#periodo, #turno, #turmaId, #disciplinaId")
+			.prop("disabled", true)
+			.val(null)
+			.trigger("change");
 
-	$("#disciplinaId, #turno, #turmaId, #periodo").prop("disabled", true);
+		$("#disciplinaId, #turno, #turmaId, #periodo").prop("disabled", true);
+	})
 });
 
 $("#periodo").change(() => {
 	$("#turno").prop("disabled", false).val(null).trigger("change");
+
+	$.ajax({
+		url: url_base + `/turma/filtroTurno?idEscola=${$('#escolaId').val()}&idPeriodoLetivo=${$('#periodo').val()}`,
+		type: "GET",
+	}).done(function(data) {
+		$("#turno").empty()
+		$("#turno").append(
+			`<option value='0' selected disabled>Selecione um turno</option>`
+		);
+
+		if (data != 'Nenhum resultado encontrado para os parâmetros informados.') {
+			$.each(data, function(index, item) {
+				$("#turno").append(
+					$("<option>", {
+						value: item.idTurno,
+						text: item.turno,
+					})
+				);
+			});
+		}
+
+
+
+		$("#turmaId, #disciplinaId")
+			.prop("disabled", true)
+			.val(null)
+			.trigger("change");
+
+		$("#turmaId, #disciplinaId").prop("disabled", true);
+	})
+
 	$("#turmaId, #disciplinaId")
 		.prop("disabled", true)
 		.val(null)
 		.trigger("change");
 
 	$("#turmaId, #disciplinaId").prop("disabled", true);
+
 });
 
 $("#turno").change(() => {
 	$("#disciplinaId").prop("disabled", false).val(null).trigger("change");
 
-	$("#turmaId, #disciplinaId")
-		.prop("disabled", true)
-		.val(null)
-		.trigger("change");
+	$.ajax({
+		url: url_base + `/turma/filtroDisciplina?idEscola=${$('#escolaId').val()}&idPeriodoLetivo=${$('#periodo').val()}&idTurno=${$('#turno').val()}`,
+		type: "GET",
+	}).done(function(data) {
+		$("#disciplinaId").empty()
+		$("#disciplinaId").append(
+			`<option value='0' selected disabled>Selecione uma Disciplina</option>`
+		);
 
+		if (data != 'Nenhum resultado encontrado para os parâmetros informados.') {
+			$.each(data, function(index, item) {
+				$("#disciplinaId").append(
+					$("<option>", {
+						text: `${item.codDiscip} - ${item.nome}`,
+						value: item.idDiciplina,
+					})
+				);
+			});
+		}
+
+
+
+		$("#turmaId")
+			.val(null)
+			.trigger("change");
+
+		$("#turmaId").prop("disabled", true);
+	})
 	$("#turmaId").prop("disabled", true);
-	$("#disciplinaId").prop("disabled", false);
 });
 
 $("#disciplinaId").change(() => {
-	$("#turmaId").prop("disabled", false).val(null).trigger("change");
+    $("#turmaId").prop("disabled", false).val(null).trigger("change");
+
+    // Aqui, obtém o valor selecionado corretamente
+    console.log($('#disciplinaId').val());
+
+    $.ajax({
+        url: url_base + `/turma/filtrar?idEscola=${$('#escolaId').val()}&idDisciplina=${$('#disciplinaId').val()}`,
+        type: "GET",
+    }).done(function(data) {
+        $("#turmaId").empty();
+        $("#turmaId").append(
+            `<option value='0' selected disabled>Selecione uma turma</option>`
+        );
+
+        console.log(data);
+        $.each(data.data, function(index, item) {
+            $("#turmaId").append(
+                $("<option>", {
+                    value: item.idTurma,
+                    text: item.nomeTurma
+                })
+            );
+        });
+    });
 });
+
 
 const buscar = () => {
 	$("#messageInfo").hide();
