@@ -46,7 +46,10 @@ $(document).ready(function () {
       .fail(function (jqXHR, textStatus, errorThrown) {
         console.error("Erro na solicitação AJAX:", textStatus, errorThrown);
       });
-  } else getDados();
+  } else {
+	$("#containerInfoAluno").hide()
+	getDados();
+  } 
 
   const link = alunoId != null ? `novo-aviso-aluno?id=${alunoId}` : "aviso";
   $("#novoCadastroLink").attr("href", link);

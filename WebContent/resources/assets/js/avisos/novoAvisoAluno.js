@@ -340,7 +340,7 @@ function enviarCadastro(base64Anexo) {
 			title: "Cadastrado com sucesso",
 			icon: "success",
 		}).then(() => {
-			window.location.href = "avisos"
+			window.location.href = "avisos?idAluno=" + alunoId
 		})
 
 

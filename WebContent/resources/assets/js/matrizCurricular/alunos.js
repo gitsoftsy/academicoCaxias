@@ -118,7 +118,7 @@ function listarDados(dados) {
 			ativo = "<i style='color:#2eaa3a' class='fa-solid iconeTabela fa-circle-check'></i> Sim";
 		}
 		
-		const cpf = item.pessoa.cpf == null ? 'não possui' : item.pessoa.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")
+		const cpf = item.pessoa.cpf == null ? 'Não possui' : item.pessoa.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")
 
 		return (
 			"<tr>" +

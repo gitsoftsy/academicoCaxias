@@ -213,9 +213,9 @@ function getDados() {
 function listarDados(dadosDestinatario, dadosAviso) {
   var html = dadosDestinatario
     .map(function (item) {
-      const usuarioExibido = dadosAviso.professor
+      const usuarioExibido = dadosAviso.professor != null
         ? dadosAviso.professor.usuario
-        : item.usuario;
+        : dadosAviso.usuario.usuario;
 
       return (
         "<tr>" +

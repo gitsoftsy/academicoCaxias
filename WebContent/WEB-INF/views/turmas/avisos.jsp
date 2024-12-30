@@ -27,7 +27,9 @@ String contextPath = request.getContextPath();
 	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 	crossorigin="anonymous"></script>
 <!-- TinyMCE Script -->
-<script src="https://cdn.tiny.cloud/1/ybbnp45uwmaxy2afou9tc84m31aga7qy1w24rc7lno1h4ekl/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script
+	src="https://cdn.tiny.cloud/1/ybbnp45uwmaxy2afou9tc84m31aga7qy1w24rc7lno1h4ekl/tinymce/6/tinymce.min.js"
+	referrerpolicy="origin"></script>
 
 
 <!-- Select 2 -->
@@ -93,11 +95,35 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 			</div>
 		</section>
 		<section class="pt-4">
-		
-		
+
+
 			<form id="formNovoCadastro"
 				class="card form p-5 col-12 animate__animated animate__bounceInUp d-flex flex-column justify-content-center">
-				<h3 id="tituloForm" class="text-start mb-5">Selecione os alunos</h3>
+
+				
+
+				<div class="row mb-3" id="containerSelectTurma">
+				<h3 id="tituloForm" class="text-start mb-5">Filtrar</h3>	
+					<div class="col-md-6">
+						<label for="turmaSearch" class="form-label">Turma:<span
+							class="red">*</span></label> <select class="form-select"
+							aria-label=turmaSearch id="turmaSearch" required
+							name="turmaSearch">
+							<option value="" selected disabled>Selecione a Turma</option>
+						</select>
+					</div>
+					<div class="col-md-3 align-self-end">
+						<a class="btn btn-warning px-5" id="btn-buscar"
+							style="font-weight: 500">Buscar </a>
+					</div>
+					
+					<hr class="mt-3">
+
+				</div> 
+				
+			
+				
+				<h3 id="tituloForm" class="text-start mt-3 mb-5">Selecione os alunos</h3>
 
 				<table
 					class="table tabela-atos table-striped table-bordered mb-0 caption-top mx-auto">
@@ -139,7 +165,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 				<div class="col-md-12 mt-3">
 					<label for="mensagem" class="form-label">Mensagem:<span
 						class="red">*</span></label>
-					<textarea  autocomplete="off" id="mensagem" name="mensagem"
+					<textarea autocomplete="off" id="mensagem" name="mensagem"
 						class="form-control"></textarea>
 				</div>
 
@@ -156,17 +182,17 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 
 					<div class="col-md-6">
 
-						<label for="tipoAvisoId" class="form-label">Tipo Aviso:<span class="red">*</span></label> <select
-							class="form-select" aria-label="tipoAvisoId" id="tipoAvisoId"
-							name="tipoAvisoId">
+						<label for="tipoAvisoId" class="form-label">Tipo Aviso:<span
+							class="red">*</span></label> <select class="form-select"
+							aria-label="tipoAvisoId" id="tipoAvisoId" name="tipoAvisoId">
 							<option selected disabled>Selecione uma opção</option>
 						</select>
 
 					</div>
 					<div class="col-md-6">
 						<label for=anexoAviso class="form-label">Anexo: </label> <input
-							autocomplete="off" type="file" id="anexoAviso"
-							name="anexoAviso" class="form-control" />
+							autocomplete="off" type="file" id="anexoAviso" name="anexoAviso"
+							class="form-control" />
 
 					</div>
 				</div>
@@ -178,13 +204,13 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 
 					<div class="col-md-6">
 						<label for="mensagem" class="form-label">Início :<span
-							class="red">*</span></label> <input  autocomplete="off"
-							type="date" id="inicio" name="inicio" class="form-control " />
+							class="red">*</span></label> <input autocomplete="off" type="date"
+							id="inicio" name="inicio" class="form-control " />
 					</div>
 					<div class="col-md-6">
 						<label for="mensagem" class="form-label">Término:<span
-							class="red">*</span></label> <input  autocomplete="off"
-							type="date" id="termino" name="termino" class="form-control " disabled/>
+							class="red">*</span></label> <input autocomplete="off" type="date"
+							id="termino" name="termino" class="form-control " disabled />
 					</div>
 				</div>
 
