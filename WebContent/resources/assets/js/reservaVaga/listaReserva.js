@@ -175,8 +175,6 @@ $(document).ready(function() {
 		}
 	});
 
-	showPage(currentPage);
-	updatePagination();
 });
 
 $("#limpa-filtros").click(function() {
@@ -223,7 +221,8 @@ function buscar() {
 			$("#containerCadastros").show();
 			$("#messageInfo").addClass("none");
 			$("#limpa-filtros").show()
-			$('input[data-toggle="toggle"]').bootstrapToggle();
+			showPage(currentPage);
+			updatePagination();
 			$('input[data-toggle="toggle"]').bootstrapToggle();
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
