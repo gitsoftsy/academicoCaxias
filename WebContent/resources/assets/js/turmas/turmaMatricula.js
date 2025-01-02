@@ -194,10 +194,24 @@ function getDados() {
 		async: false,
 	})
 		.done(function(data) {
-			dados = data.data;
-			dadosOriginais = data.data;
-			listarDados(data.data);
-			$('input[data-toggle="toggle"]').bootstrapToggle();
+
+			if (data.message != "Nenhum resultado encontrado para os parâmetros informados.") {
+				dados = data.data;
+				dadosOriginais = data.data;
+				listarDados(data.data);
+				$('input[data-toggle="toggle"]').bootstrapToggle();
+			} else {
+				Swal.fire({
+					title: "Nenhum aluno está matriculado a essa turma",
+					icon: "info",
+					confirmButtonText: `
+    						 Matricular Alunos
+  					`,
+				}).then(() => {
+					window.location.href = "avisos"
+				})
+			}
+
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
 			console.error("Erro na solicitação AJAX:", textStatus, errorThrown);

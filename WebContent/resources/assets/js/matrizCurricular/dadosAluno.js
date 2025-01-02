@@ -164,11 +164,11 @@ const getDadosAluno = () => {
 			let numRg = data.rgNumero;
 
 			// Preenchendo campos de input
-			$("#nomeCompleto").val(data.nomeCompleto);
-			$("#nomeMae").val(data.nomeMae);
-			$("#nomePai").val(data.nomePai);
-			$("#nomeSocial").val(data.nomeSocial);
-			$("#cpf").val(cpfCandidato);
+			$("#nomeCompleto").val(data.nomeCompleto || "Não preenchido");
+			$("#nomeMae").val(data.nomeMae || "Não preenchido");
+			$("#nomePai").val(data.nomePai || "Não preenchido");
+			$("#nomeSocial").val(data.nomeSocial || "Não preenchido" );
+			$("#cpf").val(cpfCandidato || "Não preenchido");
 			$("#rgNumero").val(
 				numRg != null
 					? numRg.replace(/^(\d{2})(\d{3})(\d{3})(\d{1})$/, "$1.$2.$3-$4")
@@ -196,23 +196,23 @@ const getDadosAluno = () => {
 			$("#telefone").val(
 				data.telefone != null && data.telefone != ""
 					? data.telefone.replace(/^(\d{2})(\d{4})(\d{4})$/, "($1) $2-$3")
-					: ""
+					: "Não Preenchido"
 			);
 			$("#celular").val(
 				data.celular != null && data.celular != ""
 					? data.celular.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3")
-					: ""
+					: "Não Preenchido"
 			);
-			$("#email").val(data.email);
-			$("#empresa").val(data.empresa);
-			$("#ocupacao").val(data.ocupacao);
+			$("#email").val(data.email || "Não preenchido");
+			$("#empresa").val(data.empresa || "Não preenchido");
+			$("#ocupacao").val(data.ocupacao || "Não preenchido");
 			$("#telefoneComercial").val(
 				data.telefoneComercial != null && data.telefoneComercial != ""
 					? data.telefoneComercial.replace(
 						/^(\d{2})(\d{5})(\d{4})$/,
 						"($1) $2-$3"
 					)
-					: ""
+					: "Não Preenchido"
 			);
 
 			$("#racaId").val(data.raca.idRaca);
