@@ -136,6 +136,12 @@ public class MatrizCurricular {
 		return "matrizCurricular/professores";
 	}
 	
+	@RequestMapping(value = { "matricula" }, method = RequestMethod.GET)
+	public String matricula(HttpSession session, Model model) throws Exception {
+
+		return "matrizCurricular/matricula";
+	}
+	
 	
 
 }
