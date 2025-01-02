@@ -586,6 +586,20 @@ String contextPath = request.getContextPath();
 							</select>
 						</div>
 					</div>
+					<table
+						class="table tabela-atos table-striped table-bordered mb-0 caption-top mx-auto">
+						<thead>
+							<tr>
+								<th scope="col">Turma</th>
+								<th scope="col">Disciplina</th>
+								<th scope="col">Ano</th>
+								<th scope="col">Periodo</th>
+								<th scope="col">Situação Matricula</th>
+							</tr>
+						</thead>
+						<tbody id="cola-tabela-matricula" class="table-group-divider"></tbody>
+					</table>
+					<div id="pagination" class="mx-auto mt-auto"></div>
 				</div>
 			</div>
 			<div class="col-md-12 text-center mt-3">
