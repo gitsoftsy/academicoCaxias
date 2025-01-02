@@ -208,7 +208,7 @@ function getDados() {
     						 Matricular Alunos
   					`,
 				}).then(() => {
-					window.location.href = "avisos"
+					window.location.href = "matricula?turma=" + turmaId
 				})
 			}
 
