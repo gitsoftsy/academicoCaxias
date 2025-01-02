@@ -83,7 +83,32 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 			</div>
 		</section>
 		<section class="pt-4 card card-table px-5 py-3">
-			<div class="mt-3 mb-3"
+
+			<h3 id="tituloForm" class="text-start mb-5">Filtrar</h3>
+
+			<div class="row mb-3">
+				<div class="col-md-6">
+					<label for="concursoSearch" class="form-label">Concurso:<span
+						class="red">*</span></label> <select class="form-select"
+						aria-label="concursoSearch" id="concursoSearch" required
+						name="concursoSearch">
+						<option value="" selected disabled>Selecione o Concurso</option>
+					</select>
+				</div>
+				<div class="col-md-3 align-self-end">
+					<a class="btn btn-warning px-5" id="btn-buscar"
+						style="font-weight: 500">Buscar </a>
+				</div>
+			</div>
+
+			<hr />
+
+			<div id="messageInfo" class="d-flex justify-content-center">
+				<h3>Informe o concurso acima para realizar a busca.</h3>
+			</div>
+
+
+			<div class="mt-3 mb-3" id="containerCadastros"
 				style="display: flex; align-items: center; justify-content: end">
 				<div class="d-flex align-items-center gap-2 ">
 					<button id="limpa-filtros" class="btn btn-sm btn-danger">
@@ -98,210 +123,219 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 				</div>
 			</div>
 
-			<table
-				class="table tabela-cadastro table-striped table-bordered mb-0 caption-top mx-auto">
-				<caption>Itens Cadastrados</caption>
-				<thead>
-					<tr>
-						<th scope="col" class="sortable border-end" data-column="candidato">
-							<div
-								class="d-flex align-items-center justify-content-between pe-2">
+			<div id="grid">
+				<table
+					class="table tabela-cadastro table-striped table-bordered mb-0 caption-top mx-auto">
+					<caption>Itens Cadastrados</caption>
+					<thead>
+						<tr>
+							<th scope="col" class="sortable border-end"
+								data-column="candidato">
 								<div
-									class="col d-flex align-items-center justify-content-between">
-									<span>N° Reserva</span> <i class="fas fa-sort me-3"
-										style="color: #dddddd"></i>
-								</div>
-								<div class="dropdown-form">
-									<div class="dropdown-toggle-form" id="dropdownButton1">
-										<i class="fas fa-search" style="color: #dddddd"></i>
-									</div>
+									class="d-flex align-items-center justify-content-between pe-2">
 									<div
-										class="dropdown-content-form rounded-3 dropdown-content-left"
-										id="dropdownContent1">
-										<input type="text" class="form-control mb-3 searchInput"
-											placeholder="Digite..." />
-										<button class="btn btn-sm col-12 btn-success searchButton">
-											Buscar</button>
+										class="col d-flex align-items-center justify-content-between">
+										<span>N° Reserva</span> <i class="fas fa-sort me-3"
+											style="color: #dddddd"></i>
+									</div>
+									<div class="dropdown-form">
+										<div class="dropdown-toggle-form" id="dropdownButton1">
+											<i class="fas fa-search" style="color: #dddddd"></i>
+										</div>
+										<div
+											class="dropdown-content-form rounded-3 dropdown-content-left"
+											id="dropdownContent1">
+											<input type="text" class="form-control mb-3 searchInput"
+												placeholder="Digite..." />
+											<button class="btn btn-sm col-12 btn-success searchButton">
+												Buscar</button>
+										</div>
 									</div>
 								</div>
-							</div>
-						</th>
-						<th scope="col" class="sortable border-end" data-column="nomeCompleto">
-							<div
-								class="d-flex align-items-center justify-content-between pe-2">
+							</th>
+							<th scope="col" class="sortable border-end"
+								data-column="nomeCompleto">
 								<div
-									class="col d-flex align-items-center justify-content-between">
-									<span>Nome Aluno</span> <i class="fas fa-sort me-3"
-										style="color: #dddddd"></i>
-								</div>
-								<div class="dropdown-form">
-									<div class="dropdown-toggle-form" id="dropdownButton3">
-										<i class="fas fa-search" style="color: #dddddd"></i>
-									</div>
+									class="d-flex align-items-center justify-content-between pe-2">
 									<div
-										class="dropdown-content-form rounded-3 dropdown-content-left"
-										id="dropdownContent3">
-										<input type="text" class="form-control mb-3 searchInput"
-											placeholder="Digite..." />
-										<button class="btn btn-sm col-12 btn-success searchButton">
-											Buscar</button>
+										class="col d-flex align-items-center justify-content-between">
+										<span>Nome Aluno</span> <i class="fas fa-sort me-3"
+											style="color: #dddddd"></i>
+									</div>
+									<div class="dropdown-form">
+										<div class="dropdown-toggle-form" id="dropdownButton3">
+											<i class="fas fa-search" style="color: #dddddd"></i>
+										</div>
+										<div
+											class="dropdown-content-form rounded-3 dropdown-content-left"
+											id="dropdownContent3">
+											<input type="text" class="form-control mb-3 searchInput"
+												placeholder="Digite..." />
+											<button class="btn btn-sm col-12 btn-success searchButton">
+												Buscar</button>
+										</div>
 									</div>
 								</div>
-							</div>
-						</th>
-						<th scope="col" class="sortable border-end" data-column="nomeEscola">
-							<div
-								class="d-flex align-items-center justify-content-between pe-2">
+							</th>
+							<th scope="col" class="sortable border-end"
+								data-column="nomeEscola">
 								<div
-									class="col d-flex align-items-center justify-content-between">
-									<span>Escola</span> <i class="fas fa-sort me-3"
-										style="color: #dddddd"></i>
-								</div>
-								<div class="dropdown-form">
-									<div class="dropdown-toggle-form" id="dropdownButton4">
-										<i class="fas fa-search" style="color: #dddddd"></i>
-									</div>
+									class="d-flex align-items-center justify-content-between pe-2">
 									<div
-										class="dropdown-content-form rounded-3 dropdown-content-left"
-										id="dropdownContent4">
-										<input type="text" class="form-control mb-3 searchInput"
-											placeholder="Digite..." />
-										<button class="btn btn-sm col-12 btn-success searchButton">
-											Buscar</button>
+										class="col d-flex align-items-center justify-content-between">
+										<span>Escola</span> <i class="fas fa-sort me-3"
+											style="color: #dddddd"></i>
+									</div>
+									<div class="dropdown-form">
+										<div class="dropdown-toggle-form" id="dropdownButton4">
+											<i class="fas fa-search" style="color: #dddddd"></i>
+										</div>
+										<div
+											class="dropdown-content-form rounded-3 dropdown-content-left"
+											id="dropdownContent4">
+											<input type="text" class="form-control mb-3 searchInput"
+												placeholder="Digite..." />
+											<button class="btn btn-sm col-12 btn-success searchButton">
+												Buscar</button>
+										</div>
 									</div>
 								</div>
-							</div>
-						</th>
-						<th scope="col" class="sortable border-end" data-column="nomeCurso">
-							<div
-								class="d-flex align-items-center justify-content-between pe-2">
+							</th>
+							<th scope="col" class="sortable border-end"
+								data-column="nomeCurso">
 								<div
-									class="col d-flex align-items-center justify-content-between">
-									<span>Curso</span> <i class="fas fa-sort me-3"
-										style="color: #dddddd"></i>
-								</div>
-								<div class="dropdown-form">
-									<div class="dropdown-toggle-form" id="dropdownButton4">
-										<i class="fas fa-search" style="color: #dddddd"></i>
-									</div>
+									class="d-flex align-items-center justify-content-between pe-2">
 									<div
-										class="dropdown-content-form rounded-3 dropdown-content-left"
-										id="dropdownContent4">
-										<input type="text" class="form-control mb-3 searchInput"
-											placeholder="Digite..." />
-										<button class="btn btn-sm col-12 btn-success searchButton">
-											Buscar</button>
+										class="col d-flex align-items-center justify-content-between">
+										<span>Curso</span> <i class="fas fa-sort me-3"
+											style="color: #dddddd"></i>
+									</div>
+									<div class="dropdown-form">
+										<div class="dropdown-toggle-form" id="dropdownButton4">
+											<i class="fas fa-search" style="color: #dddddd"></i>
+										</div>
+										<div
+											class="dropdown-content-form rounded-3 dropdown-content-left"
+											id="dropdownContent4">
+											<input type="text" class="form-control mb-3 searchInput"
+												placeholder="Digite..." />
+											<button class="btn btn-sm col-12 btn-success searchButton">
+												Buscar</button>
+										</div>
 									</div>
 								</div>
-							</div>
-						</th>
+							</th>
 
-						<th scope="col" class="sortable border-end" data-column="turno">
-							<div
-								class="d-flex align-items-center justify-content-between pe-2">
+							<th scope="col" class="sortable border-end" data-column="turno">
 								<div
-									class="col d-flex align-items-center justify-content-between">
-									<span>Turno</span> <i class="fas fa-sort me-3"
-										style="color: #dddddd"></i>
-								</div>
-								<div class="dropdown-form">
-									<div class="dropdown-toggle-form" id="dropdownButton4">
-										<i class="fas fa-search" style="color: #dddddd"></i>
-									</div>
+									class="d-flex align-items-center justify-content-between pe-2">
 									<div
-										class="dropdown-content-form rounded-3 dropdown-content-left"
-										id="dropdownContent4">
-										<input type="text" class="form-control mb-3 searchInput"
-											placeholder="Digite..." />
-										<button class="btn btn-sm col-12 btn-success searchButton">
-											Buscar</button>
+										class="col d-flex align-items-center justify-content-between">
+										<span>Turno</span> <i class="fas fa-sort me-3"
+											style="color: #dddddd"></i>
+									</div>
+									<div class="dropdown-form">
+										<div class="dropdown-toggle-form" id="dropdownButton4">
+											<i class="fas fa-search" style="color: #dddddd"></i>
+										</div>
+										<div
+											class="dropdown-content-form rounded-3 dropdown-content-left"
+											id="dropdownContent4">
+											<input type="text" class="form-control mb-3 searchInput"
+												placeholder="Digite..." />
+											<button class="btn btn-sm col-12 btn-success searchButton">
+												Buscar</button>
+										</div>
 									</div>
 								</div>
-							</div>
-						</th>
+							</th>
 
-						<th scope="col" class="sortable border-end" data-column="serie">
-							<div
-								class="d-flex align-items-center justify-content-between pe-2">
+							<th scope="col" class="sortable border-end" data-column="serie">
 								<div
-									class="col d-flex align-items-center justify-content-between">
-									<span>Série</span> <i class="fas fa-sort me-3"
-										style="color: #dddddd"></i>
-								</div>
-								<div class="dropdown-form">
-									<div class="dropdown-toggle-form" id="dropdownButton4">
-										<i class="fas fa-search" style="color: #dddddd"></i>
-									</div>
+									class="d-flex align-items-center justify-content-between pe-2">
 									<div
-										class="dropdown-content-form rounded-3 dropdown-content-left"
-										id="dropdownContent4">
-										<input type="text" class="form-control mb-3 searchInput"
-											placeholder="Digite..." />
-										<button class="btn btn-sm col-12 btn-success searchButton">
-											Buscar</button>
+										class="col d-flex align-items-center justify-content-between">
+										<span>Série</span> <i class="fas fa-sort me-3"
+											style="color: #dddddd"></i>
+									</div>
+									<div class="dropdown-form">
+										<div class="dropdown-toggle-form" id="dropdownButton4">
+											<i class="fas fa-search" style="color: #dddddd"></i>
+										</div>
+										<div
+											class="dropdown-content-form rounded-3 dropdown-content-left"
+											id="dropdownContent4">
+											<input type="text" class="form-control mb-3 searchInput"
+												placeholder="Digite..." />
+											<button class="btn btn-sm col-12 btn-success searchButton">
+												Buscar</button>
+										</div>
 									</div>
 								</div>
-							</div>
-						</th>
-						<th scope="col" class="sortable border-end" data-column="tipoIngresso">
-							<div
-								class="d-flex align-items-center justify-content-between pe-2">
+							</th>
+							<th scope="col" class="sortable border-end"
+								data-column="tipoIngresso">
 								<div
-									class="col d-flex align-items-center justify-content-between">
-									<span>Tipo Ingresso</span> <i class="fas fa-sort me-3"
-										style="color: #dddddd"></i>
-								</div>
-								<div class="dropdown-form">
-									<div class="dropdown-toggle-form" id="dropdownButton4">
-										<i class="fas fa-search" style="color: #dddddd"></i>
-									</div>
+									class="d-flex align-items-center justify-content-between pe-2">
 									<div
-										class="dropdown-content-form rounded-3 dropdown-content-left"
-										id="dropdownContent4">
-										<input type="text" class="form-control mb-3 searchInput"
-											placeholder="Digite..." />
-										<button class="btn btn-sm col-12 btn-success searchButton">
-											Buscar</button>
+										class="col d-flex align-items-center justify-content-between">
+										<span>Tipo Ingresso</span> <i class="fas fa-sort me-3"
+											style="color: #dddddd"></i>
+									</div>
+									<div class="dropdown-form">
+										<div class="dropdown-toggle-form" id="dropdownButton4">
+											<i class="fas fa-search" style="color: #dddddd"></i>
+										</div>
+										<div
+											class="dropdown-content-form rounded-3 dropdown-content-left"
+											id="dropdownContent4">
+											<input type="text" class="form-control mb-3 searchInput"
+												placeholder="Digite..." />
+											<button class="btn btn-sm col-12 btn-success searchButton">
+												Buscar</button>
+										</div>
 									</div>
 								</div>
-							</div>
-						</th>
+							</th>
 
 
-						<th scope="col" class="sortable border-end">
-							<div
-								class="d-flex align-items-center justify-content-between pe-2">
+							<th scope="col" class="sortable border-end">
 								<div
-									class="col d-flex align-items-center justify-content-between">
-									<span>Vaga Aceita</span>
+									class="d-flex align-items-center justify-content-between pe-2">
+									<div
+										class="col d-flex align-items-center justify-content-between">
+										<span>Vaga Aceita</span>
+									</div>
+
 								</div>
+							</th>
 
-							</div>
-						</th>
-
-						<th scope="col" class="sortable border-end" data-column="nome">
-							<div
-								class="d-flex align-items-center justify-content-between pe-2">
+							<th scope="col" class="sortable border-end" data-column="nome">
 								<div
-									class="col d-flex align-items-center justify-content-between">
-									<span>Ações</span>
-								</div>
+									class="d-flex align-items-center justify-content-between pe-2">
+									<div
+										class="col d-flex align-items-center justify-content-between">
+										<span>Ações</span>
+									</div>
 
-							</div>
-						</th>
-					</tr>
-				</thead>
-				<tbody id="cola-tabela" class="table-group-divider"></tbody>
-			</table>
-			<div id="pagination" class="mx-auto mt-auto">
-				<button id="prev" class="btn btn-sm">
-					<i class="fa-solid fa-angle-left fa-xl"></i>
-				</button>
-				<div id="page-numbers" class="btn-group mt-2"></div>
-				<button id="next" class="btn btn-sm">
-					<i class="fa-solid fa-angle-right fa-xl"></i>
-				</button>
+								</div>
+							</th>
+						</tr>
+					</thead>
+					<tbody id="cola-tabela" class="table-group-divider"></tbody>
+				</table>
+				<div id="pagination" class="mx-auto mt-auto">
+					<button id="prev" class="btn btn-sm">
+						<i class="fa-solid fa-angle-left fa-xl"></i>
+					</button>
+					<div id="page-numbers" class="btn-group mt-2"></div>
+					<button id="next" class="btn btn-sm">
+						<i class="fa-solid fa-angle-right fa-xl"></i>
+					</button>
+				</div>
+
 			</div>
+
 		</section>
 		<!-- 		<div class="modal fade" id="documentos" tabindex="-1"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">

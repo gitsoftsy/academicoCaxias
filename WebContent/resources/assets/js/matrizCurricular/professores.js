@@ -54,7 +54,6 @@ $(document).ready(function () {
 
     listarDados(filteredData);
     $('input[data-toggle="toggle"]').bootstrapToggle();
-    $('input[data-toggle="toggle"]').bootstrapToggle();
 
     // Limpe o campo de pesquisa
     $(this).siblings(".searchInput").val("");
@@ -134,7 +133,6 @@ $(document).ready(function () {
     });
     listarDados(dadosOrdenados);
     $('input[data-toggle="toggle"]').bootstrapToggle();
-    $('input[data-toggle="toggle"]').bootstrapToggle();
   }
 
   $(".checkbox-toggle").each(function () {
@@ -150,7 +148,6 @@ $(document).ready(function () {
 
 $("#limpa-filtros").click(function () {
   listarDados(dadosOriginais);
-  $('input[data-toggle="toggle"]').bootstrapToggle();
   $('input[data-toggle="toggle"]').bootstrapToggle();
   $(".searchInput").val("");
 });

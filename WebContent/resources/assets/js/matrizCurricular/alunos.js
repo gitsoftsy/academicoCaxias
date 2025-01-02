@@ -15,7 +15,7 @@ $(document).ready(function() {
 
 	$('.dropdown-toggle-form').click(function() {
 		console.log('TESTE');
-		
+
 	});
 
 	$('.searchButton').click(function() {
@@ -26,8 +26,16 @@ $(document).ready(function() {
 		console.log("Column to Search:", columnToSearch);
 
 		var filteredData = dadosOriginais.filter(function(item) {
-			item.nomeTurmaPes = item.turma.nomeTurma
-			item.dataProvaPes = item.dataProva.toString()
+			/*item.nomeTurmaPes = item.turma.nomeTurma*/
+			item.matriculaPes = item.aluno
+			item.nomePes = item.pessoa.nomeCompleto
+			item.cursoPes = `${item.curso.nome} - ${item.curso.codCurso}`
+			item.seriePes = item.serie.serie
+			item.escolaPes = item.escola.nomeEscola
+			item.turnoPes = item.turno.turno
+			item.emailPes = item.emailInterno
+			item.situacaoAlunoPes = item.situacaoAluno.situacaoAluno
+			item.cpfPes = item.pessoa.cpf
 
 			console.log(item)
 			var valueToCheck = item[columnToSearch] ? item[columnToSearch].toString().toLowerCase() : '';
@@ -36,7 +44,7 @@ $(document).ready(function() {
 		});
 
 		console.log("Filtered Data:", filteredData);
-		listarDados(filteredData);  $('input[data-toggle="toggle"]').bootstrapToggle();$('input[data-toggle="toggle"]').bootstrapToggle();
+		listarDados(filteredData); $('input[data-toggle="toggle"]').bootstrapToggle(); $('input[data-toggle="toggle"]').bootstrapToggle();
 
 		$(this).siblings('.searchInput').val('');
 		$(this).closest('.dropdown-content-form').removeClass('show')
@@ -72,7 +80,7 @@ function getDados() {
 	}).done(function(data) {
 		dadosOriginais = data
 		dados = data
-		listarDados(data);  $('input[data-toggle="toggle"]').bootstrapToggle();$('input[data-toggle="toggle"]').bootstrapToggle();
+		listarDados(data); $('input[data-toggle="toggle"]').bootstrapToggle(); $('input[data-toggle="toggle"]').bootstrapToggle();
 		$('.searchInput').val('');
 		$('.checkbox-toggle').each(function() {
 			var status = $(this).data('status');
@@ -88,7 +96,7 @@ function getDados() {
 }
 
 $('#limpa-filtros').click(function() {
-	listarDados(dadosOriginais);  $('input[data-toggle="toggle"]').bootstrapToggle();$('input[data-toggle="toggle"]').bootstrapToggle();
+	listarDados(dadosOriginais); $('input[data-toggle="toggle"]').bootstrapToggle(); $('input[data-toggle="toggle"]').bootstrapToggle();
 	$('.searchInput').val('');
 	$('.checkbox-toggle').each(function() {
 		var status = $(this).data('status');
@@ -109,6 +117,8 @@ function listarDados(dados) {
 		} else {
 			ativo = "<i style='color:#2eaa3a' class='fa-solid iconeTabela fa-circle-check'></i> Sim";
 		}
+		
+		const cpf = item.pessoa.cpf == null ? 'Não possui' : item.pessoa.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4")
 
 		return (
 			"<tr>" +
@@ -120,24 +130,28 @@ function listarDados(dados) {
 			"<td>" +
 			item.pessoa.nomeCompleto +
 			"</td>" +
-			
+
+			"<td>" +
+			cpf +
+			"</td>" +
+
 			"<td>" +
 			`${item.curso.nome} - ${item.curso.codCurso}` +
 			"</td>" +
-			
-			
+
+
 			"<td>" +
 			item.serie.serie +
 			"</td>" +
-			
+
 			"<td>" +
 			item.escola.nomeEscola +
 			"</td>" +
-			
+
 			"<td>" +
 			item.turno.turno +
 			"</td>" +
-			
+
 			"<td>" +
 			item.emailInterno +
 			"</td>" +
@@ -153,15 +167,15 @@ function listarDados(dados) {
 			'<span style="width:50%; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-primary btn-sm" ' +
 			'data-id=' + item.idAluno +
 			' onclick="verAvisosAluno(this)"><i class="fa-solid fa-bell"></i></span>' +
-/*			'<span style="width: 63px; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-warning btn-sm" data-id="' +
-			item.idAluno +
-			'" onclick="showModal(this)"><i class="fa-solid fa-pen fa-lg"></i></span>' +*/
+			/*			'<span style="width: 63px; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-warning btn-sm" data-id="' +
+						item.idAluno +
+						'" onclick="showModal(this)"><i class="fa-solid fa-pen fa-lg"></i></span>' +*/
 			'</td>' +
 			"</tr>"
 		);
 	}).join("");
 
-	$("#cola-tabela").html(html); 
+	$("#cola-tabela").html(html);
 }
 
 function alteraStatus(element) {

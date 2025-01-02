@@ -251,10 +251,36 @@ https://kit.fontawesome.com/3ce21ff22c.js"
             <div class="modal-body">
               <form id="formEdit">
                 <div class="mb-4">
+                  <label for="areaConhecimentoId" class="form-label"
+                    >Área de conhecimento (Caso queira filtrar disciplina):
+                  </label>
+                  <div class="custom-select">
+                    <input
+                      type="text"
+                      id="areaConhecimentoSearch"
+                      class="form-control"
+                      placeholder="Selecione ou pesquise..."
+                      autocomplete="off"
+                    />
+                    <ul class="options-list" id="areaConhecimentoOption"></ul>
+                  </div>
+                  <select
+                    class="form-select"
+                    aria-label="Area Conhecimento"
+                    id="areaConhecimentoId"
+                    name="areaConhecimentoId"
+                    hidden
+                  >
+                    <option selected disabled value="">
+                      Selecione uma opção
+                    </option>
+                  </select>
+                </div>
+                <div class="mb-4">
                   <label for="disciplinaId" class="form-label"
                     >Disciplina:<span class="red">*</span>
                   </label>
-				  <div class="custom-select">
+                  <div class="custom-select">
                     <input
                       type="text"
                       id="disciplinaSearch"
@@ -270,7 +296,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
                     id="disciplinaId"
                     required
                     name="disciplinaId"
-					style="display: none"
+                    style="display: none"
                   >
                     <option selected disabled value="">
                       Selecione uma opção

@@ -93,7 +93,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 
 			<div class="row mb-3">
 				<div class="col-md-6">
-					<label for="concursoSearch" class="form-label">Concurso:<span
+					<label for="concursoSearch" class="form-label">Turma:<span
 						class="red">*</span></label> <select class="form-select"
 						aria-label="concursoSearch" id="concursoSearch" required
 						name="concursoSearch">
@@ -104,14 +104,12 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 					<a class="btn btn-warning px-5" id="btn-buscar"
 						style="font-weight: 500">Buscar </a>
 				</div>
+				
 			</div>
-
-			<hr />
 
 			<div id="messageInfo" class="d-flex justify-content-center">
 				<h3>Informe o concurso acima para realizar a busca.</h3>
 			</div>
-
 
 			<div class="mt-3 mb-1" id="containerCadastros"
 				style="display: flex; align-items: center; justify-content: end">

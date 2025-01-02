@@ -109,4 +109,10 @@ public class Turmas {
 		return "avisos/novoAvisoAluno";
 	}
 	
+	@RequestMapping(value = { "turma-matriculas" }, method = RequestMethod.GET)
+	public String turmaMatriculas(HttpSession session, Model model) throws Exception {
+
+		return "turmas/turmaMatricula";
+	}
+	
 }

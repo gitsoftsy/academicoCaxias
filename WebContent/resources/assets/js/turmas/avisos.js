@@ -57,7 +57,29 @@ $(document).ready(function() {
 		})
 	}
 
-	getDados()
+	if (turmaId != null) {
+
+		getDados()
+		$("#containerSelectTurma").hide()
+	} else {
+		$.ajax({
+			url: url_base + "/turma/secretaria?idConta=" + contaId,
+			type: "get",
+			async: false,
+		}).done(function(data) {
+			$.each(data.data, function(index, item) {
+				$("#turmaSearch").append(
+					$("<option>", {
+						value: item.idTurma,
+						text: item.nomeTurma + '-' + item.nome,
+						name: item.nomeTurma,
+					})
+				);
+			});
+		});
+	}
+
+
 
 	$("#inputBusca").on("keyup", function() {
 		var valorBusca = $(this).val().toLowerCase();
@@ -227,11 +249,35 @@ $('#inicio').on('change', function() {
 		$('#inicio').attr('required', true)
 		$('#termino').attr('disabled', false);
 		$('#termino').attr('required', true);
-	}else{
+	} else {
 		$('#termino').attr('disabled', true);
 		$('#termino').attr('required', false);
 	}
 });
+
+$('#btn-buscar').on('click', function() {
+	buscar()
+});
+
+
+const buscar = () => {
+	turmaId = $("#turmaSearch").val();
+
+	$.ajax({
+		url: url_base + "/turma/alunos?idTurma=" + turmaId,
+		type: "GET",
+		async: false,
+	})
+		.done(function(data) {
+			dados = data
+			listarDados(data.data);
+			$('input[data-toggle="toggle"]').bootstrapToggle();
+		})
+		.fail(function(jqXHR, textStatus, errorThrown) {
+			console.error("Erro na solicitação AJAX:", textStatus, errorThrown);
+		});
+};
+
 
 
 $('#checkAll').on('change', function() {
@@ -307,8 +353,8 @@ function enviarCadastro(base64Anexo) {
 
 
 	destinatarios = obterIdsSelecionados();
-	
-	
+
+
 	const dataInicio = $("#inicio").val() != '' ? `${$("#inicio").val()}T15:30:00` : null
 	const dataFim = $("#termino").val() != '' ? `${$("#termino").val()}T15:30:00` : null
 
@@ -335,7 +381,7 @@ function enviarCadastro(base64Anexo) {
 		permiteResposta: getAswer("#isAviso"),
 		contaId: Number(contaId)
 	};
-	
+
 
 	console.log(objeto)
 

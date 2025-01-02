@@ -94,67 +94,58 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 				</div>
 			</div>
 		</section>
+
+		<section id="containerInfoAluno" class="mb-5">
+			<div class="card p-3 ">
+
+				<div class="title mb-3">
+					<i class="fa-solid fa-user-graduate" style="font-size: 24px"></i> <span>Informações
+						do Aluno</span>
+				</div>
+
+				<div class="row mb-3">
+
+					<div class=" col-md-6">
+						<label for="obsAprovacao" class="form-label">Matricula: </label> <input
+							type="text" id="matricula" autocomplete="off" name="obsAprovacao"
+							class="form-control" disabled />
+					</div>
+
+					<div class="col-md-6">
+						<label for="obsAprovacao" class="form-label">Nome: </label> <input
+							type="text" id="nomeAluno" autocomplete="off" name="obsAprovacao"
+							class="form-control" disabled />
+					</div>
+
+				</div>
+
+				<div class="row mb-3">
+					<div class="col-md-6">
+						<label for="obsAprovacao" class="form-label">Email: </label> <input
+							type="text" id="emailAluno" autocomplete="off"
+							name="obsAprovacao" class="form-control" disabled />
+					</div>
+
+					<div class=" col-md-6">
+						<label for="obsAprovacao" class="form-label">Curso: </label> <input
+							type="text" id="cursoAluno" autocomplete="off"
+							name="obsAprovacao" class="form-control" disabled />
+					</div>
+				</div>
+
+
+
+			</div>
+
+		</section>
 		<section class="pt-4">
 
 
 			<form id="formNovoCadastro"
 				class="card form p-5 col-12 animate__animated animate__bounceInUp d-flex flex-column justify-content-center">
 
-				
 
-				<div class="row mb-3" id="containerSelectTurma">
-				<h3 id="tituloForm" class="text-start mb-5">Filtrar</h3>	
-					<div class="col-md-6">
-						<label for="turmaSearch" class="form-label">Turma:<span
-							class="red">*</span></label> <select class="form-select"
-							aria-label=turmaSearch id="turmaSearch" required
-							name="turmaSearch">
-							<option value="" selected disabled>Selecione a Turma</option>
-						</select>
-					</div>
-					<div class="col-md-3 align-self-end">
-						<a class="btn btn-warning px-5" id="btn-buscar"
-							style="font-weight: 500">Buscar </a>
-					</div>
-					
-					<hr class="mt-3">
-
-				</div> 
-				
-			
-				
-				<h3 id="tituloForm" class="text-start mt-3 mb-5">Selecione os alunos</h3>
-
-				<table
-					class="table tabela-atos table-striped table-bordered mb-0 caption-top mx-auto">
-					<thead>
-						<tr>
-							<th scope="col" width="25px"><input class="form-check-input"
-								type="checkbox" value="" id="checkAll"></th>
-							<th scope="col">Matrícula</th>
-							<th scope="col">Nome</th>
-							<th scope="col">Email</th>
-						</tr>
-					</thead>
-					<tbody id="cola-tabela" class="table-group-divider">
-
-					</tbody>
-				</table>
-				<div id="pagination" class="mx-auto mt-auto">
-					<!-- <button id="prev" class="btn btn-sm">
-						<i class="fa-solid fa-angle-left fa-xl"></i>
-					</button>1
-					<div id="page-numbers" class="btn-group mt-2"></div>
-					<button id="next" class="btn btn-sm">
-						<i class="fa-solid fa-angle-right fa-xl"></i>
-					</button> -->
-				</div>
-
-
-				<hr>
-
-				<h5 id="tituloForm" class="text-start mb-5">Selecione o tipo de
-					envio da mensagem</h5>
+				<h3 id="tituloForm" class="text-start mb-5">Digite sua mensagem</h3>
 
 				<div class="col-md-12">
 					<label for="assunto" class="form-label">Assunto:<span
@@ -295,7 +286,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 	<script
 		src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	<script charset="UTF-8"
-		src="<%=contextPath%>/resources/assets/js/turmas/avisos.js"></script>
+		src="<%=contextPath%>/resources/assets/js/avisos/novoAvisoAluno.js"></script>
 
 	<script charset="UTF-8"
 		src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
