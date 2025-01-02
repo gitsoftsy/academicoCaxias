@@ -153,7 +153,7 @@ function listarDados(dados) {
 			"</td>" +
 
 			"<td>" +
-			item.emailInterno || "Não possui" +
+			(item.emailInterno || "Não possui") +
 			"</td>" +
 
 			"<td>" +
