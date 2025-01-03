@@ -129,7 +129,7 @@ function listarDados(dados) {
           item.escola.nomeEscola +
           "</td>" +
           "<td>" +
-          item.gradeCurricular.disciplina.nome +
+          item.gradeCurricular.curriculo.nomeCurso+
           "</td>" +
           "<td>" +
           item.gradeCurricular.curriculo.curriculo +

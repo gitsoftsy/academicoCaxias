@@ -221,6 +221,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 			</div>
 		</section>
 		<div class="modal fade" id="newCadastro" tabindex="-1"
+			data-bs-backdrop="static" data-bs-keyboard="false"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">

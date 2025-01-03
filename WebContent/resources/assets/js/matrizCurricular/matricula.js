@@ -8,10 +8,29 @@ var rows = 8;
 var currentPage = 1;
 var pagesToShow = 5;
 let destinatarios = []
+let idSerie;
+let idDisciplina;
+let periodoLetivoId;
 const contaId = localStorage.getItem('contaId');
 const turmaId = params.get("turma");
 
 $(document).ready(function() {
+
+
+	$.ajax({
+		url: url_base + "/tiposMatricula/conta/" + contaId,
+		type: "GET",
+	}).done(function(data) {
+		console.log(data)
+		$.each(data, function(index, item) {
+			$("#tipoMatriculaId").append(
+				$("<option>", {
+					value: item.idTipoMatricula,
+					text: item.tipoMatricula,
+				})
+			);
+		});
+	});
 
 
 	if (isNaN(contaId)) {
@@ -53,8 +72,10 @@ $(document).ready(function() {
 			}).show();
 		}
 	}
-	
+
 	getDados()
+	updatePagination();
+	showPage(currentPage);
 
 
 });
@@ -68,14 +89,18 @@ function getDados() {
 	})
 		.done(function(data) {
 			$("#nomeTurma").val(data.nomeTurma)
-			$("#disciplina").val(data.gradeCurricular.disciplina.nome)
+			$("#disciplina").val(`${data.gradeCurricular.disciplina.nome} - ${data.gradeCurricular.disciplina.codDiscip}`)
 			$("#escola").val(data.escola.nomeEscola)
-			$("#curso").val("Pedir para o artur enviar o curso")
+			$("#curso").val(data.gradeCurricular.curriculo.nomeCurso)
 			$("#curriculo").val(data.gradeCurricular.curriculo.curriculo)
 			$("#serie").val(data.gradeCurricular.serie.serie)
 			$("#anoPeriodo").val(`${data.periodoLetivo.ano}/${data.periodoLetivo.periodo}`)
 			$("#turno").val(data.turno.turno)
 			$("#vagas").val(data.vagas)
+
+			periodoLetivoId = data.periodoLetivo.idPeriodoLetivo
+			idSerie = data.gradeCurricular.serie.idSerie
+			idDisciplina = data.gradeCurricular.disciplina.idDisciplina
 
 			$.ajax({
 				url: url_base + "/alunos/conta/" + contaId,
@@ -203,6 +228,7 @@ $('#formEdit').on('submit', function(e) {
 	editar();
 	return false;
 });
+
 $('#formNovoCadastro').on('submit', function(e) {
 	e.preventDefault();
 	cadastrar();
@@ -222,30 +248,6 @@ $('#inicio').on('change', function() {
 	}
 });
 
-$('#btn-buscar').on('click', function() {
-	buscar()
-});
-
-
-const buscar = () => {
-	turmaId = $("#turmaSearch").val();
-
-	$.ajax({
-		url: url_base + "/turma/alunos?idTurma=" + turmaId,
-		type: "GET",
-		async: false,
-	})
-		.done(function(data) {
-			dados = data
-			listarDados(data.data);
-			$('input[data-toggle="toggle"]').bootstrapToggle();
-		})
-		.fail(function(jqXHR, textStatus, errorThrown) {
-			console.error("Erro na solicitação AJAX:", textStatus, errorThrown);
-		});
-};
-
-
 
 $('#checkAll').on('change', function() {
 	const isChecked = $(this).is(':checked');
@@ -264,28 +266,57 @@ $('#cola-tabela').on('change', 'input[type="checkbox"]', function() {
 });
 
 function cadastrar() {
-	const fileInput = $("#anexoAviso")[0]; // Garante que está pegando o elemento correto
 
-	const file = fileInput.files[0];
-	if (file) {
+	destinatarios = obterIdsSelecionados();
 
-		const reader = new FileReader();
-		reader.onload = function(event) {
-			const base64Anexo = event.target.result.split(",")[1];
-			enviarCadastro(base64Anexo);
+
+		const objeto = {
+			"contaId": contaId,
+			"tipoMatriculaId": $("#tipoMatriculaId").val(),
+			"ativo": "S",
+			"alunosId": destinatarios,
+			"periodoLetivoId": periodoLetivoId,
+			"disciplinaId": idDisciplina,
+			"turmaId": turmaId,
+			"serieId": idSerie,
+			"manual": "S",
+			"usuarioId": idUsuario,
+			"observacao": null
 		};
-		reader.onerror = function() {
-			Swal.fire({
-				icon: "error",
-				title: "Erro",
-				text: "Não foi possível processar o anexo.",
-			});
-		};
-		reader.readAsDataURL(file);
-	} else {
 
-		enviarCadastro(null);
-	}
+
+		console.log(objeto)
+
+		$.ajax({
+			url: url_base + "/prematricula",
+			type: "POST",
+			data: JSON.stringify(objeto),
+			contentType: "application/json; charset=utf-8",
+			async: false,
+			error: function(e) {
+				console.error(e.responseJSON.message);
+				Swal.fire({
+					icon: "error",
+					title: "Oops...",
+					text: "Não foi possível realizar esse comando!",
+				});
+			}
+		}).done(function(data) {
+		// Limpa os campos e exibe mensagem de sucesso
+		limpaCampo();
+		Swal.fire({
+			title: "Cadastrado com sucesso",
+			icon: "success",
+		}).then(() => {
+			window.location.href = "turma-matriculas?turma=" + turmaId
+		})
+
+
+	});
+
+
+
+	return false;
 }
 
 
@@ -296,6 +327,7 @@ function obterIdsSelecionados() {
 	// Itera pelos checkboxes que estão marcados
 	$('#cola-tabela input[type="checkbox"]:checked').each(function() {
 		const id = $(this).data('id'); // Pega o atributo data-id
+		const idTipoMatricula = $(this).data('tipomatricula');
 		if (id) {
 			idsSelecionados.push(id); // Adiciona o ID ao array
 		}
@@ -319,7 +351,7 @@ function getAswer(input) {
 function enviarCadastro(base64Anexo) {
 
 
-	destinatarios = obterIdsSelecionados();
+
 
 
 	const dataInicio = $("#inicio").val() != '' ? `${$("#inicio").val()}T15:30:00` : null
@@ -335,51 +367,7 @@ function enviarCadastro(base64Anexo) {
 		return false;
 	}
 
-	const objeto = {
-		"tipoAvisoId": Number($("#tipoAvisoId").val()),
-		"dataInicio": dataInicio,
-		"dataFim": dataFim,
-		"titulo": $("#assunto").val(),
-		"mensagem": tinymce.get('mensagem').getContent(),
-		"usuarioId": Number(usuarioId),
-		"professorId": null,
-		"destinatarios": destinatarios,
-		"pathAnexo": base64Anexo,
-		permiteResposta: getAswer("#isAviso"),
-		contaId: Number(contaId)
-	};
 
-
-	console.log(objeto)
-
-	$.ajax({
-		url: url_base + "/aviso",
-		type: "POST",
-		data: JSON.stringify(objeto),
-		contentType: "application/json; charset=utf-8",
-		async: false,
-		error: function(e) {
-			console.error(e.responseJSON.message);
-			Swal.fire({
-				icon: "error",
-				title: "Oops...",
-				text: "Não foi possível realizar esse comando!",
-			});
-		}
-	}).done(function(data) {
-		// Limpa os campos e exibe mensagem de sucesso
-		limpaCampo();
-		Swal.fire({
-			title: "Cadastrado com sucesso",
-			icon: "success",
-		}).then(() => {
-			window.location.href = "avisos"
-		})
-
-
-	});
-
-	return false;
 }
 
 

@@ -22,7 +22,7 @@ String contextPath = request.getContextPath();
 	rel="stylesheet"
 	integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
 	crossorigin="anonymous" />
-<script charset="UTF-8" 
+<script charset="UTF-8"
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
 	crossorigin="anonymous"></script>
@@ -36,13 +36,14 @@ String contextPath = request.getContextPath();
 <link
 	href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
 	rel="stylesheet">
-<script charset="UTF-8" 
+<script charset="UTF-8"
 	src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 <!-- Sweetalert -->
-    <script charset="UTF-8"  src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script charset="UTF-8"  src="sweetalert2.all.min.js"></script>
-    
+<script charset="UTF-8"
+	src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script charset="UTF-8" src="sweetalert2.all.min.js"></script>
+
 <!-- CSS -->
 
 <!-- Google Fonts -->
@@ -53,11 +54,12 @@ String contextPath = request.getContextPath();
 	rel="stylesheet" />
 
 <!-- FontAwesome -->
-<script charset="UTF-8" src="
+<script charset="UTF-8"
+	src="
 https://kit.fontawesome.com/3ce21ff22c.js"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet"
-	href="<%=contextPath%>/resources/assets/css/style.css?v=<%=(int)(Math.random()*10000)%>" />
+	href="<%=contextPath%>/resources/assets/css/style.css?v=<%=(int) (Math.random() * 10000)%>" />
 
 </head>
 
@@ -75,11 +77,12 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 		<section class="mb-5">
 			<div class="card">
 				<div class="card-body title">
-					<i class="fa-solid fa-bars-staggered fa-lg"></i> <span>Turmas Matricula</span>
+					<i class="fa-solid fa-bars-staggered fa-lg"></i> <span>Turmas
+						Matricula</span>
 				</div>
 			</div>
 		</section>
-		
+
 		<section id="containerInfoAluno" class="mb-5">
 			<div class="card p-3 ">
 
@@ -97,42 +100,46 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 					</div>
 
 					<div class="col-md-6">
-						<label for="obsAprovacao" class="form-label">Nome da Turma: </label> <input
-							type="text" id="nomeTurma" autocomplete="off" name="obsAprovacao"
-							class="form-control" disabled />
+						<label for="obsAprovacao" class="form-label">Nome da
+							Turma: </label> <input type="text" id="nomeTurma" autocomplete="off"
+							name="obsAprovacao" class="form-control" disabled />
 					</div>
 
 				</div>
 
 				<div class="row mb-3">
 					<div class="col-md-6">
-						<label for="obsAprovacao" class="form-label">Periodo Letivo: </label> <input
-							type="text" id="periodoLetivo" autocomplete="off"
+						<label for="obsAprovacao" class="form-label">Periodo
+							Letivo: </label> <input type="text" id="periodoLetivo" autocomplete="off"
 							name="obsAprovacao" class="form-control" disabled />
 					</div>
 
 					<div class=" col-md-6">
 						<label for="obsAprovacao" class="form-label">Turno: </label> <input
-							type="text" id="turno" autocomplete="off"
-							name="obsAprovacao" class="form-control" disabled />
+							type="text" id="turno" autocomplete="off" name="obsAprovacao"
+							class="form-control" disabled />
 					</div>
-					
+
 				</div>
-				
+
 				<div class="row mb-3">
-				
-				<div class=" col-md-6">
-						<label for="obsAprovacao" class="form-label">Disciplina: </label> <input
-							type="text" id="disciplina" autocomplete="off"
+
+					<div class=" col-md-6">
+						<label for="obsAprovacao" class="form-label">Disciplina: </label>
+						<input type="text" id="disciplina" autocomplete="off"
 							name="obsAprovacao" class="form-control" disabled />
 					</div>
+
+
+					<div class="col-md-6 d-flex align-items-center mt-4">
+							<a class="btn btn-primary btn btn-new-alter"
+								id="btnMatricular">Matricular Novos Alunos</a>
+					</div>
+
 				</div>
-				
-				
-
-
 
 			</div>
+	
 
 		</section>
 		<section class="pt-4 card card-table px-5 py-3">
@@ -142,7 +149,8 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 				<caption>Alunos</caption>
 				<thead>
 					<tr>
-						<th scope="col" class="sortable border-end" data-column="matricula">
+						<th scope="col" class="sortable border-end"
+							data-column="matricula">
 							<div
 								class='d-flex align-items-center justify-content-between pe-2'>
 								<div
@@ -164,7 +172,8 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								</div>
 							</div>
 						</th>
-						<th scope="col" class="sortable border-end" data-column="nomeCompleto">
+						<th scope="col" class="sortable border-end"
+							data-column="nomeCompleto">
 							<div
 								class='d-flex align-items-center justify-content-between pe-2'>
 								<div
@@ -186,8 +195,9 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								</div>
 							</div>
 						</th>
-					
-						<th scope="col" class="sortable border-end" data-column="tipoIngresso">
+
+						<th scope="col" class="sortable border-end"
+							data-column="tipoIngresso">
 							<div
 								class='d-flex align-items-center justify-content-between pe-2'>
 								<div
@@ -209,7 +219,8 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								</div>
 							</div>
 						</th>
-						<th scope="col" class="sortable border-end" data-column="tipoIngresso">
+						<th scope="col" class="sortable border-end"
+							data-column="tipoIngresso">
 							<div
 								class='d-flex align-items-center justify-content-between pe-2'>
 								<div
@@ -253,26 +264,28 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 	</main>
 
 
-	<script charset="UTF-8" 
+	<script charset="UTF-8"
 		src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 
-	<script charset="UTF-8"  src="https://code.jquery.com/jquery-3.7.1.js"
+	<script charset="UTF-8" src="https://code.jquery.com/jquery-3.7.1.js"
 		integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
 		crossorigin="anonymous"></script>
-	<script charset="UTF-8" 
+	<script charset="UTF-8"
 		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
 		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
 		crossorigin="anonymous"></script>
-	<script charset="UTF-8" 
+	<script charset="UTF-8"
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
 		integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
 		crossorigin="anonymous"></script>
-	<script charset="UTF-8" 
+	<script charset="UTF-8"
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-	<script charset="UTF-8"  src="<%=contextPath%>/resources/assets/js/comum.js"></script>
-	<script charset="UTF-8"  src="<%=contextPath%>/resources/assets/js/turmas/turmaMatricula.js"></script>
-	
-	<script charset="UTF-8" 
+	<script charset="UTF-8"
+		src="<%=contextPath%>/resources/assets/js/comum.js"></script>
+	<script charset="UTF-8"
+		src="<%=contextPath%>/resources/assets/js/turmas/turmaMatricula.js"></script>
+
+	<script charset="UTF-8"
 		src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 </body>
 </html>

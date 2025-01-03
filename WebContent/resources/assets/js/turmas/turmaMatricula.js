@@ -10,6 +10,9 @@ var idEscola = "";
 const turmaId = params.get("turma");
 
 $(document).ready(function() {
+	
+	
+	
 
 
 	getDados();
@@ -257,6 +260,11 @@ $("#exportar-excel").click(function() {
 	XLSX.utils.book_append_sheet(livro, planilha, "Planilha1");
 
 	XLSX.writeFile(livro, "turmas.xlsx");
+});
+
+
+$("#btnMatricular").click(function() {
+	window.location.href = "matricula?turma=" + turmaId
 });
 
 // Editar
