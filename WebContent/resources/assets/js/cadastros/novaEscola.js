@@ -99,34 +99,45 @@ function getAswer(input) {
 }
 
 
-$("#formNovoCadastro").submit(function(e) {
+$("#formNovoCadastro").submit(async function(e) {
 	e.preventDefault();
-	
-	let imgSplit = null
 
-	function convertToBase64(file, callback) {
-		var reader = new FileReader();
-		reader.onload = function(event) {
-			callback(event.target.result);
-		};
-		reader.readAsDataURL(file);
-	}
-
-	var logoEscolaFile = $('#logoEscola')[0].files[0];
-
-	if (logoEscolaFile) {
-		convertToBase64(logoEscolaFile, function(base64String) {
-			 imgSplit = base64String.split(',')
-			
+	function convertToBase64(file) {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.onload = function(event) {
+				resolve(event.target.result);
+			};
+			reader.onerror = function(error) {
+				reject(error);
+			};
+			reader.readAsDataURL(file);
 		});
 	}
 
+	let imgSplit = null;
+	const logoEscolaFile = $('#logoEscola')[0].files[0];
 
-	var dadosFormulario = {
+	if (logoEscolaFile) {
+		try {
+			const base64String = await convertToBase64(logoEscolaFile);
+			imgSplit = base64String.split(',');
+		} catch (error) {
+			console.error('Erro ao converter o arquivo para Base64:', error);
+			Swal.fire({
+				icon: "error",
+				title: "Erro",
+				text: "Não foi possível processar a imagem. Tente novamente.",
+			});
+			return;
+		}
+	}
+
+	const dadosFormulario = {
 		nomeEscola: $('#nome').val(),
-		logoEscola: imgSplit[1],
+		logoEscola: imgSplit ? imgSplit[1] : null,
 		tipoEscola: $('#tipoEscola').val(),
-		cnpj: $("#cnpj").val() == '' ? null : $('#cnpj').val().replace(/[^\d]+/g, ''),
+		cnpj: $("#cnpj").val() === '' ? null : $('#cnpj').val().replace(/[^\d]+/g, ''),
 		codigoInep: $('#codigoInep').val(),
 		cep: $('#cep').val().replace(/[^\d]+/g, ''),
 		endereco: $('#endereco').val(),
@@ -145,18 +156,17 @@ $("#formNovoCadastro").submit(function(e) {
 		usaEspacoEntornoEscolar: "N",
 		pppAtualizado12Meses: getAswer("#pppAtualizado12Meses"),
 		localizacaoId: Number($('#localizacaoId').val()),
-		dependenciaAdmId: null/*Number($('#dependenciaAdmId').val())*/,
-		situacaoFuncionamentoId: null/*Number($('#situacaoFuncionamentoId').val())*/,
-		formaOcupacaoPredioId: null /*Number($('#formaOcupacaoPredioId').val())*/,
-		"zoneamentoId": null/*Number($('#zoneamentoId').val())*/,
-		"categoriaEscolaPrivadaId": null/* Number($('#categoriaEscolaPrivadaId').val())*/,
-		"entidadeSuperiorId": null /*Number($('#entidadeSuperiorId').val())*/,
-		"orgaoPublicoId": null/*Number($('#orgaoPublicoId').val())*/,
+		dependenciaAdmId: null,
+		situacaoFuncionamentoId: null,
+		formaOcupacaoPredioId: null,
+		zoneamentoId: null,
+		categoriaEscolaPrivadaId: null,
+		entidadeSuperiorId: null,
+		orgaoPublicoId: null,
 		contaId: Number(contaId)
 	};
 
-
-	console.log(dadosFormulario)
+	console.log(dadosFormulario);
 
 	$.ajax({
 		url: url_base + '/escolas',
@@ -164,7 +174,7 @@ $("#formNovoCadastro").submit(function(e) {
 		data: JSON.stringify(dadosFormulario),
 		contentType: "application/json; charset=utf-8",
 		error: function(e) {
-			console.log(e)
+			console.error(e);
 			Swal.fire({
 				icon: "error",
 				title: "Oops...",
@@ -175,11 +185,11 @@ $("#formNovoCadastro").submit(function(e) {
 		Swal.fire({
 			title: "Cadastrado com sucesso",
 			icon: "success",
-		})
+		});
 		window.location.href = "acessar-escolas";
 	});
-
 });
+
 
 
 
@@ -221,18 +231,24 @@ function cnpjValido(cnpj) {
 }
 
 $("#cnpj").blur(function() {
-	let cnpj = $('#cnpj')
-	const message = $("<p id='errMessageCnpj'></p>").text("CNPJ Inválido").css('color', '#FF0000');
 
-	if (cnpjValido(cnpj.val())) {
-		cnpj.removeClass('err-message')
-		$('#errMessageCnpj').css('display', 'none')
-	} else {
-		if ($("#cardCNPJ").find('#errMessageCnpj').length == 1) {
-			$("#cardCNPJ").find('#errMessageCnpj' + this.value).remove()
+	let cnpj = $('#cnpj')
+
+
+	if (cnpj.val() != '') {
+		const message = $("<p id='errMessageCnpj'></p>").text("CNPJ Inválido").css('color', '#FF0000');
+
+		if (cnpjValido(cnpj.val())) {
+			cnpj.removeClass('err-message')
+			$('#errMessageCnpj').css('display', 'none')
+		} else {
+			if ($("#cardCNPJ").find('#errMessageCnpj').length == 1) {
+				$("#cardCNPJ").find('#errMessageCnpj' + this.value).remove()
+			}
+			cnpj.addClass('err-message')
+			$("#cardCNPJ").append(message)
+			message.show()
 		}
-		cnpj.addClass('err-message')
-		$("#cardCNPJ").append(message)
-		message.show()
 	}
+
 });

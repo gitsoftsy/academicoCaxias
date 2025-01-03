@@ -533,7 +533,7 @@ function editar() {
 			}).then(result => {
 				sessionStorage.setItem("cursoId", $("#cursoIdLista").val())
 				sessionStorage.setItem("curriculoId", $("#curriculoIdLista").val())
-				window.location.href = 'grade-curricular'
+				getDados($("#curriculoIdLista").val())
 			})
 		})
 	return false;
@@ -587,7 +587,7 @@ function cadastrar() {
 			}).then(result => {
 				sessionStorage.setItem("cursoId", $("#cursoIdLista").val())
 				sessionStorage.setItem("curriculoId", $("#curriculoIdLista").val())
-				window.location.href = 'grade-curricular'
+				getDados($("#curriculoIdLista").val())
 			})
 		})
 	return false;
