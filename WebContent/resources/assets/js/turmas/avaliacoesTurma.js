@@ -279,30 +279,30 @@ $("#turno").change(() => {
 });
 
 $("#disciplinaId").change(() => {
-    $("#turmaId").prop("disabled", false).val(null).trigger("change");
+	$("#turmaId").prop("disabled", false).val(null).trigger("change");
 
-    // Aqui, obtém o valor selecionado corretamente
-    console.log($('#disciplinaId').val());
+	// Aqui, obtém o valor selecionado corretamente
+	console.log($('#disciplinaId').val());
 
-    $.ajax({
-        url: url_base + `/turma/filtrar?idEscola=${$('#escolaId').val()}&idDisciplina=${$('#disciplinaId').val()}`,
-        type: "GET",
-    }).done(function(data) {
-        $("#turmaId").empty();
-        $("#turmaId").append(
-            `<option value='0' selected disabled>Selecione uma turma</option>`
-        );
+	$.ajax({
+		url: url_base + `/turma/filtrar?idEscola=${$('#escolaId').val()}&idDisciplina=${$('#disciplinaId').val()}`,
+		type: "GET",
+	}).done(function(data) {
+		$("#turmaId").empty();
+		$("#turmaId").append(
+			`<option value='0' selected disabled>Selecione uma turma</option>`
+		);
 
-        console.log(data);
-        $.each(data.data, function(index, item) {
-            $("#turmaId").append(
-                $("<option>", {
-                    value: item.idTurma,
-                    text: item.nomeTurma
-                })
-            );
-        });
-    });
+		console.log(data);
+		$.each(data.data, function(index, item) {
+			$("#turmaId").append(
+				$("<option>", {
+					value: item.idTurma,
+					text: item.nomeTurma
+				})
+			);
+		});
+	});
 });
 
 
@@ -400,8 +400,8 @@ const listarDados = (dados) => {
 
 			console.log(item);
 
-			const dtDivulgacao = item.dtDivulgacao == null ? 'não possui' : formatarDataParaBR(item.dtDivulgacao)
-			const dtAgendaProva = item.dtAgendaProva == null ? 'não possui' : formatarDataParaBR(item.dtAgendaProva)
+			const dtDivulgacao = item.dtDivulgacao == null ? 'Não possui' : formatarDataParaBR(item.dtDivulgacao)
+			const dtAgendaProva = item.dtAgendaProva == null ? 'Não possui' : formatarDataParaBR(item.dtAgendaProva)
 
 			return (
 				"<tr>" +
@@ -541,7 +541,7 @@ $("#submitForm").on("click", function(e) {
 	e.preventDefault();
 
 	const data = {
-		turmaId: $('#turmaId').val(),
+		turmaId: (typeof idTurma !== 'undefined' && idTurma !== '') ? idTurma : $('#turmaId').val(),
 		nomeAbreviado: $("#nomeAbreviado").val(),
 		descricao: $("#descricao").val(),
 		dataDivulgacao: $("#dataDivulgacao").val(),
@@ -554,6 +554,8 @@ $("#submitForm").on("click", function(e) {
 		ehSimulado: $("#ehSimulado").prop("checked") ? "S" : "N",
 		formula: $("#formula").val(),
 	};
+
+	console.log(data)
 
 	$.ajax({
 		url: url_base + "/prova",
@@ -598,6 +600,8 @@ $("#submitFormEdit").on("click", function(e) {
 		ehSimulado: $("#ehSimuladoEdit").prop("checked") ? "S" : "N",
 		formula: $("#formulaEdit").val(),
 	};
+
+	console.log(data)
 
 	$.ajax({
 		url: url_base + "/prova",
