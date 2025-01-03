@@ -280,10 +280,9 @@ function cadastrar() {
 			"turmaId": turmaId,
 			"serieId": idSerie,
 			"manual": "S",
-			"usuarioId": idUsuario,
+			"usuarioId": usuarioId,
 			"observacao": null
 		};
-
 
 		console.log(objeto)
 

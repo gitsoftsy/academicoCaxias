@@ -25,7 +25,7 @@ $(document).ready(function() {
 		$('#curriculoIdLista').removeAttr('disabled');
 		$("#cotainerNewCadastro").removeClass("none");
 		$(".container-table").show();
-		
+
 		$.ajax({
 			url: url_base + `/curriculo/curso/${cursoIdSession}`,
 			type: "get",
@@ -239,9 +239,9 @@ $(document).ready(function() {
 
 	$('#curriculoIdLista').select2()
 	$('#cursoIdLista').select2()
-	
-	
-	
+
+
+
 	showPage(currentPage);
 	updatePagination();
 
@@ -340,20 +340,20 @@ function preencherOpcoes(items, optionsListId, selectId, searchId) {
 								? `${item.areaConhecimento}`
 								: "Opção Inválida";
 
-	
-		
 
-		$optionsList.append(
-			`<li data-value="${item.idCurriculo || item.idSerie || item.idAreaConhecimento || item.idDisciplina
-			}">${optionText}</li>`
-		);
-		$selectElement.append(
-			$("<option>", {
-				value: item.idCurriculo ?? item.idSerie ?? item.idAreaConhecimento ?? item.idDisciplina ?? '',
-				text: optionText || 'Valor Inválido',
-			})
-		);
-		
+
+
+			$optionsList.append(
+				`<li data-value="${item.idCurriculo || item.idSerie || item.idAreaConhecimento || item.idDisciplina
+				}">${optionText}</li>`
+			);
+			$selectElement.append(
+				$("<option>", {
+					value: item.idCurriculo ?? item.idSerie ?? item.idAreaConhecimento ?? item.idDisciplina ?? '',
+					text: optionText || 'Valor Inválido',
+				})
+			);
+
 		}
 
 
@@ -434,7 +434,7 @@ function showModal(ref) {
 		type: "GET",
 		async: false,
 	}).done(function(data) {
-		
+
 		preecherSwitch('#obrigatoriaEdit', data.obrigatoria)
 		preecherSwitch('#retemSerieEdit', data.retemSerie)
 
@@ -464,10 +464,10 @@ function showModal(ref) {
 	});
 }
 
-function preecherSwitch(switchId, valor){
-	if(valor === "S"){
+function preecherSwitch(switchId, valor) {
+	if (valor === "S") {
 		$(switchId).prop("checked", true)
-	}else{
+	} else {
 		$(switchId).prop("checked", false)
 	}
 }
@@ -488,6 +488,8 @@ function listarGrade() {
 		$(".container-table").show();
 		$("#messageInfo").addClass("none")
 		getDados(idCurriculo)
+		showPage(1);
+		updatePagination();
 	} else {
 		Swal.fire({
 			icon: "error",
@@ -533,7 +535,7 @@ function editar() {
 			}).then(result => {
 				sessionStorage.setItem("cursoId", $("#cursoIdLista").val())
 				sessionStorage.setItem("curriculoId", $("#curriculoIdLista").val())
-				window.location.href = 'grade-curricular'
+				getDados($("#curriculoIdLista").val())
 			})
 		})
 	return false;
@@ -587,7 +589,7 @@ function cadastrar() {
 			}).then(result => {
 				sessionStorage.setItem("cursoId", $("#cursoIdLista").val())
 				sessionStorage.setItem("curriculoId", $("#curriculoIdLista").val())
-				window.location.href = 'grade-curricular'
+				getDados($("#curriculoIdLista").val())
 			})
 		})
 	return false;
@@ -595,11 +597,11 @@ function cadastrar() {
 
 function limpaCampo() {
 	preencherCampoBusca(
-			"#curriculoSearch",
-			"#curriculoOption",
-			"#curriculoId",
-			$('#curriculoIdLista').val()
-		);
+		"#curriculoSearch",
+		"#curriculoOption",
+		"#curriculoId",
+		$('#curriculoIdLista').val()
+	);
 	$('#nomeSerie').val('');
 	$('#descricao').val('');
 }
