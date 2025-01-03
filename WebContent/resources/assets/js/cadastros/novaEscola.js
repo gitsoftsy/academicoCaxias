@@ -135,7 +135,7 @@ $("#formNovoCadastro").submit(async function(e) {
 
 	const dadosFormulario = {
 		nomeEscola: $('#nome').val(),
-		logoEscola: imgSplit ? imgSplit[1] : null,
+		logoEscola: imgSplit ? imgSplit[1] : "",
 		tipoEscola: $('#tipoEscola').val(),
 		cnpj: $("#cnpj").val() === '' ? null : $('#cnpj').val().replace(/[^\d]+/g, ''),
 		codigoInep: $('#codigoInep').val(),

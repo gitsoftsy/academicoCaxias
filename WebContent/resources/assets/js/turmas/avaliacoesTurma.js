@@ -136,6 +136,62 @@ $(document).ready(function() {
 	}
 
 	$("#escolaId, #disciplinaId, #turno, #turmaId, #ano, #periodo").select2();
+	
+	 const dataAgendaProva = $("#dataAgendaProvaEdit");
+    const dataLimiteRevisao = $("#dataLimiteRevisaoEdit");
+
+    function displayMessage(element, messageId, messageText) {
+      // Remove a mensagem existente
+      $(`#${messageId}`).remove();
+
+      // Adiciona nova mensagem
+      const message = $("<p></p>")
+        .attr("id", messageId)
+        .text(messageText)
+        .css("color", "#FF0000");
+      element.after(message);
+    }
+
+    function clearMessage(messageId) {
+      $(`#${messageId}`).remove();
+    }
+
+    function validateDates() {
+      const agendaDate = new Date(dataAgendaProva.val());
+      const limiteDate = new Date(dataLimiteRevisao.val());
+
+      let isValid = true;
+
+      // Validação: data da agenda deve ser menor ou igual à data limite
+      if (dataAgendaProva.val() && dataLimiteRevisao.val() && agendaDate > limiteDate) {
+        displayMessage(
+          dataAgendaProva,
+          "errMessageDataAgenda",
+          "A data da agenda deve ser menor ou igual à data limite."
+        );
+        isValid = false;
+      } else {
+        clearMessage("errMessageDataAgenda");
+      }
+
+      // Validação: data limite deve ser maior ou igual à data da agenda
+      if (dataAgendaProva.val() && dataLimiteRevisao.val() && limiteDate < agendaDate) {
+        displayMessage(
+          dataLimiteRevisao,
+          "errMessageDataLimite",
+          "A data limite deve ser maior ou igual à data da agenda."
+        );
+        isValid = false;
+      } else {
+        clearMessage("errMessageDataLimite");
+      }
+
+      return isValid;
+    }
+
+    // Eventos para validação
+    dataAgendaProva.on("change", validateDates);
+    dataLimiteRevisao.on("change", validateDates);
 });
 
 $("#ano").change(() => {

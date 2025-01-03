@@ -7,6 +7,46 @@ $(document).ready(function() {
 
 	$('select').select2();
 
+
+	const vagas = $("#vagas");
+	const vagasMin = $("#vagasMin");
+
+	function displayMessage(element, messageId, messageText) {
+		// Remove a mensagem existente
+		$(`#${messageId}`).remove();
+
+		// Adiciona nova mensagem
+		const message = $("<p></p>")
+			.attr("id", messageId)
+			.text(messageText)
+			.css("color", "#FF0000");
+		element.after(message);
+	}
+
+	function clearMessage(messageId) {
+		$(`#${messageId}`).remove();
+	}
+
+	function validateVagas(totalField, minField, messageId, element) {
+		const total = parseInt(totalField.val(), 10);
+		const min = parseInt(minField.val(), 10);
+
+		if (totalField.val() && minField.val() && min > total) {
+			$("#btn-submit").prop("disabled", true)
+			displayMessage(element, messageId, "As vagas mínimas devem ser iguais ou menores que o total de vagas.");
+			return false;
+		} else {
+			clearMessage(messageId);
+			$("#btn-submit").prop("disabled", false)
+		}
+		return true;
+	}
+
+	// Validações ao sair do foco dos campos
+	vagas.on("change", () => validateVagas(vagas, vagasMin, "errMessageVagas", vagasMin));
+	vagasMin.on("change", () => validateVagas(vagas, vagasMin, "errMessageVagas", vagasMin));
+
+
 	$.ajax({
 		url: url_base + "/concursos/conta/" + contaId,
 		type: "get",
@@ -276,11 +316,17 @@ function editar() {
 }
 
 $('#formNovoCadastro').on('submit', function(e) {
-	e.preventDefault();
-	if (idOfertaConcurso != undefined) {
-		editar()
-	} else {
-		cadastrar()
+
+
+	const isValid = validateVagas(vagas, vagasMin, "errMessageVagas", vagasMin);
+
+	if (!isValid) {
+		e.preventDefault();
+		if (idOfertaConcurso != undefined) {
+			editar()
+		} else {
+			cadastrar()
+		}
 	}
 
 	return false;

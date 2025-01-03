@@ -20,7 +20,7 @@ $(document).ready(function () {
   $(".container-table").hide();
   $("#btn-save").hide();
   $.ajax({
-    url: url_base + "/escolas/conta/" + contaId,
+    url: url_base + `/escolas/usuario/${contaId}/${usuarioId}`,
     type: "GET",
     async: false,
   })
