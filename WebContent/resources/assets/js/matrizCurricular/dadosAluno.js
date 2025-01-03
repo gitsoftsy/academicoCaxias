@@ -126,6 +126,8 @@ const getDadosAluno = () => {
 		},
 	})
 		.done(function(res) {
+			
+			console.log(res)
 			$("#matricula").val(res.aluno);
 			$("#nomeAluno").val(res.pessoa.nomeCompleto);
 
@@ -147,6 +149,8 @@ const getDadosAluno = () => {
 					});
 				},
 			}).done((response) => {
+				
+				console.log(response)
 
 				if (response.length != 0) {
 
