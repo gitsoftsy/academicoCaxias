@@ -184,8 +184,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 
 
 
-				<h3 id="tituloForm" class="text-start mt-3 mb-5">Selecione os
-					alunos</h3>
+				<h3 id="tituloForm" class="text-start mt-3 mb-5">Selecione os alunos</h3>
 
 				<table
 					class="table tabela-atos table-striped table-bordered mb-0 caption-top mx-auto">
@@ -203,15 +202,14 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 					</tbody>
 				</table>
 				<div id="pagination" class="mx-auto mt-auto">
-					<!-- <button id="prev" class="btn btn-sm">
+					 <button id="prev" class="btn btn-sm">
 						<i class="fa-solid fa-angle-left fa-xl"></i>
-					</button>1
+					</button>
 					<div id="page-numbers" class="btn-group mt-2"></div>
 					<button id="next" class="btn btn-sm">
 						<i class="fa-solid fa-angle-right fa-xl"></i>
-					</button> -->
+					</button>                         
 				</div>
-
 				<!-- 
 				<div class="container-table contTable mb-3">
 					<table
@@ -241,6 +239,16 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 					</button>
 					</div>
 				</div> -->
+				
+				<div class="col-md-6">
+					<label for="tipoMatriculaId" class="form-label">Tipo Matricula:<span
+						class="red">*</span></label> <select class="form-select"
+						aria-label="tipoMatriculaId" id="tipoMatriculaId" required
+						name="tipoMatriculaId">
+						<option value="" selected disabled>Selecione o Concurso</option>
+					</select>
+				</div>
+				
 
 				<div class="col-md-12 text-center mt-3">
 					<button type="submit" class="btn btn-primary px-5" id="btn-save">
