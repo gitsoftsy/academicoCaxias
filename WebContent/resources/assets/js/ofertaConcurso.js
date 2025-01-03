@@ -644,12 +644,14 @@ function editar() {
 }
 $("#formEdit").on("submit", function(e) {
 	e.preventDefault();
-	editar();
+	 editar();
 	return false;
 });
 $("#formCadastro").on("submit", function(e) {
+	
+	
 	e.preventDefault();
-	cadastrar();
+	 cadastrar();
 	return false;
 });
 
