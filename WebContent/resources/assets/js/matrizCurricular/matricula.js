@@ -103,13 +103,13 @@ function getDados() {
 			idDisciplina = data.gradeCurricular.disciplina.idDisciplina
 
 			$.ajax({
-				url: url_base + "/alunos/conta/" + contaId,
+				url: url_base + "/alunos/semPrematricula",
 				type: "GET",
 				async: false,
 			})
-				.done(function(data) {
-					dados = data
-					listarDados(data);
+				.done(function(response) {
+					dados = response.data
+					listarDados(dados);
 					$('input[data-toggle="toggle"]').bootstrapToggle();
 				})
 				.fail(function(jqXHR, textStatus, errorThrown) {
@@ -121,8 +121,8 @@ function getDados() {
 		});
 }
 
-function listarDados(dados) {
-	var html = dados.map(function(item) {
+function listarDados(itens) {
+	var html = itens.map(function(item) {
 		return (
 			"<tr>" +
 			"<td>" +
@@ -132,7 +132,7 @@ function listarDados(dados) {
 			item.aluno +
 			"</td>" +
 			"<td>" +
-			item.pessoa.nomeCompleto +
+			item.nomeCompleto +
 			"</td>" +
 			"<td>" +
 			(item.emailInterno || "Não possui") +

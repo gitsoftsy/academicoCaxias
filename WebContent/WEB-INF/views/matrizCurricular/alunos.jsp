@@ -112,7 +112,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								class="d-flex align-items-center justify-content-between pe-2">
 								<div
 									class="col d-flex align-items-center justify-content-between">
-									<span>Matricula</span> <i class="fas fa-sort me-3"
+									<span>Matricula</span> <i class="fas fa-sort me-2 ms-2"
 										style="color: #dddddd"></i>
 								</div>
 								<div class="dropdown-form">
@@ -136,7 +136,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								class="d-flex align-items-center justify-content-between pe-2">
 								<div
 									class="col d-flex align-items-center justify-content-between">
-									<span>Nome</span> <i class="fas fa-sort me-3"
+									<span>Nome</span> <i class="fas fa-sort me-2 ms-2"
 										style="color: #dddddd"></i>
 								</div>
 								<div class="dropdown-form">
@@ -159,7 +159,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								class="d-flex align-items-center justify-content-between pe-2">
 								<div
 									class="col d-flex align-items-center justify-content-between">
-									<span>CPF</span> <i class="fas fa-sort me-3"
+									<span>CPF</span> <i class="fas fa-sort me-2 ms-2"
 										style="color: #dddddd"></i>
 								</div>
 								<div class="dropdown-form">
@@ -183,7 +183,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								class="d-flex align-items-center justify-content-between pe-2">
 								<div
 									class="col d-flex align-items-center justify-content-between">
-									<span>Curso</span> <i class="fas fa-sort me-3"
+									<span>Curso</span> <i class="fas fa-sort me-2 ms-2"
 										style="color: #dddddd"></i>
 								</div>
 								<div class="dropdown-form">
@@ -208,7 +208,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								class="d-flex align-items-center justify-content-between pe-2">
 								<div
 									class="col d-flex align-items-center justify-content-between">
-									<span>Série</span> <i class="fas fa-sort me-3"
+									<span>Série</span> <i class="fas fa-sort me-2 ms-2"
 										style="color: #dddddd"></i>
 								</div>
 								<div class="dropdown-form">
@@ -232,7 +232,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								class="d-flex align-items-center justify-content-between pe-2">
 								<div
 									class="col d-flex align-items-center justify-content-between">
-									<span>Escola</span> <i class="fas fa-sort me-3"
+									<span>Escola</span> <i class="fas fa-sort me-2 ms-2"
 										style="color: #dddddd"></i>
 								</div>
 								<div class="dropdown-form">
@@ -256,7 +256,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								class="d-flex align-items-center justify-content-between pe-2">
 								<div
 									class="col d-flex align-items-center justify-content-between">
-									<span>Turno</span> <i class="fas fa-sort me-3"
+									<span>Turno</span> <i class="fas fa-sort me-2 ms-2"
 										style="color: #dddddd"></i>
 								</div>
 								<div class="dropdown-form">
@@ -280,7 +280,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								class="d-flex align-items-center justify-content-between pe-2">
 								<div
 									class="col d-flex align-items-center justify-content-between">
-									<span>Email Estudantil</span> <i class="fas fa-sort me-3"
+									<span>Email Estudantil</span> <i class="fas fa-sort me-2 ms-2"
 										style="color: #dddddd"></i>
 								</div>
 								<div class="dropdown-form">
@@ -304,7 +304,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								class="d-flex align-items-center justify-content-between pe-2">
 								<div
 									class="col d-flex align-items-center justify-content-between">
-									<span>Situação Aluno</span> <i class="fas fa-sort me-3"
+									<span>Situação Aluno</span> <i class="fas fa-sort me-2 ms-2"
 										style="color: #dddddd"></i>
 								</div>
 								<div class="dropdown-form">
