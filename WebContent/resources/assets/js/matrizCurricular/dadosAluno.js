@@ -497,8 +497,6 @@ $("#submitFormEdit").on("click", function() {
 		professorId: null,
 	};
 
-	console.log(objetoEdit);
-
 	$.ajax({
 		url: url_base + "/nota",
 		type: "put",
@@ -515,12 +513,27 @@ $("#submitFormEdit").on("click", function() {
 			});
 		},
 	}).done(function(data) {
+		$.ajax({
+			url: url_base + "/nota/aluno/" + idAluno,
+			type: "GET",
+			async: false,
+			error: function(e) {
+				console.log(e);
+				Swal.fire({
+					icon: "error",
+					title: "Oops...",
+					text: "Não foi possível realizar esse comando!",
+				});
+			},
+		}).done(function(res) {
+			notas = res;
+			listarNotas(res);
+		});
 		Swal.close();
 		Swal.fire({
 			title: "Editado com sucesso",
 			icon: "success",
 		});
-		listarNotas(notas);
 		$("#modalNota").modal("hide");
 	});
 	$("#modalNota").modal("hide");

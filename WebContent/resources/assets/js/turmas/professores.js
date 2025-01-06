@@ -81,7 +81,7 @@ $(document).ready(function () {
       .siblings(".searchInput")
       .val()
       .toLowerCase()
-      .normalize("NFD") // Decomposição de caracteres acentuados
+      .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, ""); // Remove os sinais diacríticos (acentos)
 
     var columnToSearch = $(this).closest(".sortable").data("column");

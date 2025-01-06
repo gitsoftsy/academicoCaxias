@@ -135,13 +135,12 @@ $(document).ready(function () {
   });
 
   $(".searchButton").click(function () {
-    // Função para normalizar a string (converter para minúsculas e remover acentuação)
     function normalizeString(str) {
       return str
         ? str
             .toLowerCase()
-            .normalize("NFD") // Decompor caracteres acentuados
-            .replace(/[\u0300-\u036f]/g, "") // Remover marcas diacríticas
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
         : "";
     }
 
