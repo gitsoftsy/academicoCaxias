@@ -62,8 +62,8 @@ $(document).ready(function () {
       return str
         ? str
             .toLowerCase()
-            .normalize("NFD") // Decompor caracteres acentuados
-            .replace(/[\u0300-\u036f]/g, "") // Remover marcas diacríticas
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
         : "";
     }
 

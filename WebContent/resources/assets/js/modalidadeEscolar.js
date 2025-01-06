@@ -59,12 +59,11 @@ $(document).ready(function () {
     var columnToSearch = $(this).closest(".sortable").data("column");
     var filteredData;
 
-    // Função para normalizar strings (remover acentos e caracteres diacríticos)
     function normalizeString(str) {
       return str
-        .normalize("NFD") // Decompor caracteres acentuados
-        .replace(/[\u0300-\u036f]/g, "") // Remover marcas diacríticas
-        .toLowerCase(); // Converter para minúsculas
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase();
     }
 
     var normalizedSearchInput = normalizeString(searchInput);
