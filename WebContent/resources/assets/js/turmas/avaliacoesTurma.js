@@ -82,6 +82,32 @@ $(document).ready(function () {
       );
     });
   });
+  $.ajax({
+    url: url_base + "/disciplina/conta/" + contaId,
+    type: "GET",
+  }).done(function (data) {
+    $.each(data, function (index, item) {
+      $("#disciplinaId").append(
+        $("<option>", {
+          value: item.idDisciplina,
+          text: `${item.codDiscip} - ${item.nome}`
+        })
+      );
+    });
+  });
+  $.ajax({
+    url: url_base + "/turma",
+    type: "GET",
+  }).done(function (data) {
+    $.each(data, function (index, item) {
+      $("#turmaId").append(
+        $("<option>", {
+          value: item.idTurma,
+          text: item.nomeTurma,
+        })
+      );
+    });
+  });
 
   $("#escolaId, #disciplinaId, #turno, #turmaId, #ano, #periodo").select2();
   $("#turmaId").select2();
@@ -456,8 +482,6 @@ const listarDados = (dados) => {
           "<i style='color:#2eaa3a; font-size: 28px' class='fa-regular fa-circle-check'></i>";
       }
 
-      console.log(item);
-
       const dtDivulgacao =
         item.dtDivulgacao == null
           ? "Não possui"
@@ -536,7 +560,7 @@ function showModal(ref) {
       const ativoValue = data.ativo === "S";
       $("#provaAtivaEdit").prop("checked", ativoValue).change();
 
-      const simuladoValue = data.ehSimuladoEdit === "S";
+      const simuladoValue = data.ehSimulado === "S";
       $("#ehSimuladoEdit").prop("checked", simuladoValue).change();
 
       $("#dataDivulgacaoEdit").val(formatDate(data.dataDivulgacao));
