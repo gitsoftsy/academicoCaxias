@@ -1,4 +1,4 @@
-var url_base = "https://api.softsy.io/api-educacional-hml";
+var url_base = "http://10.40.110.2:8080/api-educacional-dev";
 const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
 const path_base = $(location).attr("origin") + "/" + $(location).attr("pathname").split("/")[1] + "/resources/menu";
@@ -454,46 +454,13 @@ function updatePagination() {
 	totalPages = Math.ceil(dados.length / rows);
 	let paginationHTML = "";
 
-	const maxVisiblePages = 5; // Número máximo de páginas visíveis ao mesmo tempo
-	const halfRange = Math.floor(maxVisiblePages / 2);
-
-	let startPage = Math.max(1, currentPage - halfRange);
-	let endPage = Math.min(totalPages, currentPage + halfRange);
-
-	// Ajusta início e fim se estiver perto das bordas
-	if (currentPage <= halfRange) {
-		endPage = Math.min(totalPages, maxVisiblePages);
-	} else if (currentPage + halfRange > totalPages) {
-		startPage = Math.max(1, totalPages - maxVisiblePages + 1);
-	}
-
-	
-
-	// Adiciona reticências antes se necessário
-	if (startPage > 1) {
+	// Gera os botões de número de página dinamicamente
+	for (let i = 1; i <= totalPages; i++) {
 		paginationHTML += `
-			<button class="btn btn-sm page-number" data-page="1">1</button>
-			<span class="ellipsis">...</span>
-		`;
+            <button class="btn btn-sm page-number" data-page="${i}">
+                ${i}
+            </button>`;
 	}
-
-	// Adiciona botões de números visíveis
-	for (let i = startPage; i <= endPage; i++) {
-		paginationHTML += `
-			<button class="btn btn-sm page-number ${i === currentPage ? "active" : ""}" data-page="${i}">
-				${i}
-			</button>`;
-	}
-
-	// Adiciona reticências depois se necessário
-	if (endPage < totalPages) {
-		paginationHTML += `
-			<span class="ellipsis">...</span>
-			<button class="btn btn-sm page-number" data-page="${totalPages}">${totalPages}</button>
-		`;
-	}
-
-	
 
 	$("#page-numbers").html(paginationHTML);
 
