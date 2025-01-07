@@ -95,7 +95,7 @@ const getDadosAcademicos = () => {
 };
 
 const getDadosAluno = () => {
-	$.ajax({
+	/*$.ajax({
 		url: url_base + "/nota/aluno/" + idAluno,
 		type: "GET",
 		async: false,
@@ -110,7 +110,7 @@ const getDadosAluno = () => {
 	}).done(function(res) {
 		notas = res;
 		listarNotas(res);
-	});
+	});*/
 
 	$.ajax({
 		url: url_base + "/alunos/" + idAluno,
@@ -369,7 +369,7 @@ const getDadosAluno = () => {
 	$("isEnderecoAluno").hide();
 };
 
-const listarNotas = (dados) => {
+/*const listarNotas = (dados) => {
 	dados.sort((a, b) => a.ordem - b.ordem);
 
 	const formatarData = (data) => {
@@ -440,7 +440,7 @@ const listarNotas = (dados) => {
 		.join("");
 
 	$("#cola-tabela-notas").html(html);
-};
+};*/
 var idNota = "";
 var notaSelecionada = [];
 
