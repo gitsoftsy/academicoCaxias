@@ -165,18 +165,6 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
             >
               Dados Acadêmicos
             </button>
-            <button
-              class="nav-link"
-              id="nav-notas-tab"
-              data-bs-toggle="tab"
-              data-bs-target="#nav-notas"
-              type="button"
-              role="tab"
-              aria-controls="nav-notas"
-              aria-selected="false"
-            >
-              Notas e Faltas
-            </button>
           </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -934,7 +922,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
               </div>
             </div>
 
-            <div class="row mb-5">
+            <div class="row mb-3">
               <div class="col-md-6">
                 <label for="emailInterno" class="form-label"
                   >Email interno:</label
@@ -961,7 +949,6 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
                 </select>
               </div>
             </div>
-
             <table
               class="table tabela-atos table-striped table-bordered mb-0 caption-top mx-auto"
             >
@@ -982,108 +969,14 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
             </table>
             <div id="pagination" class="mx-auto mt-auto"></div>
           </div>
-
-          <div
-            class="tab-pane fade"
-            id="nav-notas"
-            role="tabpanel"
-            aria-labelledby="nav-notas-tab"
-            tabindex="0"
-          >
-            <div class="d-flex align-items-center justify-content-between">
-              <h2 id="tituloDados" class="mb-3">Notas e Faltas</h2>
-            </div>
-            <div class="container-table">
-              <table
-                class="table tableNot table-striped table-bordered mb-0 caption-top mx-auto"
-              >
-                <thead>
-                  <tr>
-                    <th scope="col">Disciplina</th>
-                    <th scope="col">Turma</th>
-                    <th scope="col">Período Letivo</th>
-                    <th scope="col">Descrição da Prova</th>
-                    <th scope="col">Código</th>
-                    <th scope="col">Data da Prova</th>
-                    <th scope="col">Nota</th>
-                    <th scope="col">Nota Máxima</th>
-                    <th scope="col">Comparecimento</th>
-                    <th scope="col">Ações</th>
-                  </tr>
-                </thead>
-                <tbody
-                  id="cola-tabela-notas"
-                  class="table-group-divider"
-                ></tbody>
-              </table>
-
-              <div id="pagination" class="mx-auto mt-auto"></div>
-            </div>
-          </div>
+        </div>
+        <div class="col-md-12 text-center mt-3">
+          <button type="submit" class="btn btn-primary px-5" id="btn-edit">
+            Editar
+          </button>
         </div>
       </section>
     </main>
-
-    <div
-      class="modal fade"
-      id="modalNota"
-      data-bs-backdrop="static"
-      data-bs-keyboard="false"
-      tabindex="-1"
-      aria-labelledby="staticBackdropLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">
-              Alterar Nota
-            </h1>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <table
-              class="table tableNot table-striped mb-0 mx-auto"
-            >
-              <thead>
-                <tr>
-                  <th scope="col">Prova</th>
-                  <th scope="col">Nota</th>
-                </tr>
-              </thead>
-              <tbody id="cola-tabela-editNota" class="table-group-divider"></tbody>
-            </table>
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              id="btnCloseEdit"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Fechar
-            </button>
-            <button
-              type="button"
-              class="btn btn-primary px-4"
-              id="submitFormEdit"
-            >
-              Salvar Alterações
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <script
-      charset="UTF-8"
-      src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"
-    ></script>
 
     <script
       charset="UTF-8"
