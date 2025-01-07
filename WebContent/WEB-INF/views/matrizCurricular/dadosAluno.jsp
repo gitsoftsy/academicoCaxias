@@ -958,7 +958,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
                   <th scope="col">Disciplina</th>
                   <th scope="col">Ano</th>
                   <th scope="col">Periodo</th>
-                  <th scope="col">Tipo Formação</th>
+                  <th scope="col">Status Matrícula</th>
                   <th scope="col">Tipo Matrícula</th>
                 </tr>
               </thead>
