@@ -284,7 +284,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 
 								
 								<select id="cursoId" name="cursoId" class="form-select"
-									style="display: none" required>
+									hidden required>
 									<option value="" selected disabled>Selecione uma opção
 									</option>
 								</select>
@@ -350,8 +350,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 							<div class="d-flex justify-content-end gap-2">
 								<button type="button" class="btn btn-secondary"
 									data-bs-dismiss="modal">Fechar</button>
-								<button type="submit" data-bs-dismiss="modal"
-									class="btn btn-primary px-4" id="btn-submit">
+								<button type="submit" class="btn btn-primary px-4" id="btn-submit">
 									Salvar</button>
 							</div>
 						</form>
@@ -381,7 +380,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 
 								<!-- Select oculto para armazenar o valor selecionado -->
 								<select id="cursoIdEdit" name="cursoIdEdit" class="form-select"
-									style="display: none" required>
+									hidden required>
 									<option value="" selected disabled>Selecione uma opção
 									</option>
 								</select>
