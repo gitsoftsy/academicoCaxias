@@ -131,7 +131,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
           </caption>
           <thead>
             <tr>
-              <th scope="col" class="sortable border-end" data-column="turmaId">
+              <th scope="col" class="sortable border-end" data-column="nomeTurma">
                 <div
                   class="d-flex align-items-center justify-content-between pe-2"
                 >
@@ -152,12 +152,12 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
                       <input
                         type="text"
                         class="form-control mb-3 searchInput"
-                        placeholder="Digite o Nº da Turma"
+                        placeholder="Digite a Turma"
                       />
                       <button
                         class="btn btn-sm col-12 btn-success searchButton"
                       >
-                        age Buscar
+                        Buscar
                       </button>
                     </div>
                   </div>
