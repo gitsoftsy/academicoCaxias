@@ -139,7 +139,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								</div>
 							</div>
 						</th>
-						<th scope="col" class="sortable border-end" data-column="tipoPeriodidade">
+						<th scope="col" class="sortable border-end" data-column="tipoPeriodicidade">
 							<div
 								class="d-flex align-items-center justify-content-between pe-2">
 								<div

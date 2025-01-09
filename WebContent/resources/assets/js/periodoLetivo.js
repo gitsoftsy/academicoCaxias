@@ -1,7 +1,7 @@
 var dados = [];
 var sortOrder = {};
 var dadosOriginais = [];
-var rows = 12;
+var rows = 10;
 var currentPage = 1;
 var pagesToShow = 5;
 const contaId = localStorage.getItem("contaId");
@@ -109,7 +109,10 @@ $(document).ready(function () {
       });
     }
 
-    listarDados(filteredData);
+    dados = filteredData;
+
+    showPage(1);
+    updatePagination();
     $('input[data-toggle="toggle"]').bootstrapToggle();
 
     $(this).siblings(".searchInput").val("");
@@ -143,7 +146,9 @@ $(document).ready(function () {
       sortData(column, newOrder);
     } else {
       icon.addClass("fa-sort");
-      listarDados(dadosOriginais);
+      dados = dadosOriginais;
+      showPage(1);
+      updatePagination();
       $('input[data-toggle="toggle"]').bootstrapToggle();
       $('input[data-toggle="toggle"]').bootstrapToggle();
     }
@@ -190,7 +195,9 @@ $(document).ready(function () {
         }
       }
     });
-    listarDados(dadosOrdenados);
+    dados = dadosOrdenados;
+    showPage(1);
+    updatePagination();
     $('input[data-toggle="toggle"]').bootstrapToggle();
   }
 
