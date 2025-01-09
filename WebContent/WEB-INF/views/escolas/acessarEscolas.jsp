@@ -186,7 +186,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								</div>
 							</div>
 						</th>
-						<th scope="col" class="sortable  border-end" data-column="cnpj">
+						<th scope="col" class="sortable  border-end" data-column="codigoInep">
 							<div
 								class='d-flex align-items-center justify-content-between pe-2'>
 								<div
@@ -202,7 +202,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 										class="dropdown-content-form rounded-3 dropdown-content-left"
 										id="dropdownContent4">
 										<input type="text" class='form-control mb-3 searchInput'
-											placeholder="Digite o CNPJ">
+											placeholder="Digite o código INEP">
 										<button class='btn btn-sm col-12 btn-success searchButton'>Buscar
 											escola</button>
 									</div>
