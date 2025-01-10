@@ -47,7 +47,7 @@ $(document).ready(function() {
 		type: "GET",
 		async: false,
 	}).done(function(data) {
-		listarDados(data.data);  
+		listarDados(data.data	);  
 		$('input[data-toggle="toggle"]').bootstrapToggle();
 	}).fail(function(jqXHR, textStatus, errorThrown) {
 		console.error("Erro na solicitação AJAX:", textStatus, errorThrown);

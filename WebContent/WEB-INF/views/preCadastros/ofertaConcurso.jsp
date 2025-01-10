@@ -104,7 +104,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 					<a class="btn btn-warning px-5" id="btn-buscar"
 						style="font-weight: 500">Buscar </a>
 				</div>
-				
+
 			</div>
 
 			<div id="messageInfo" class="d-flex justify-content-center">
@@ -134,7 +134,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 					<thead>
 						<tr>
 							<th scope="col" class="sortable border-end"
-								data-column="concurso">
+								data-column="concursoPes">
 								<div
 									class="d-flex align-items-center justify-content-between pe-2">
 									<div
@@ -158,7 +158,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								</div>
 							</th>
 							<th scope="col" class="sortable border-end"
-								data-column="nomeCurso" style="width: 18%">
+								data-column="nomeCursoPes" style="width: 18%">
 								<div
 									class="d-flex align-items-center justify-content-between pe-2">
 									<div
@@ -182,7 +182,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								</div>
 							</th>
 							<th scope="col" class="sortable border-end"
-								data-column="nomeEscola" style="width: 40%">
+								data-column="nomeEscolaPes" style="width: 40%">
 								<div
 									class="d-flex align-items-center justify-content-between pe-2">
 									<div
@@ -205,7 +205,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 									</div>
 								</div>
 							</th>
-							<th scope="col" class="sortable border-end" data-column="turno">
+							<th scope="col" class="sortable border-end" data-column="turnoPes">
 								<div
 									class="d-flex align-items-center justify-content-between pe-2">
 									<div
@@ -228,7 +228,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 									</div>
 								</div>
 							</th>
-							<th scope="col" class="sortable border-end" data-column="serie">
+							<th scope="col" class="sortable border-end" data-column="seriePes">
 								<div
 									class="d-flex align-items-center justify-content-between pe-2">
 									<div
@@ -252,7 +252,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								</div>
 							</th>
 							<th scope="col" class="sortable border-end"
-								data-column="descricaoOferta" style="width: 30%">
+								data-column="descricaoOfertaPes" style="width: 30%">
 								<div
 									class="d-flex align-items-center justify-content-between pe-2">
 									<div

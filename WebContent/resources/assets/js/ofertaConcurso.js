@@ -37,14 +37,73 @@ $(document).ready(function() {
 
 		var normalizedSearchInput = normalizeString(searchInput);
 
-		var filteredData = dadosOriginais.filter(function(item) {
-			var valueToCheck = item[columnToSearch]
-				? item[columnToSearch].toString()
-				: "";
-			return normalizeString(valueToCheck).includes(normalizedSearchInput);
-		});
 
+		if (columnToSearch === "concursoPes") {
+			filteredData = dadosOriginais.filter(function(item) {
+				var value = item.concuso
+					? item.concurso.concurso.toLowerCase()
+					: "";
+				return value.includes(searchInput);
+			});
+		}
+		else if (columnToSearch === "nomeCursoPes") {
+			filteredData = dadosOriginais.filter(function(item) {
+				var value = item.nomeCurso && item.codCurso
+					? `${item.nomeCurso} - ${item.codCurso}`.toLowerCase()
+					: "";
+				return value.includes(searchInput);
+			});
+		}
+		
+		else if (columnToSearch === "nomeEscolaPes") {
+			filteredData = dadosOriginais.filter(function(item) {
+				var value = item.escola
+					? item.escola.nomeEscola.toLowerCase()
+					: "";
+				return value.includes(searchInput);
+			});
+		}
+		
+		else if (columnToSearch === "turnoPes") {
+			filteredData = dadosOriginais.filter(function(item) {
+				var value = item.turno
+					? item.turno.turno.toLowerCase()
+					: "";
+				return value.includes(searchInput);
+			});
+		}
+		
+		else if (columnToSearch === "seriePes") {
+			filteredData = dadosOriginais.filter(function(item) {
+				var value = item.serie.serie && item.serie.serie
+					? `${item.serie.serie} - ${item.serie.descricao}`.toLowerCase()
+					: "";
+				return value.includes(searchInput);
+			});
+		}
+		
+		else if (columnToSearch === "descricaoOfertaPes") {
+			filteredData = dadosOriginais.filter(function(item) {
+				var value = item.descricaoOferta
+					? item.descricaoOferta.toLowerCase()
+					: "";
+				return value.includes(searchInput);
+			});
+		}
+		// Filtragem genérica para outros campos
+		else {
+			filteredData = dadosOriginais.filter(function(item) {
+				var value = item[columnToSearch]
+					? item[columnToSearch].toString().toLowerCase()
+					: "";
+				return value.includes(searchInput);
+			});
+		}
+
+		dados = filteredData
 		listarDados(filteredData);
+		updatePagination()
+		showPage(currentPage)
 		$('input[data-toggle="toggle"]').bootstrapToggle();
 
 		$(this).siblings(".searchInput").val("");
@@ -159,7 +218,6 @@ $(document).ready(function() {
 		type: "get",
 		async: false,
 	}).done(function(data) {
-		console.log(data);
 		preencherOpcoes(
 			data,
 			"#curriculoIdOptions",
@@ -349,7 +407,10 @@ const buscar = () => {
 };
 
 $("#limpa-filtros").click(function() {
+	dados = dadosOriginais
 	listarDados(dadosOriginais);
+	updatePagination()
+	showPage(currentPage)
 	$('input[data-toggle="toggle"]').bootstrapToggle();
 	$(".searchInput").val("");
 });
@@ -397,7 +458,6 @@ function listarDados(dados) {
 					? item.minVagasAbertTurma
 					: "Não definido";
 
-			console.log(item);
 
 			return (
 				"<tr>" +
@@ -644,14 +704,14 @@ function editar() {
 }
 $("#formEdit").on("submit", function(e) {
 	e.preventDefault();
-	 editar();
+	editar();
 	return false;
 });
 $("#formCadastro").on("submit", function(e) {
-	
-	
+
+
 	e.preventDefault();
-	 cadastrar();
+	cadastrar();
 	return false;
 });
 

@@ -159,7 +159,11 @@ function getDados() {
 		async: false,
 	})
 		.done(function(data) {
+			dados = data
+			dadosOriginais = data
 			listarDados(data); 
+			showPage(currentPage);
+	updatePagination();
 			$('input[data-toggle="toggle"]').bootstrapToggle();
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
@@ -306,7 +310,7 @@ function editar() {
 		concurso: $('#edit-nome').val(),
 		dataAbertura: $('#dataInicioEdit').val(),
 		dataFechamento: $("#dataFimEdit").val(),
-		periodoLetivoId: $("#periodoLetivoIdEdit").val(),
+		periodoLetivoId: $("#periodoLeti'oIdEdit").val(),
 		contaId: contaId
 
 	}
