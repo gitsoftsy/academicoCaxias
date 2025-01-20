@@ -1,4 +1,5 @@
 var dados = [];
+var dadosOriginais = [];
 var ufs = [];
 const contaId = localStorage.getItem("contaId");
 var nome = "";
@@ -66,8 +67,9 @@ function getDados() {
   })
     .done(function (data) {
       turnos = data;
+      dados = data
+      dadosOriginais = data
       listarDados(data);
-      $('input[data-toggle="toggle"]').bootstrapToggle();
       $('input[data-toggle="toggle"]').bootstrapToggle();
     })
     .fail(function (jqXHR, textStatus, errorThrown) {

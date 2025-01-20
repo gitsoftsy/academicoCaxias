@@ -59,8 +59,8 @@ const listarDados = (dados) => {
     .map(function (item) {
       let nomeTurma;
 
-      if (item.tipo == "Matricula") {
-        nomeTurma = item.idTurma;
+      if (item.tipo == "Pré-Matricula") {
+        nomeTurma = item.nomeTurma;
       } else {
         nomeTurma = "(Sem turma)";
       }
@@ -68,7 +68,7 @@ const listarDados = (dados) => {
       return (
         "<tr>" +
         "<td>" +
-        nomeTurma +
+        (item.nomeTurma != '' ? item.nomeTurma : "(Sem Turma)" )+
         "</td>" +
         "<td>" +
         item.codigoDisciplina +
