@@ -4,6 +4,7 @@ const params = new URLSearchParams(queryString);
 const path_base = $(location).attr("origin") + "/" + $(location).attr("pathname").split("/")[1] + "/resources/menu";
 const nomeConta = localStorage.getItem("nomeConta")
 const usuarioId = localStorage.getItem("usuarioId");
+const contaPadraoAcessoId = localStorage.getItem("idContaAcesso");
 
 $('#escolaIdStyle').css('display', 'none')
 $('#escolaIdStyleEdit').css('display', 'none')
