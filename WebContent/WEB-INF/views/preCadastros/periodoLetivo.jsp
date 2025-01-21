@@ -117,7 +117,6 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 				<caption>Itens Cadastrados</caption>
 				<thead>
 					<tr>
-
 						<th scope="col" class="sortable border-end" data-column="ano">
 							<div
 								class="d-flex align-items-center justify-content-between pe-2">
@@ -125,6 +124,19 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 									class="col d-flex align-items-center justify-content-between">
 									<span>Ano</span> <i class="fas fa-sort me-3"
 										style="color: #dddddd"></i>
+								</div>
+								<div class="dropdown-form">
+									<div class="dropdown-toggle-form" id="dropdownButton1">
+										<i class="fas fa-search" style="color: #dddddd"></i>
+									</div>
+									<div
+										class="dropdown-content-form rounded-3 dropdown-content-left"
+										id="dropdownContent1">
+										<input type="number" class="form-control mb-3 searchInput"
+											placeholder="Digite o nome do usuário" />
+										<button class="btn btn-sm col-12 btn-success searchButton">
+											Buscar</button>
+									</div>
 								</div>
 							</div>
 						</th>
@@ -136,6 +148,19 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 									class="col d-flex align-items-center justify-content-between">
 									<span>Período</span> <i class="fas fa-sort me-3"
 										style="color: #dddddd"></i>
+								</div>
+								<div class="dropdown-form">
+									<div class="dropdown-toggle-form" id="dropdownButton1">
+										<i class="fas fa-search" style="color: #dddddd"></i>
+									</div>
+									<div
+										class="dropdown-content-form rounded-3 dropdown-content-left"
+										id="dropdownContent1">
+										<input type="number" class="form-control mb-3 searchInput"
+											placeholder="Digite o nome do usuário" />
+										<button class="btn btn-sm col-12 btn-success searchButton">
+											Buscar</button>
+									</div>
 								</div>
 							</div>
 						</th>
@@ -195,12 +220,13 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								</div>
 							</div>
 						</th>
-						<th scope="col" class="sortable border-end" data-column="dtFim">
+						<th scope="col" class="sortable border-end" data-column="descricao">
 							<div
 								class="d-flex align-items-center justify-content-between pe-2">
 								<div
 									class="col d-flex align-items-center justify-content-between">
-									<span>Descrição</span>
+									<span>Descrição</span><i class="fas fa-sort me-3"
+										style="color: #dddddd"></i>
 								</div>
 							</div>
 						</th>
