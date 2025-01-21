@@ -6,10 +6,11 @@ var currentPage = 1;
 var pagesToShow = 5;
 const contaId = localStorage.getItem("contaId");
 
-$(document).ready(function() {
-	var anoEdit = document.getElementById("anoEdit");
-	var ano = document.getElementById("ano");
-	var anoAtual = new Date().getFullYear();
+$(document).ready(function () {
+	
+  var anoEdit = document.getElementById("anoEdit");
+  var ano = document.getElementById("ano");
+  var anoAtual = new Date().getFullYear();
 
 	var anosRetroativos = anoAtual - 2000;
 	var anosFuturos = 10;

@@ -37,7 +37,7 @@ $(document).ready(function() {
 
 	// Dropdown de Pesquisa
 	$('.dropdown-toggle-form').click(function() {
-		
+
 	});
 
 	$('.searchButton').click(function() {
@@ -63,7 +63,7 @@ $(document).ready(function() {
 			});
 		}
 
-		listarDados(filteredData);  $('input[data-toggle="toggle"]').bootstrapToggle();$('input[data-toggle="toggle"]').bootstrapToggle();
+		listarDados(filteredData); $('input[data-toggle="toggle"]').bootstrapToggle(); $('input[data-toggle="toggle"]').bootstrapToggle();
 
 		$(this).siblings('.searchInput').val('');
 		$(this).closest('.dropdown-content-form').removeClass('show');
@@ -96,7 +96,7 @@ $(document).ready(function() {
 			sortData(column, newOrder);
 		} else {
 			icon.addClass("fa-sort");
-			listarDados(dadosOriginais);  $('input[data-toggle="toggle"]').bootstrapToggle();$('input[data-toggle="toggle"]').bootstrapToggle();
+			listarDados(dadosOriginais); $('input[data-toggle="toggle"]').bootstrapToggle(); $('input[data-toggle="toggle"]').bootstrapToggle();
 		}
 
 		sortOrder[column] = newOrder;
@@ -139,14 +139,15 @@ $(document).ready(function() {
 			}
 
 		});
-		listarDados(dadosOrdenados); $('input[data-toggle="toggle"]').bootstrapToggle();$('input[data-toggle="toggle"]').bootstrapToggle();
+		listarDados(dadosOrdenados);
+		$('input[data-toggle="toggle"]').bootstrapToggle();
 	}
 
 
-	$('.checkbox-toggle').each(function() {
-		var status = $(this).data('status');
-		if (status !== 'S') {
-			$(this).prop('checked', false);
+	$(".checkbox-toggle").each(function() {
+		var status = $(this).data("status");
+		if (status !== "S") {
+			$(this).prop("checked", false);
 		}
 	});
 
@@ -173,7 +174,8 @@ $("#horaFim").on('blur', function() {
 })
 
 $('#limpa-filtros').click(function() {
-	listarDados(dadosOriginais);  $('input[data-toggle="toggle"]').bootstrapToggle();$('input[data-toggle="toggle"]').bootstrapToggle();
+	listarDados(dadosOriginais);
+	$('input[data-toggle="toggle"]').bootstrapToggle();
 	$('.searchInput').val('');
 });
 
@@ -188,7 +190,8 @@ function getDados() {
 		.done(function(data) {
 			dados = data
 			dadosOriginais = data;
-			listarDados(data);  $('input[data-toggle="toggle"]').bootstrapToggle();$('input[data-toggle="toggle"]').bootstrapToggle();
+			listarDados(data);
+			$('input[data-toggle="toggle"]').bootstrapToggle();
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
 			console.error("Erro na solicitação AJAX:", textStatus, errorThrown);
@@ -222,6 +225,8 @@ function listarDados(dados) {
 			? escola.nomeEscola
 			: "Escola não encontrada";
 
+		console.log(item)
+
 		return (
 			"<tr>" +
 			"<td>" +
@@ -246,7 +251,9 @@ function listarDados(dados) {
 			item.ativo +
 			'" data-id="' +
 			item.idEscolaHorarioFuncionamento +
-			' " onChange="alteraStatus(this)" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-on="Sim" data-off="Não" data-width="63" class="checkbox-toggle" data-size="sm">' +
+			' " onChange="alteraStatus(this)" ' +
+			(item.ativo === "S" ? "checked" : "") +
+			' data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-on="Sim" data-off="Não" data-width="63" class="checkbox-toggle" data-size="sm">' +
 			"</div></td>" +
 			'<td class="d-flex justify-content-center"><span style=" margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-warning btn-sm" data-idEscola="' +
 			item.escolaId +
@@ -267,7 +274,7 @@ function listarDados(dados) {
 		);
 	}).join("");
 
-	$("#cola-tabela").html(html); 
+	$("#cola-tabela").html(html);
 }
 
 function alteraStatus(element) {
@@ -396,7 +403,7 @@ function editar() {
 			Swal.fire({
 				title: "Editado com sucesso",
 				icon: "success",
-			}).then(()=>{
+			}).then(() => {
 				window.location.href = "escola-horario-funcionamento"
 			})
 		});
