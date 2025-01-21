@@ -1,7 +1,7 @@
 var dados = [];
 var sortOrder = {};
 var dadosOriginais = [];
-var rows = 12;
+var rows = 10;
 var currentPage = 1;
 var pagesToShow = 5;
 const contaId = localStorage.getItem("contaId");
@@ -30,7 +30,6 @@ $(document).ready(function () {
 		option.text = i;
 		anoEdit.appendChild(option);
 	}
-
 	getDados();
 
 	// Dropdown de Pesquisa
@@ -309,7 +308,9 @@ function alteraStatus(element) {
 				title: e.responseJSON.message,
 			});
 		},
-	})
+	}).then((data) => {
+		window.location.href = "periodo-letivo";
+	});
 }
 
 // Exportar Dados
@@ -351,8 +352,6 @@ function showModal(ref) {
 			});
 		},
 	}).done(function(data) {
-
-		console.log(data)
 		if (data.ativo == "S") {
 			$(".ativar").hide();
 			$(".desativar").show();

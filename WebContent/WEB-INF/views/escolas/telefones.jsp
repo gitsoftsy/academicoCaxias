@@ -174,7 +174,9 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 							</div>
 						</th>
 						<th class="text-center" scope="col" class="border-end pe-2 th-sem-filtro"
-							data-column="ativo" >Ações</th>
+							data-column="ativo" >Ativo</th>
+						<th class="text-center" scope="col" class="border-end pe-2 th-sem-filtro"
+							data-column="acoes" >Ações</th>
 					</tr>
 				</thead>
 				<tbody id="cola-tabela" class="table-group-divider"></tbody>

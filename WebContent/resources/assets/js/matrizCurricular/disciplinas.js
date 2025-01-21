@@ -2,7 +2,7 @@ var dados = [];
 var sortOrder = {};
 var dadosOriginais = [];
 var nomeAreaConhecimento = [];
-var rows = 12;
+var rows = 10;
 var currentPage = 1;
 var pagesToShow = 5;
 var escolas = [];
@@ -33,17 +33,13 @@ $(document).ready(function () {
       .siblings(".searchInput")
       .val()
       .toLowerCase()
-      .normalize("NFD") // Decompõe os caracteres acentuados
-      .replace(/[\u0300-\u036f]/g, ""); // Remove os sinais diacríticos (acentos)
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
 
     var columnToSearch = $(this).closest(".sortable").data("column");
 
-    console.log("Coluna a ser filtrada:", columnToSearch); // Verifica a coluna
-
     var filteredData = dadosOriginais.filter(function (item) {
-      // Verifica se a coluna existe no item
       if (columnToSearch === "conta") {
-        // Filtrando baseado na conta (subpropriedade)
         return (
           item.conta &&
           item.conta.conta &&
@@ -54,7 +50,6 @@ $(document).ready(function () {
             .includes(searchInput)
         );
       } else {
-        // Filtrando pelas outras propriedades principais
         return (
           item[columnToSearch] &&
           item[columnToSearch]
@@ -68,14 +63,10 @@ $(document).ready(function () {
     });
 
     dados = filteredData;
-    console.log("Dados filtrados:", filteredData); // Verifica os dados filtrados
 
-    listarDados(filteredData);
-    $('input[data-toggle="toggle"]').bootstrapToggle();
-
-    // Atualizando a paginação
-    updatePagination();
     showPage(1);
+    updatePagination();
+    $('input[data-toggle="toggle"]').bootstrapToggle();
 
     // Limpa o campo de pesquisa e fecha o dropdown
     $(this).siblings(".searchInput").val("");
@@ -109,10 +100,10 @@ $(document).ready(function () {
       sortData(column, newOrder);
     } else {
       icon.addClass("fa-sort");
-      listarDados(dadosOriginais);
-      $('input[data-toggle="toggle"]').bootstrapToggle();
-      updatePagination();
+      dados = dadosOriginais;
       showPage(1);
+      updatePagination();
+      $('input[data-toggle="toggle"]').bootstrapToggle();
     }
 
     sortOrder[column] = newOrder;
@@ -159,7 +150,9 @@ $(document).ready(function () {
         }
       }
     });
-    listarDados(dadosOrdenados);
+    dados = dadosOrdenados;
+    showPage(1);
+    updatePagination();
     $('input[data-toggle="toggle"]').bootstrapToggle();
   }
 

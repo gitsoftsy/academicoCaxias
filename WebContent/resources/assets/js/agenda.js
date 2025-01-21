@@ -158,7 +158,6 @@ $(document).ready(function () {
       );
     });
 
-  // Dropdown de Pesquisa
   $(".dropdown-toggle-form").click(function () {});
 
   $(".searchButton").click(function () {
@@ -208,26 +207,45 @@ $(document).ready(function () {
     } else if (columnToSearch == "dataAgenda") {
       filteredData = dadosOriginais.filter(function (item) {
         const dataAgenda = item.dataAgenda;
-        const horaInicioFormatada = formatarHoraParaAMPM(item.horaInicio);
-        const horaFimFormatada = formatarHoraParaAMPM(item.horaFim);
-        const realizada = item.realizada === "S" ? "Sim" : "Não";
-
-        // Dividir a string nos componentes ano, mês e dia
-        const [ano, mes, dia] = dataAgenda.split("-");
-        // Formatar a data no formato "dd/mm/aaaa"
-        const dataFormatada = `${dia}/${mes}/${ano}`;
-
-        return normalizeString(dataFormatada).includes(normalizedSearchInput);
+        return normalizeString(dataAgenda).includes(normalizedSearchInput);
       });
-    } else {
+    } else if (columnToSearch == "horaInicio") {
       filteredData = dadosOriginais.filter(function (item) {
-        return normalizeString(item[columnToSearch].toString()).includes(
+        return normalizeString(item.horaInicio).includes(normalizedSearchInput);
+      });
+    } else if (columnToSearch == "horaFim") {
+      filteredData = dadosOriginais.filter(function (item) {
+        return normalizeString(item.horaFim).includes(normalizedSearchInput);
+      });
+    } else if (columnToSearch == "tituloAula") {
+      filteredData = dadosOriginais.filter(function (item) {
+        return normalizeString(item.tituloAula).includes(normalizedSearchInput);
+      });
+    } else if (columnToSearch == "resumoAula") {
+      filteredData = dadosOriginais.filter(function (item) {
+        return normalizeString(item.resumoAula || "").includes(
           normalizedSearchInput
         );
       });
+    } else if (columnToSearch == "realizada") {
+      filteredData = dadosOriginais.filter(function (item) {
+        return normalizeString(item.realizada).includes(normalizedSearchInput);
+      });
+    } else if (columnToSearch == "ativo") {
+      filteredData = dadosOriginais.filter(function (item) {
+        return normalizeString(item.ativo).includes(normalizedSearchInput);
+      });
+    } else {
+      filteredData = dadosOriginais.filter(function (item) {
+        return normalizeString(
+          item[columnToSearch] ? item[columnToSearch].toString() : ""
+        ).includes(normalizedSearchInput);
+      });
     }
 
-    listarDados(filteredData);
+    dados = filteredData;
+    showPage(1);
+    updatePagination();
     $('input[data-toggle="toggle"]').bootstrapToggle();
 
     $(this).siblings(".searchInput").val("");
@@ -261,7 +279,9 @@ $(document).ready(function () {
       sortData(column, newOrder);
     } else {
       icon.addClass("fa-sort");
-      listarDados(dadosOriginais);
+      dados = dadosOriginais;
+      showPage(1);
+      updatePagination();
       $('input[data-toggle="toggle"]').bootstrapToggle();
     }
 
@@ -272,43 +292,102 @@ $(document).ready(function () {
     var dadosOrdenados = dadosOriginais.slice();
 
     dadosOrdenados.sort(function (a, b) {
-      if (column === "turmaId") {
-        var turmaA = turmas.find(function (school) {
-          return school.idTurma === a.turmaId;
-        });
-        var turmaB = turmas.find(function (school) {
-          return school.idTurma === b.turmaId;
-        });
-        var nomeTurmaA = turmaA ? turmaA.numTurma.toLowerCase() : "";
-        var nomeTurmaB = turmaB ? turmaB.numTurma.toLowerCase() : "";
-        if (order === "asc") {
-          return nomeTurmaA.localeCompare(nomeTurmaB);
-        } else {
-          return nomeTurmaB.localeCompare(nomeTurmaA);
-        }
-      } else if (column === "horaInicio" || column === "horaFim") {
-        var timeA = a[column]
-          .split(":")
-          .reduce((acc, val, i) => acc + val * Math.pow(60, -i), 0);
-        var timeB = b[column]
-          .split(":")
-          .reduce((acc, val, i) => acc + val * Math.pow(60, -i), 0);
-        if (order === "asc") {
-          return timeA - timeB;
-        } else {
-          return timeB - timeA;
-        }
-      } else {
-        var valueA = a[column].toString().toLowerCase();
-        var valueB = b[column].toString().toLowerCase();
-        if (order === "asc") {
-          return valueA.localeCompare(valueB);
-        } else {
-          return valueB.localeCompare(valueA);
-        }
+      // Verifica qual coluna está sendo ordenada
+      switch (column) {
+        case "nomeEscola":
+          var escolaA = a.turma.escola.nomeEscola.toLowerCase();
+          var escolaB = b.turma.escola.nomeEscola.toLowerCase();
+          return order === "asc"
+            ? escolaA.localeCompare(escolaB)
+            : escolaB.localeCompare(escolaA);
+
+        case "ano":
+          var anoA = a.turma.periodoLetivo.ano;
+          var anoB = b.turma.periodoLetivo.ano;
+          return order === "asc" ? anoA - anoB : anoB - anoA;
+
+        case "turno":
+          var turnoA = a.turma.turno.turno.toLowerCase();
+          var turnoB = b.turma.turno.turno.toLowerCase();
+          return order === "asc"
+            ? turnoA.localeCompare(turnoB)
+            : turnoB.localeCompare(turnoA);
+
+        case "nomeTurma":
+          var turmaA = a.turma.nomeTurma.toLowerCase();
+          var turmaB = b.turma.nomeTurma.toLowerCase();
+          return order === "asc"
+            ? turmaA.localeCompare(turmaB)
+            : turmaB.localeCompare(turmaA);
+
+        case "nomeDisciplina":
+          var disciplinaA =
+            a.turma.gradeCurricular.disciplina.nome.toLowerCase();
+          var disciplinaB =
+            b.turma.gradeCurricular.disciplina.nome.toLowerCase();
+          return order === "asc"
+            ? disciplinaA.localeCompare(disciplinaB)
+            : disciplinaB.localeCompare(disciplinaA);
+
+        case "dataAgenda":
+          var dataA = new Date(a.dataAgenda);
+          var dataB = new Date(b.dataAgenda);
+          return order === "asc" ? dataA - dataB : dataB - dataA;
+
+        case "horaInicio":
+          var horaA = a.horaInicio;
+          var horaB = b.horaInicio;
+          return order === "asc"
+            ? horaA.localeCompare(horaB)
+            : horaB.localeCompare(horaA);
+
+        case "horaFim":
+          var horaA = a.horaFim;
+          var horaB = b.horaFim;
+          return order === "asc"
+            ? horaA.localeCompare(horaB)
+            : horaB.localeCompare(horaA);
+
+        case "tituloAula":
+          var tituloA = a.tituloAula.toLowerCase();
+          var tituloB = b.tituloAula.toLowerCase();
+          return order === "asc"
+            ? tituloA.localeCompare(tituloB)
+            : tituloB.localeCompare(tituloA);
+
+        case "resumoAula":
+          var resumoA = a.resumoAula ? a.resumoAula.toLowerCase() : "";
+          var resumoB = b.resumoAula ? b.resumoAula.toLowerCase() : "";
+          return order === "asc"
+            ? resumoA.localeCompare(resumoB)
+            : resumoB.localeCompare(resumoA);
+
+        case "realizada":
+          var realizadaA = a.realizada.toLowerCase();
+          var realizadaB = b.realizada.toLowerCase();
+          return order === "asc"
+            ? realizadaA.localeCompare(realizadaB)
+            : realizadaB.localeCompare(realizadaA);
+
+        case "ativo":
+          var ativoA = a.ativo.toLowerCase();
+          var ativoB = b.ativo.toLowerCase();
+          return order === "asc"
+            ? ativoA.localeCompare(ativoB)
+            : ativoB.localeCompare(ativoA);
+
+        default:
+          var valueA = a[column] ? a[column].toString().toLowerCase() : "";
+          var valueB = b[column] ? b[column].toString().toLowerCase() : "";
+          return order === "asc"
+            ? valueA.localeCompare(valueB)
+            : valueB.localeCompare(valueA);
       }
     });
-    listarDados(dadosOrdenados);
+
+    dados = dadosOrdenados;
+    showPage(1);
+    updatePagination();
     $('input[data-toggle="toggle"]').bootstrapToggle();
   }
 
@@ -366,10 +445,8 @@ function listarDados(dados) {
       const horaInicioFormatada = formatarHoraParaAMPM(item.horaInicio);
       const horaFimFormatada = formatarHoraParaAMPM(item.horaFim);
       const realizada = item.realizada === "S" ? "Sim" : "Não";
-      // Dividir a string nos componentes ano, mês e dia
       const [ano, mes, dia] = dataAgenda.split("-");
 
-      // Formatar a data no formato "dd/mm/aaaa"
       const dataFormatada = `${dia}/${mes}/${ano}`;
 
       const tituloAulaArrumado =
@@ -383,7 +460,6 @@ function listarDados(dados) {
       if (idAgendaSelecionada == item.idAgenda) {
         colorBtn = "btn-primary";
       }
-      console.log(dataFormatada); // Saída: "01/01/2024"
 
       return (
         "<tr>" +

@@ -13,20 +13,18 @@ var dadosOriginais = [];
 
 $(document).ready(function () {
   $(".searchButton").click(function () {
-    var searchInput = $(this).siblings(".searchInput").val().toLowerCase();
-
-    function removeAccents(str) {
-      if (str == null) return ""; 
-      return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-    }
-
-    function cleanCPF(cpf) {
-      return cpf ? cpf.replace(/[^\d]/g, "") : ""; 
-    }
-
-    var cleanedSearchInput = cleanCPF(searchInput);
+    var searchInput = $(this)
+      .siblings(".searchInput")
+      .val()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
 
     var columnToSearch = $(this).closest(".sortable").data("column");
+
+    function cleanCPF(cpf) {
+      return cpf ? cpf.replace(/[^\d]/g, "") : "";
+    }
 
     var filteredData = dadosOriginais.filter(function (item) {
       item.matriculaPes = item.aluno;
@@ -37,28 +35,33 @@ $(document).ready(function () {
       item.turnoPes = item.turno.turno;
       item.emailPes = item.emailInterno;
       item.situacaoAlunoPes = item.situacaoAluno.situacaoAluno;
-      item.cpfPes = cleanCPF(item.pessoa.cpf); 
+      item.cpfPes = cleanCPF(item.pessoa.cpf);
 
       var valueToCheck = item[columnToSearch]
-        ? removeAccents(item[columnToSearch].toString()).toLowerCase()
+        ? item[columnToSearch]
+            .toString()
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
         : "";
 
-      var normalizedSearchInput =
-        removeAccents(cleanedSearchInput).toLowerCase();
-
       if (columnToSearch === "cpfPes") {
-        return valueToCheck.includes(normalizedSearchInput); 
+        valueToCheck = valueToCheck.replace(/[^\d]/g, "");
+        searchInput = searchInput.replace(/[^\d]/g, "");
       }
 
-      return valueToCheck.includes(normalizedSearchInput); 
+      return valueToCheck.includes(searchInput);
     });
 
-    listarDados(filteredData);
-    $('input[data-toggle="toggle"]').bootstrapToggle();
+    dados = filteredData;
+
+    showPage(1);
+    updatePagination();
     $('input[data-toggle="toggle"]').bootstrapToggle();
 
     $(this).siblings(".searchInput").val("");
     $(this).closest(".dropdown-content-form").removeClass("show");
+
     $(".checkbox-toggle").each(function () {
       var status = $(this).data("status");
       if (status !== "S") {
@@ -68,6 +71,122 @@ $(document).ready(function () {
 
     $('input[data-toggle="toggle"]').bootstrapToggle();
   });
+
+  $(document).on("click", ".sortable .col", function () {
+    var column = $(this).closest("th").data("column");
+    var currentOrder = sortOrder[column] || "vazio";
+    var newOrder;
+
+    if (currentOrder === "vazio") {
+      newOrder = "asc";
+    } else if (currentOrder === "asc") {
+      newOrder = "desc";
+    } else {
+      newOrder = "vazio";
+    }
+
+    $(".sortable span").removeClass("asc desc");
+    $(this).find("span").addClass(newOrder);
+
+    var icon = $(this).find("i");
+    icon.removeClass("fa-sort-up fa-sort-down fa-sort");
+
+    if (newOrder === "asc") {
+      icon.addClass("fa-sort-up");
+      sortData(column, newOrder);
+    } else if (newOrder === "desc") {
+      icon.addClass("fa-sort-down");
+      sortData(column, newOrder);
+    } else {
+      icon.addClass("fa-sort");
+      dados = dadosOriginais;
+      showPage(1);
+      updatePagination();
+      $('input[data-toggle="toggle"]').bootstrapToggle();
+      $('input[data-toggle="toggle"]').bootstrapToggle();
+    }
+
+    sortOrder[column] = newOrder;
+  });
+
+  function sortData(column, order) {
+    var dadosOrdenados = dadosOriginais.slice();
+
+    dadosOrdenados.sort(function (a, b) {
+      var valueA, valueB;
+
+      switch (column) {
+        case "matriculaPes":
+          valueA = a.aluno;
+          valueB = b.aluno;
+          break;
+        case "nomePes":
+          valueA = a.pessoa.nomeCompleto
+            ? a.pessoa.nomeCompleto.toString().toLowerCase()
+            : "";
+          valueB = b.pessoa.nomeCompleto
+            ? b.pessoa.nomeCompleto.toString().toLowerCase()
+            : "";
+          break;
+        case "cpfPes":
+          valueA = a.pessoa.cpf ? a.pessoa.cpf.toString().toLowerCase() : "";
+          valueB = b.pessoa.cpf ? b.pessoa.cpf.toString().toLowerCase() : "";
+          break;
+        case "cursoPes":
+          valueA =
+            a.curso && a.curso.nome
+              ? a.curso.nome.toString().toLowerCase()
+              : "";
+          valueB =
+            b.curso && b.curso.nome
+              ? b.curso.nome.toString().toLowerCase()
+              : "";
+          break;
+        case "seriePes":
+          valueA = a.serie ? a.serie.serie.toString().toLowerCase() : "";
+          valueB = b.serie ? b.serie.serie.toString().toLowerCase() : "";
+          break;
+        case "escolaPes":
+          valueA = a.escola ? a.escola.nomeEscola.toString().toLowerCase() : "";
+          valueB = b.escola ? b.escola.nomeEscola.toString().toLowerCase() : "";
+          break;
+        case "turnoPes":
+          valueA = a.turno ? a.turno.turno.toString().toLowerCase() : "";
+          valueB = b.turno ? b.turno.turno.toString().toLowerCase() : "";
+          break;
+        case "emailPes":
+          valueA = a.emailInterno
+            ? a.emailInterno.toString().toLowerCase()
+            : "";
+          valueB = b.emailInterno
+            ? b.emailInterno.toString().toLowerCase()
+            : "";
+          break;
+        case "situacaoAlunoPes":
+          valueA = a.situacaoAluno
+            ? a.situacaoAluno.situacaoAluno.toString().toLowerCase()
+            : "";
+          valueB = b.situacaoAluno
+            ? b.situacaoAluno.situacaoAluno.toString().toLowerCase()
+            : "";
+          break;
+        default:
+          valueA = "";
+          valueB = "";
+      }
+
+      if (order === "asc") {
+        return valueA.localeCompare(valueB);
+      } else {
+        return valueB.localeCompare(valueA);
+      }
+    });
+
+    dados = dadosOrdenados;
+    showPage(1);
+    updatePagination();
+    $('input[data-toggle="toggle"]').bootstrapToggle();
+  }
 
   getDados();
 
@@ -110,17 +229,13 @@ function getDados() {
 }
 
 $("#limpa-filtros").click(function () {
-  listarDados(dadosOriginais);
-  $('input[data-toggle="toggle"]').bootstrapToggle();
-  $('input[data-toggle="toggle"]').bootstrapToggle();
-  $(".searchInput").val("");
-  $(".checkbox-toggle").each(function () {
-    var status = $(this).data("status");
-    if (status !== "S") {
-      $(this).prop("checked", false);
-    }
-  });
+  currentPage = 1;
+  dados = [...dadosOriginais];
 
+  updatePagination();
+  showPage(currentPage);
+
+  $(".searchInput").val("");
   $('input[data-toggle="toggle"]').bootstrapToggle();
 });
 

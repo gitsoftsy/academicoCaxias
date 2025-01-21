@@ -182,11 +182,41 @@ $("#formNovoCadastro").submit(async function(e) {
 			});
 		}
 	}).done(function(data) {
-		Swal.fire({
-			title: "Cadastrado com sucesso",
-			icon: "success",
+		
+		
+		console.log(data)
+
+
+		let objeto = {
+			usuarioId: usuarioId,
+			contaPadraoAcessoId: contaPadraoAcessoId,
+			escolaId: data.idEscola,
+		};
+		
+				$.ajax({
+			url: url_base + "/usuarioContas",
+			type: "POST",
+			data: JSON.stringify(objeto),
+			contentType: "application/json; charset=utf-8",
+			error: function(e) {
+				Swal.close();
+				console.log(e);
+				Swal.fire({
+					icon: "error",
+					title: "Oops...",
+					text: "Não foi possível cadastar nesse momento!",
+				});
+			},
+		}).done(function(res) {
+
+			Swal.fire({
+				title: "Cadastrado com sucesso",
+				icon: "success",
+			});
+			window.location.href = "acessar-escolas";
 		});
-		window.location.href = "acessar-escolas";
+
+
 	});
 });
 

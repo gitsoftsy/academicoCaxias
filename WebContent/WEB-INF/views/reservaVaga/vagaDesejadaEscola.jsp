@@ -75,7 +75,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
       <img
         class="logo"
         style="width: 15%"
-        src="<%=contextPath%>/resources/assets/img/logoPrefeitura.png"
+        src="<%=contextPath%>/resources/assets/img/logo-sumare.png"
         alt="Logo Prefeitura Caxias do Sul"
       />
     </header>

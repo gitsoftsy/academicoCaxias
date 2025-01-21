@@ -1,7 +1,7 @@
 var dados = [];
 var sortOrder = {};
 var dadosOriginais = [];
-var rows = 12;
+var rows = 10;
 var currentPage = 1;
 var pagesToShow = 5;
 var escolas = [];
@@ -72,11 +72,9 @@ $(document).ready(function () {
       });
     }
 
-    currentPage = 1;
-    dados = [...filteredData];
-
+    dados = filteredData;
+    showPage(1);
     updatePagination();
-    showPage(currentPage);
 
     $('input[data-toggle="toggle"]').bootstrapToggle();
 
@@ -111,7 +109,9 @@ $(document).ready(function () {
       sortData(column, newOrder);
     } else {
       icon.addClass("fa-sort");
-      listarDados(dadosOriginais);
+      dados = dadosOriginais;
+      showPage(1);
+      updatePagination();
       $('input[data-toggle="toggle"]').bootstrapToggle();
     }
 
@@ -154,7 +154,9 @@ $(document).ready(function () {
         }
       }
     });
-    listarDados(dadosOrdenados);
+    dados = dadosOrdenados;
+    showPage(1);
+    updatePagination();
     $('input[data-toggle="toggle"]').bootstrapToggle();
   }
 

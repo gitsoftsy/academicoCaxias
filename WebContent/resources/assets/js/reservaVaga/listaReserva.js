@@ -17,7 +17,7 @@ let concurso = ""
 $(document).ready(function() {
 	$('#grid').hide()
 	$("#containerCadastros").hide();
-
+	getDados();
 
 	$.ajax({
 		url: url_base + "/concursos/conta/" + contaId,
@@ -231,7 +231,38 @@ function buscar() {
 }
 
 
-
+function getDados() {
+	$.ajax({
+		url: url_base + "/candidatos/listaReservaDeVagas?idUsuario=" + idUsuario,
+		type: "GET",
+		async: false,
+	})
+		.done(function(data) {
+			dados =
+				data != "Nenhum resultado encontrado para os parâmetros informados."
+					? data
+					: [];
+			dadosOriginais =
+				data != "Nenhum resultado encontrado para os parâmetros informados."
+					? data
+					: [];
+			console.log(
+				data != "Nenhum resultado encontrado para os parâmetros informados."
+					? data
+					: []
+			);
+			listarDados(
+				data != "Nenhum resultado encontrado para os parâmetros informados."
+					? data
+					: []
+			);
+			$('input[data-toggle="toggle"]').bootstrapToggle();
+			$('input[data-toggle="toggle"]').bootstrapToggle();
+		})
+		.fail(function(jqXHR, textStatus, errorThrown) {
+			console.error("Erro na solicitação AJAX:", textStatus, errorThrown);
+		});
+}
 
 function editar(candidato) {
 	var idCandidato = candidato.getAttribute("data-id");
@@ -248,7 +279,55 @@ function getTipoIngresso(idTipoIngresso) {
 	});
 }
 
+/*function listarDados(dados) {
+	// Converte a lista de dados em uma lista de promessas
+	var promessas = dados.map(function(item) {
+		return getTipoIngresso(item.idTipoIngresso).then(function(tipoIngresso) {
+			var escola = escolas.find(function(school) {
+				return school.idEscola === item.escolaId;
+			});
 
+			var status = item.aprovado == null ? "Aguardando" : "Aprovado"; // Você pode ajustar essa lógica conforme necessário
+
+			if (item.aprovado == null) {
+				status = "Aguardando"
+			} else if (item.aprovado == "N") {
+				status = "Reprovado"
+			} else {
+				status = "Aprovado"
+			}
+
+			var nomeEscola = escola ? escola.nomeEscola : "Escola não encontrada";
+
+			let escolaNome = item.nomeEscola ? item.nomeEscola : 'Não possui escola'
+			let turno = item.turno ? item.turno : 'Não possui turno'
+			let serie = item.serie ? item.serie : 'Não possui serie'
+
+			return (
+				"<tr>" +
+				"<td>" + item.candidato + "</td>" +
+				"<td>" + item.nomeCompleto + "</td>" +
+				"<td>" + escolaNome + "</td>" +
+				"<td>" + turno + "</td>" +
+				"<td>" + serie + "</td>" +
+				"<td>" + tipoIngresso + "</td>" +
+				"<td>" + status + "</td>" +
+				"</td>" +
+				'<td class="d-flex justify-content-center">' +
+				'<span style="width:50%; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-primary btn-sm" ' +
+				'data-id=' + item.idCandidato +
+				' onclick="showModal(this)"><i class="fa-solid fa-file-lines"></i></span>' +
+				'</td>' +
+				"</tr>"
+			);
+		});
+	});
+
+	// Aguarda todas as promessas serem resolvidas
+	Promise.all(promessas).then(function(linhas) {
+		$("#cola-tabela").html(linhas.join(""));
+	});
+}*/
 
 function listarDados(dados) {
 	console.log(dados);

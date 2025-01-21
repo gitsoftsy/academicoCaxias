@@ -1,4 +1,5 @@
 var dados = [];
+var dadosOriginais = [];
 var ufs = [];
 const contaId = localStorage.getItem("contaId");
 var nome = "";
@@ -13,39 +14,25 @@ let turnos = [];
 $(document).ready(function () {
   getDados();
 
-  $("#inputBusca").on("keyup", function () {
-    var valorBusca = $(this).val().toLowerCase();
-
-    if (valorBusca === "") {
-      busca();
-      $("#cola-tabela tr").show();
-    } else {
-      $("#cola-tabela tr")
-        .hide()
-        .filter(function () {
-          return $(this).text().toLowerCase().indexOf(valorBusca) > -1;
-        })
-        .show();
-    }
-  });
-
-  $("#inputBusca").on("input", function () {
-    var valorBusca = $(this).val().toLowerCase();
-    realizarBusca(valorBusca);
-  });
-
-  function realizarBusca(valorInput) {
-    if (valorInput === "") {
-      showPage(currentPage);
-    } else {
-      $("#cola-tabela tr")
-        .hide()
-        .filter(function () {
-          return $(this).text().toLowerCase().indexOf(valorInput) > -1;
-        })
-        .show();
-    }
-  }
+  $("#inputBusca").on("input", function() {
+		var valorBusca = $(this).val().toLowerCase();
+		if (valorBusca === '') {
+			dados = dadosOriginais
+			listarDados(dadosOriginais); // Exibe todos os dados
+			showPage(currentPage);
+			updatePagination();
+			$('input[data-toggle="toggle"]').bootstrapToggle();
+		} else {
+			var dadosFiltrados = dados.filter(item =>
+				item.turno.toLowerCase().includes(valorBusca)
+			);
+			dados = dadosFiltrados
+			listarDados(dados);
+			showPage(currentPage);
+			updatePagination();
+			$('input[data-toggle="toggle"]').bootstrapToggle();
+		}
+	});
 
   $(".checkbox-toggle").each(function () {
     var status = $(this).data("status");
@@ -66,8 +53,9 @@ function getDados() {
   })
     .done(function (data) {
       turnos = data;
+      dados = data
+      dadosOriginais = data
       listarDados(data);
-      $('input[data-toggle="toggle"]').bootstrapToggle();
       $('input[data-toggle="toggle"]').bootstrapToggle();
     })
     .fail(function (jqXHR, textStatus, errorThrown) {
@@ -76,7 +64,7 @@ function getDados() {
 }
 
 function listarDados(dados) {
-  var html = turnos
+  var html = dados
     .map(function (item) {
       var horaInicioFormatada = item.horaInicio.substring(0, 5);
       var horaFimFormatada = item.horaFim.substring(0, 5);

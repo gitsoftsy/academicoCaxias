@@ -105,7 +105,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 					</div>
 					<div class="col-md-6">
 						<label for="logoEscola" class="form-label">Logo:</label> <input
-							class="form-control "  type="file" id="logoEscola"
+							class="form-control " type="file" id="logoEscola"
 							name="logoEscola">
 					</div>
 				</div>
@@ -133,6 +133,18 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 						<label for="email" class="form-label">Email:<span
 							class="red">*</span></label> <input type="email" id="email" required
 							autocomplete="off" name="email" class="form-control " />
+					</div>
+
+
+					<div class="col-md-6">
+						<label for="tipoEscola" class="form-label">Tipo Escola:<span
+							class="red">*</span></label> <select class="form-select"
+							aria-label="Tipo Escola" id="tipoEscola" required
+							name="tipoEscola">
+							<option selected value='' disabled>Selecione o tipo</option>
+							<option value="PU">Pública</option>
+							<option value="PV">Privada</option>
+						</select>
 					</div>
 
 				</div>
@@ -279,20 +291,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 					</div>
 				</div>
  -->
-				<div class="row mb-3">
-
-
-					<div class="col-md-6">
-						<label for="tipoEscola" class="form-label">Tipo Escola:<span
-							class="red">*</span></label> <select class="form-select"
-							aria-label="Tipo Escola" id="tipoEscola" required
-							name="tipoEscola">
-							<option selected value='' disabled>Selecione o tipo</option>
-							<option value="PU">Pública</option>
-							<option value="PV">Privada</option>
-						</select>
-					</div>
-				</div>
+				
 
 				<!--
 					<div class="col-md-6" hidden>

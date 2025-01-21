@@ -15,6 +15,8 @@ $(document).ready(function() {
 		async: true,
 	})
 		.done(function(data) {
+			
+			console.log(data)
 
 			const ref = data
 			logo = ref.logoEscola
@@ -257,13 +259,6 @@ $("#formEditar").submit(function(e) {
 				usaEspacoEntornoEscolar: "N",
 				pppAtualizado12Meses: getAswer("#pppAtualizado12Meses"),
 				localizacaoId: Number($('#localizacaoId').val()),
-				dependenciaAdmId: 1/*Number($('#dependenciaAdmId').val())*/,
-				situacaoFuncionamentoId: 1 /*Number($('#situacaoFuncionamentoId').val())*/,
-				formaOcupacaoPredioId: 1 /*Number($('#formaOcupacaoPredioId').val())*/,
-				"zoneamentoId": 1/*Number($('#zoneamentoId').val())*/,
-				"categoriaEscolaPrivadaId": 1/* Number($('#categoriaEscolaPrivadaId').val())*/,
-				"entidadeSuperiorId": 1 /*Number($('#entidadeSuperiorId').val())*/,
-				"orgaoPublicoId": 1/*Number($('#orgaoPublicoId').val())*/,
 				contaId: Number(contaId)
 			};
 
@@ -296,13 +291,6 @@ $("#formEditar").submit(function(e) {
 			usaEspacoEntornoEscolar: "N",
 			pppAtualizado12Meses: getAswer("#pppAtualizado12Meses"),
 			localizacaoId: Number($('#localizacaoId').val()),
-			dependenciaAdmId: 1/*Number($('#dependenciaAdmId').val())*/,
-			situacaoFuncionamentoId: 1 /*Number($('#situacaoFuncionamentoId').val())*/,
-			formaOcupacaoPredioId: 1 /*Number($('#formaOcupacaoPredioId').val())*/,
-			"zoneamentoId": 1/*Number($('#zoneamentoId').val())*/,
-			"categoriaEscolaPrivadaId": 1/* Number($('#categoriaEscolaPrivadaId').val())*/,
-			"entidadeSuperiorId": 1 /*Number($('#entidadeSuperiorId').val())*/,
-			"orgaoPublicoId": 1/*Number($('#orgaoPublicoId').val())*/,
 			contaId: Number(contaId)
 		};
 

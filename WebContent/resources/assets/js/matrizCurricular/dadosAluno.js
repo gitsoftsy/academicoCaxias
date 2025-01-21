@@ -59,8 +59,8 @@ const listarDados = (dados) => {
     .map(function (item) {
       let nomeTurma;
 
-      if (item.tipo == "Matricula") {
-        nomeTurma = item.idTurma;
+      if (item.tipo == "Pré-Matricula") {
+        nomeTurma = item.nomeTurma;
       } else {
         nomeTurma = "(Sem turma)";
       }
@@ -68,7 +68,7 @@ const listarDados = (dados) => {
       return (
         "<tr>" +
         "<td>" +
-        nomeTurma +
+        (item.nomeTurma != '' ? item.nomeTurma : "(Sem Turma)" )+
         "</td>" +
         "<td>" +
         item.codigoDisciplina +
@@ -106,22 +106,22 @@ const getDadosAcademicos = () => {
 };
 
 const getDadosAluno = () => {
-	/*$.ajax({
-		url: url_base + "/nota/aluno/" + idAluno,
-		type: "GET",
-		async: false,
-		error: function(e) {
-			console.log(e);
-			Swal.fire({
-				icon: "error",
-				title: "Oops...",
-				text: "Não foi possível realizar esse comando!",
-			});
-		},
-	}).done(function(res) {
-		notas = res;
-		listarNotas(res);
-	});*/
+  $.ajax({
+    url: url_base + "/nota/aluno/" + idAluno,
+    type: "GET",
+    async: false,
+    error: function (e) {
+      console.log(e);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Não foi possível realizar esse comando!",
+      });
+    },
+  }).done(function (res) {
+    notas = res;
+    listarNotas(res);
+  });
 
   $.ajax({
     url: url_base + "/alunos/" + idAluno,
@@ -375,8 +375,8 @@ const getDadosAluno = () => {
   $("isEnderecoAluno").hide();
 };
 
-/*const listarNotas = (dados) => {
-	dados.sort((a, b) => a.ordem - b.ordem);
+const listarNotas = (dados) => {
+  dados.sort((a, b) => a.ordem - b.ordem);
 
   const formatarData = (data) => {
     if (!data) return "";
@@ -445,8 +445,8 @@ const getDadosAluno = () => {
     })
     .join("");
 
-	$("#cola-tabela-notas").html(html);
-};*/
+  $("#cola-tabela-notas").html(html);
+};
 var idNota = "";
 var notaSelecionada = [];
 

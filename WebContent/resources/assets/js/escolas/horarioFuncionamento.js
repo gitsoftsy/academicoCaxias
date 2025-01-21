@@ -459,8 +459,6 @@ function cadastrar() {
 			Swal.fire({
 				title: "Cadastrado com sucesso",
 				icon: "success",
-			}).then(()=>{
-				window.location.href = "coescola-horario-funcionamento"
 			})
 		});
 	return false;

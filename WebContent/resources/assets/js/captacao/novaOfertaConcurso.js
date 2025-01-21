@@ -7,9 +7,12 @@ $(document).ready(function () {
   $("select").select2();
 
   $.ajax({
-    url: url_base + "/concursos/conta/" + contaId,
+    url: url_base + `/concursos/ativos/conta/${contaId}`,
     type: "get",
     async: false,
+    error: function (e) {
+      console.log(e);
+    },
   }).done(function (data) {
     $.each(data, function (index, item) {
       $("#concursoId").append(
@@ -22,11 +25,13 @@ $(document).ready(function () {
     });
   });
 
-  // Carrega os cursos
   $.ajax({
-    url: url_base + "/cursos/conta/" + contaId,
+    url: url_base + "/cursos/ativos/conta/" + contaId,
     type: "get",
     async: false,
+    error: function (e) {
+      console.log(e);
+    },
   }).done(function (data) {
     $.each(data, function (index, item) {
       if (item.ativo == "S") {
@@ -41,9 +46,8 @@ $(document).ready(function () {
     });
   });
 
-  // Carrega as escolas
   $.ajax({
-    url: url_base + "/escolas/usuario/" + contaId + "/" + usuarioId,
+    url: url_base + "/escolas/ativos/conta/" + contaId,
     type: "get",
     async: false,
   }).done(function (data) {
@@ -59,7 +63,7 @@ $(document).ready(function () {
   });
 
   $.ajax({
-    url: url_base + "/turno/conta/" + contaId,
+    url: url_base + "/turno/ativos/conta/" + contaId,
     type: "get",
     async: false,
   }).done(function (data) {
@@ -75,7 +79,7 @@ $(document).ready(function () {
   });
 
   $.ajax({
-    url: url_base + "/serie",
+    url: url_base + "/serie/ativos/conta/" + contaId,
     type: "get",
     async: false,
   }).done(function (data) {
@@ -87,25 +91,6 @@ $(document).ready(function () {
           name: `${item.serie} - ${item.descricao}`,
         })
       );
-    });
-  });
-
-  // Carrega os cursos
-  $.ajax({
-    url: url_base + "/curriculo",
-    type: "get",
-    async: false,
-  }).done(function (data) {
-    $.each(data, function (index, item) {
-      if (item.ativo == "S") {
-        $("#curriculoId").append(
-          $("<option>", {
-            value: item.idCurriculo,
-            text: item.curriculo,
-            name: item.curriculo,
-          })
-        );
-      }
     });
   });
 
@@ -154,18 +139,20 @@ $(document).ready(function () {
       );
 
       $.ajax({
-        url: url_base + `/curriculo/curso/${data.cursoId}`,
+        url: url_base + `/curriculo/ativos/curso/${data.cursoId}/conta/${contaId}`,
         type: "get",
         async: false,
-      }).done(function (resp) {
-        $.each(resp, function (index, item) {
-          $("#curriculoId").append(
-            $("<option>", {
-              value: item.idCurriculo,
-              text: item.curriculo,
-              name: item.curriculo,
-            })
-          );
+      }).done(function (data) {
+        $.each(data, function (index, item) {
+          if (item.ativo == "S") {
+            $("#curriculoId").append(
+              $("<option>", {
+                value: item.idCurriculo,
+                text: item.curriculo,
+                name: item.curriculo,
+              })
+            );
+          }
         });
         $("#curriculoId").val(data.curriculoId);
       });
@@ -182,7 +169,7 @@ $("#cursoId").change(() => {
 
   let curso = $("#cursoId").val();
   $.ajax({
-    url: url_base + `/curriculo/curso/${curso}`,
+    url: url_base + `/curriculo/ativos/curso/${curso}/conta/${contaId}`,
     type: "get",
     async: false,
   }).done(function (data) {
@@ -211,7 +198,6 @@ function cadastrar() {
     minVagasAbertTurma: $("#vagasMin").val(),
   };
 
-  console.log(objeto);
 
   $.ajax({
     url: url_base + "/ofertasConcurso",
@@ -250,8 +236,6 @@ function editar() {
     vagas: $("#vagas").val(),
     minVagasAbertTurma: $("#vagasMin").val(),
   };
-
-  console.log(objeto);
 
   $.ajax({
     url: url_base + "/ofertasConcurso",
