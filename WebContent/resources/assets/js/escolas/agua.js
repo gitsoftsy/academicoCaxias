@@ -180,8 +180,7 @@ function atualizar() {
 		.done(function(data) {
 
 			getDados();
-			showPage(currentPage);
-			updatePagination();
+			
 			Swal.fire({
 				title: "Editado com sucesso",
 				icon: "success",
@@ -224,8 +223,7 @@ function cadastrar() {
 		}
 	})
 		.done(function(data) {
-			showPage(currentPage);
-			updatePagination();
+			
 			Swal.fire({
 				title: "Cadastrado com sucesso",
 				icon: "success",
