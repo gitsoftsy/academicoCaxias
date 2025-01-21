@@ -30,36 +30,6 @@ $(document).ready(function() {
 		anoEdit.appendChild(option);
 	}
 
-	/*$.ajax({
-		  url: url_base + "/dependenciaAdministrativa",
-		  type: "GET",
-		  async: false,
-	  })
-		  .done(function(data) {
-			  dependencias = data;
-			  $.each(data, function(index, item) {
-				  $("#dependenciaAdmIdEdit").append(
-					  $("<option>", {
-						  value: item.idDependenciaAdministrativa,
-						  text: item.dependenciaAdministrativa,
-						  name: item.dependenciaAdministrativa,
-					  })
-				  );
-			  });
-			  $.each(data, function(index, item) {
-				  $("#dependenciaAdmId").append(
-					  $("<option>", {
-						  value: item.idDependenciaAdministrativa,
-						  text: item.dependenciaAdministrativa,
-						  name: item.dependenciaAdministrativa,
-					  })
-				  );
-			  });
-		  })
-		  .fail(function(jqXHR, textStatus, errorThrown) {
-			  console.error("Erro na solicitação AJAX:", jqXHR);
-		  });*/
-
 	getDados();
 
 	// Dropdown de Pesquisa
