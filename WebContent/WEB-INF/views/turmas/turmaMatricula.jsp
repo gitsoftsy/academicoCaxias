@@ -89,7 +89,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
         <div class="card">
           <div class="card-body title">
             <i class="fa-solid fa-bars-staggered fa-lg"></i>
-            <span>Turmas Matricula</span>
+            <span>Alunos da Turma</span>
           </div>
         </div>
       </section>
@@ -385,7 +385,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
                   </div>
                 </div>
               </th>
-              <th scope="col" class="border-end pe-2 th-sem-filtro">Ações</th>
+              <!-- <th scope="col" class="border-end pe-2 th-sem-filtro">Ações</th> -->
             </tr>
           </thead>
           <tbody id="cola-tabela" class="table-group-divider"></tbody>
