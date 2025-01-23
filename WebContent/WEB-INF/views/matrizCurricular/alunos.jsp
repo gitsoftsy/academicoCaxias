@@ -173,7 +173,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
           </h2>
         </div>
 
-        <div id="tableAlunos" hidden>
+        <div id="tableAlunos">
           <div
             class="mt-3 mb-3"
             style="display: flex; align-items: center; justify-content: end"

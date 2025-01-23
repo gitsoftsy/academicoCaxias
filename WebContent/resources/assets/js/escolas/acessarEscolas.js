@@ -220,15 +220,13 @@ function alteraStatus(element) {
 							'<p style="text-align: left;">- Turmas: <a href="turma">Desativar turmas</a></p>';
 					}
 
-					element.checked = true;
-					element.setAttribute("data-status", "S");
-					$(element).closest("td").find(".checkbox-toggle").bootstrapToggle("on");
-
 					Swal.fire({
 						icon: "error",
 						title: "Alteração não Permitida",
 						html: modalContent,
 					});
+
+					getDados()
 				} else {
 					desativarEscola(element);
 				}
