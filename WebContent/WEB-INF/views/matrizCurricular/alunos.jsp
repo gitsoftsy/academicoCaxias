@@ -28,6 +28,12 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
       crossorigin="anonymous"
     ></script>
 
+    <!-- Select 2 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+      rel="stylesheet"
+    />
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -135,14 +141,14 @@ https://kit.fontawesome.com/3ce21ff22c.js"
           <div class="col-md-4 mb-3">
             <label for="escola" class="form-label">Escola</label>
             <select id="escola" class="form-select">
-              <option value="">Selecione uma escola</option>
+              <option value="" selected disabled>Selecione uma escola</option>
             </select>
           </div>
 
           <div class="col-md-4 mb-3">
             <label for="curso" class="form-label">Curso</label>
             <select id="curso" class="form-select">
-              <option value="">Selecione um curso</option>
+              <option value="" selected disabled>Selecione um curso</option>
             </select>
           </div>
 
@@ -588,6 +594,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
       charset="UTF-8"
       src="<%=contextPath%>/resources/assets/js/matrizCurricular/alunos.js"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script
       charset="UTF-8"
       src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"

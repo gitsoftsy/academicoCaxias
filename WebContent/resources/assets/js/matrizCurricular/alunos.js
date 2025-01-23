@@ -13,6 +13,7 @@ var dadosOriginais = [];
 
 $(document).ready(function () {
   $("#tableAlunos").hide();
+  $("select").select2();
 
   $(".searchButton").click(function () {
     var searchInput = $(this)
@@ -233,6 +234,8 @@ $(document).ready(function () {
       $(this).prop("checked", false);
     }
   });
+
+  $("select").select2();
 });
 
 $("#btn-buscar").on("click", function () {
@@ -270,7 +273,6 @@ $("#btn-buscar").on("click", function () {
   }
 
   const filtros = {
-    idConta: contaId,
     matricula: matricula || "",
     nome: nome || "",
     cpf: cpf || "",
@@ -285,9 +287,10 @@ $("#btn-buscar").on("click", function () {
 
 function getDados(filtros) {
   $.ajax({
-    url: url_base + "/api-educacional/alunos/busca",
-    type: "POST",
-    data: filtros,
+    url:
+      url_base +
+      `/alunos?idConta=${contaId}&matricula=${filtros.matricula}&nome=${filtros.nome}&cpf=${filtros.cpf}&idEscola=${filtros.idEscola}&idCurso=${filtros.idCurso}`,
+    type: "GET",
     async: false,
   })
     .done(function (data) {
@@ -316,7 +319,7 @@ function getDados(filtros) {
         title: "Erro na solicitação",
         text: errorThrown || "Não foi possível buscar os dados.",
       });
-      console.error("Erro na solicitação AJAX:", textStatus, errorThrown);
+      console.error("Erro na solicitação AJAX:", jqXHR);
     });
 }
 

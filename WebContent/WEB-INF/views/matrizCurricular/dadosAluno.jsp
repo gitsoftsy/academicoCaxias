@@ -175,7 +175,19 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
               aria-controls="nav-notas"
               aria-selected="false"
             >
-              Notas e Faltas
+              Notas
+            </button>
+            <button
+              class="nav-link"
+              id="nav-faltas-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#nav-faltas"
+              type="button"
+              role="tab"
+              aria-controls="nav-faltas"
+              aria-selected="false"
+            >
+              Faltas
             </button>
           </div>
         </nav>
@@ -991,7 +1003,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
             tabindex="0"
           >
             <div class="d-flex align-items-center justify-content-between">
-              <h2 id="tituloDados" class="mb-3">Notas e Faltas</h2>
+              <h2 id="tituloDados" class="mb-3">Notas</h2>
             </div>
             <div class="container-table">
               <table
