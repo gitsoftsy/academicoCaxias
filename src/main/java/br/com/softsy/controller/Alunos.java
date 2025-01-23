@@ -18,4 +18,17 @@ public class Alunos {
 		
 		return "alunos/preMatricula";
 	}
+	
+	
+	@RequestMapping(value = { "nova-pre-matricula" }, method = RequestMethod.GET)
+	public String preMatriculaCadastro(HttpSession session, Model model) throws Exception {
+		
+		return "matrizCurricular/preMatricula";
+	}
+	
+	@RequestMapping(value = { "matricular-disciplina" }, method = RequestMethod.GET)
+	public String matricularDisciplina(HttpSession session, Model model) throws Exception {
+		
+		return "matrizCurricular/matricularDisciplina";
+	}
 }
