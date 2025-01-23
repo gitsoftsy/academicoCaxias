@@ -44,6 +44,11 @@ String contextPath = request.getContextPath();
 	src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script charset="UTF-8" src="sweetalert2.all.min.js"></script>
 
+<!-- Select 2 -->
+<link
+	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+	rel="stylesheet" />
+
 <!-- CSS -->
 
 <!-- Google Fonts -->
@@ -131,6 +136,61 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 				<h2 id="textoInicial">Use os filtros acima para encontrar o
 					aluno desejado.</h2>
 			</div>
+			<div id="tableAlunos">
+				<div class="mt-3 mb-3"
+					style="display: flex; align-items: center; justify-content: end">
+					<div class="d-flex align-items-center gap-2">
+						<button id="limpa-filtros" class="btn btn-sm btn-danger">
+							Limpar Filtros</button>
+					</div>
+				</div>
+				<table
+					class="table tabela-atos table-striped table-bordered mb-0 caption-top mx-auto">
+					<caption>Itens Cadastrados</caption>
+					<thead>
+						<tr>
+							<th class='text-center th-sem-filtro border-end' scope="col"
+								width="10%">Acessar</th>
+							<th scope="col" class="sortable border-end"
+								data-column="matriculaPes">Matricula</th>
+							<th scope="col" class="sortable border-end" data-column="nomePes">
+								<div
+									class="d-flex align-items-center justify-content-between pe-2">
+									<div
+										class="col d-flex align-items-center justify-content-between">
+										<span>Nome</span> <i class="fas fa-sort me-2 ms-2"
+											style="color: #dddddd"></i>
+									</div>
+								</div>
+							</th>
+							<th scope="col" class="sortable border-end" data-column="cpfPes">CPF</th>
+							<th scope="col" class="sortable border-end"
+								data-column="cursoPes">Curso</th>
+							<th scope="col" class="sortable border-end"
+								data-column="seriePes">Série</th>
+							<th scope="col" class="sortable border-end"
+								data-column="escolaPes">Escola</th>
+							<th scope="col" class="sortable border-end"
+								data-column="turnoPes">Turno</th>
+							<th scope="col" class="sortable border-end"
+								data-column="emailPes">Email Estudantil</th>
+							<th scope="col" class="sortable border-end"
+								data-column="situacaoAlunoPes">Situação Aluno</th>
+						</tr>
+					</thead>
+					<tbody id="cola-tabela" class="table-group-divider"></tbody>
+				</table>
+				<div id="pagination" class="mx-auto mt-auto">
+					<button id="prev" class="btn btn-sm">
+						<i class="fa-solid fa-angle-left fa-xl"></i>
+					</button>
+					<div id="page-numbers" class="btn-group mt-2"></div>
+					<button id="next" class="btn btn-sm">
+						<i class="fa-solid fa-angle-right fa-xl"></i>
+					</button>
+				</div>
+			</div>
+
 		</section>
 	</main>
 
@@ -152,6 +212,8 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 		src="<%=contextPath%>/resources/assets/js/comum.js"></script>
 	<script charset="UTF-8"
 		src="<%=contextPath%>/resources/assets/js/alunos/preMatricula.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	<script charset="UTF-8"
 		src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 </body>

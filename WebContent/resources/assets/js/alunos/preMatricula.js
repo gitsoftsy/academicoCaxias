@@ -12,6 +12,8 @@ var sortOrder = {};
 var dadosOriginais = [];
 
 $(document).ready(function() {
+	$("#tableAlunos").hide();
+	$("select").select2();
 
 	$.ajax({
 		url: url_base + "/escolas/ativos/conta/" + contaId,
@@ -50,12 +52,132 @@ $(document).ready(function() {
 		});
 	});
 
+	function sortData(column, order) {
+		var dadosOrdenados = dadosOriginais.slice();
+
+		dadosOrdenados.sort(function(a, b) {
+			var valueA, valueB;
+
+			switch (column) {
+				case "matriculaPes":
+					valueA = a.aluno;
+					valueB = b.aluno;
+					break;
+				case "nomePes":
+					valueA = a.pessoa.nomeCompleto
+						? a.pessoa.nomeCompleto.toString().toLowerCase()
+						: "";
+					valueB = b.pessoa.nomeCompleto
+						? b.pessoa.nomeCompleto.toString().toLowerCase()
+						: "";
+					break;
+				case "cpfPes":
+					valueA = a.pessoa.cpf ? a.pessoa.cpf.toString().toLowerCase() : "";
+					valueB = b.pessoa.cpf ? b.pessoa.cpf.toString().toLowerCase() : "";
+					break;
+				case "cursoPes":
+					valueA =
+						a.curso && a.curso.nome
+							? a.curso.nome.toString().toLowerCase()
+							: "";
+					valueB =
+						b.curso && b.curso.nome
+							? b.curso.nome.toString().toLowerCase()
+							: "";
+					break;
+				case "seriePes":
+					valueA = a.serie ? a.serie.serie.toString().toLowerCase() : "";
+					valueB = b.serie ? b.serie.serie.toString().toLowerCase() : "";
+					break;
+				case "escolaPes":
+					valueA = a.escola ? a.escola.nomeEscola.toString().toLowerCase() : "";
+					valueB = b.escola ? b.escola.nomeEscola.toString().toLowerCase() : "";
+					break;
+				case "turnoPes":
+					valueA = a.turno ? a.turno.turno.toString().toLowerCase() : "";
+					valueB = b.turno ? b.turno.turno.toString().toLowerCase() : "";
+					break;
+				case "emailPes":
+					valueA = a.emailInterno
+						? a.emailInterno.toString().toLowerCase()
+						: "";
+					valueB = b.emailInterno
+						? b.emailInterno.toString().toLowerCase()
+						: "";
+					break;
+				case "situacaoAlunoPes":
+					valueA = a.situacaoAluno
+						? a.situacaoAluno.situacaoAluno.toString().toLowerCase()
+						: "";
+					valueB = b.situacaoAluno
+						? b.situacaoAluno.situacaoAluno.toString().toLowerCase()
+						: "";
+					break;
+				default:
+					valueA = "";
+					valueB = "";
+			}
+
+			if (order === "asc") {
+				return valueA.localeCompare(valueB);
+			} else {
+				return valueB.localeCompare(valueA);
+			}
+		});
+
+		dados = dadosOrdenados;
+		showPage(1);
+		updatePagination();
+		$('input[data-toggle="toggle"]').bootstrapToggle();
+	}
+
+	$(document).on("click", ".sortable .col", function() {
+		var column = $(this).closest("th").data("column");
+		var currentOrder = sortOrder[column] || "vazio";
+		var newOrder;
+
+		if (currentOrder === "vazio") {
+			newOrder = "asc";
+		} else if (currentOrder === "asc") {
+			newOrder = "desc";
+		} else {
+			newOrder = "vazio";
+		}
+
+		$(".sortable span").removeClass("asc desc");
+		$(this).find("span").addClass(newOrder);
+
+		var icon = $(this).find("i");
+		icon.removeClass("fa-sort-up fa-sort-down fa-sort");
+
+		if (newOrder === "asc") {
+			icon.addClass("fa-sort-up");
+			sortData(column, newOrder);
+		} else if (newOrder === "desc") {
+			icon.addClass("fa-sort-down");
+			sortData(column, newOrder);
+		} else {
+			icon.addClass("fa-sort");
+			dados = dadosOriginais;
+			showPage(1);
+			updatePagination();
+			$('input[data-toggle="toggle"]').bootstrapToggle();
+			$('input[data-toggle="toggle"]').bootstrapToggle();
+		}
+
+		sortOrder[column] = newOrder;
+	});
+
+
 	$(".checkbox-toggle").each(function() {
 		var status = $(this).data("status");
 		if (status !== "S") {
 			$(this).prop("checked", false);
 		}
 	});
+
+	$("select").select2();
+
 });
 
 $("#btn-buscar").on("click", function() {
@@ -107,9 +229,16 @@ $("#btn-buscar").on("click", function() {
 });
 
 function getDados(filtros) {
+	/*const query = `/alunos?${filtros.matricula != "" ? 'matricula=' + filtros.matricula + '&' : ''}` +
+		`${filtros.nome != "" ? 'nome=' + filtros.nome + '&' : ''}` +
+		`${filtros.cpf != "" ? 'cpf=' + filtros.cpf + '&' : ''}` +
+		`${filtros.idCurso != "" ? 'idCurso=' + filtros.idCurso + '&' : ''}` +
+		`${filtros.idConta != "" ? 'idConta=' + filtros.idConta + '&' : ''}` +
+		`${filtros.idEscola != "" ? 'idEscola=' + filtros.idEscola + '&' : ''}`*/
+
 	$.ajax({
-		url: url_base + `/api-educacional/alunos/busca?idConta=${filtros.idConta}&nome=${filtros.nome}&cpf=${filtros.cpf}&matricula=${filtros.matricula}&idCurso=${filtros.idCurso}&idEscola=${filtros.idEscola}`,
-		type: "POST",
+		url: url_base + `/alunos?matricula=${filtros.matricula}&nome=${filtros.nome}&cpf=${filtros.cpf}&idCurso=${filtros.idCurso}&idConta=${filtros.idConta}&idEscola=${filtros.idEscola}`,
+		type: "GET",
 		data: filtros,
 		error: function(e) {
 			Swal.close();
@@ -123,7 +252,9 @@ function getDados(filtros) {
 		async: false,
 	})
 		.done(function(data) {
+			console.log(data)
 			if (data && data.length > 0) {
+				console.log("Entrou")
 				dadosOriginais = data;
 				dados = data;
 				listarDados(data);
@@ -158,16 +289,6 @@ $("#limpa-filtros").click(function() {
 function listarDados(dados) {
 	var html = dados
 		.map(function(item) {
-			// var ativo;
-
-			// if (item.ativo == "N") {
-			//   ativo =
-			//     '<i  style="color:#ff1f00" class="fa-solid iconeTabela fa-circle-xmark"></i> Não';
-			// } else {
-			//   ativo =
-			//     "<i style='color:#2eaa3a' class='fa-solid iconeTabela fa-circle-check'></i> Sim";
-			// }
-
 			const cpf =
 				item.pessoa.cpf == null
 					? "Não possui"
@@ -178,6 +299,13 @@ function listarDados(dados) {
 
 			return (
 				"<tr>" +
+				`<tr>
+				    <td class="d-flex justify-content-center">
+				      <span class="btn btn-warning btn-sm" data-id="${item.idEscola
+				}" data-nome="${item.nomeEscola}" data-logo="${item.logoEscola}" onclick="acessar(this)" style="margin: 5%;" >
+				     <i class="fa-solid fa-right-to-bracket fa-lg"></i>
+				      </span>
+				</td>`+
 				"<td>" +
 				item.aluno +
 				"</td>" +
@@ -205,19 +333,6 @@ function listarDados(dados) {
 				"<td>" +
 				item.situacaoAluno.situacaoAluno +
 				"</td>" +
-				'<td class="d-flex justify-content-center">' +
-				'<span style="width:50%; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-primary btn-sm" ' +
-				"data-id=" +
-				item.idAluno +
-				' onclick="showModal(this)"><i class="fa-solid fa-file-lines "></i></span>' +
-				'<span style="width:50%; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-primary btn-sm" ' +
-				"data-id=" +
-				item.idAluno +
-				' onclick="verAvisosAluno(this)"><i class="fa-solid fa-bell"></i></span>' +
-				/*			'<span style="width: 63px; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-warning btn-sm" data-id="' +
-								item.idAluno +
-								'" onclick="showModal(this)"><i class="fa-solid fa-pen fa-lg"></i></span>' +*/
-				"</td>" +
 				"</tr>"
 			);
 		})
@@ -226,6 +341,10 @@ function listarDados(dados) {
 	$("#tableAlunos").show();
 	$("#textoInicial").hide();
 	$("#cola-tabela").html(html);
+}
+
+const acessar = () => {
+	window.location.href = "pre-matricula-disciplina?id=" + id;
 }
 
 function alteraStatus(element) {
