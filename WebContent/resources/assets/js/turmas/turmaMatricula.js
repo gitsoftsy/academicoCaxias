@@ -189,7 +189,7 @@ function getDados() {
       console.error("Erro na solicitação AJAX:", textStatus, errorThrown);
     });
   $.ajax({
-    url: url_base + "/prematricula/turma/" + turmaId,
+    url: url_base + "/turma/alunos?idTurma=" + turmaId,
     type: "GET",
     async: false,
   })
@@ -198,9 +198,9 @@ function getDados() {
         data.message !=
         "Nenhum resultado encontrado para os parâmetros informados."
       ) {
-        dados = data;
-        dadosOriginais = data;
-        listarDados(data);
+        dados = data.data;
+        dadosOriginais = data.data;
+        listarDados(data.data);
         $('input[data-toggle="toggle"]').bootstrapToggle();
       } else {
         Swal.fire({
@@ -224,11 +224,18 @@ function listarDados(dados) {
     .map(function (item) {
       return (
         "<tr>" +
-        "<td>" +
-        item.matriculaAluno +
+        "<td style='cursor: pointer;'>" +
+        '<a href="consulta-aluno?id=' +
+        item.idAluno +
+        '" style="text-decoration: underline;">' +
+        item.aluno +
+        "</a>" +
         "</td>" +
         "<td>" +
         item.nomeCompleto +
+        "</td>" +
+        "<td>" +
+        item.nomeCurso +
         "</td>" +
         "<td>" +
         item.situacaoAluno +
@@ -236,18 +243,26 @@ function listarDados(dados) {
         "<td>" +
         item.tipoIngresso +
         "</td>" +
-        '<td class="d-flex justify-content-center">' +
-        '<span style="width:50%; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-primary btn-sm" ' +
-        "data-id=" +
-        item.idAluno +
-        ' onclick="showModal(this)"><i class="fa-solid fa-file-lines "></i></span>' +
-        " </td>" +
+        "<td>" +
+        item.tipoMatricula +
+        "</td>" +
+        // '<td class="d-flex justify-content-center">' +
+        // '<span style="width:50%; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-primary btn-sm" ' +
+        // "data-id=" +
+        // item.idAluno +
+        // ' onclick="showModal(this)"><i class="fa-solid fa-gear"></i></span>' +
+        // " </td>" +
         "</tr>"
       );
     })
     .join("");
 
   $("#cola-tabela").html(html);
+}
+
+function showModal(ref) {
+  id = ref.getAttribute("data-id");
+  window.location.href = "consulta-aluno?id=" + id;
 }
 
 // Exportar Dados
@@ -265,9 +280,3 @@ $("#btnMatricular").click(function () {
   window.location.href = "matricula?turma=" + turmaId;
 });
 
-// Editar
-
-function showModal(ref) {
-  id = ref.getAttribute("data-id");
-  window.location.href = "consulta-aluno?id=" + id;
-}

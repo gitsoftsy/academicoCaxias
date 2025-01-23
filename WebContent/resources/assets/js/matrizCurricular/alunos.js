@@ -12,6 +12,9 @@ var sortOrder = {};
 var dadosOriginais = [];
 
 $(document).ready(function () {
+  $("#tableAlunos").hide();
+  $("select").select2();
+
   $(".searchButton").click(function () {
     var searchInput = $(this)
       .siblings(".searchInput")
@@ -109,6 +112,43 @@ $(document).ready(function () {
     sortOrder[column] = newOrder;
   });
 
+  $.ajax({
+    url: url_base + "/escolas/ativos/conta/" + contaId,
+    type: "get",
+    async: false,
+  }).done(function (data) {
+    $.each(data, function (index, item) {
+      $("#escola").append(
+        $("<option>", {
+          value: item.idEscola,
+          text: item.nomeEscola,
+          name: item.nomeEscola,
+        })
+      );
+    });
+  });
+
+  $.ajax({
+    url: url_base + "/cursos/ativos/conta/" + contaId,
+    type: "get",
+    async: false,
+    error: function (e) {
+      console.log(e);
+    },
+  }).done(function (data) {
+    $.each(data, function (index, item) {
+      if (item.ativo == "S") {
+        $("#curso").append(
+          $("<option>", {
+            value: item.idCurso,
+            text: `${item.nome} - ${item.codCurso}`,
+            name: item.nome,
+          })
+        );
+      }
+    });
+  });
+
   function sortData(column, order) {
     var dadosOrdenados = dadosOriginais.slice();
 
@@ -188,43 +228,98 @@ $(document).ready(function () {
     $('input[data-toggle="toggle"]').bootstrapToggle();
   }
 
-  getDados();
-
-  showPage(currentPage);
-  updatePagination();
-
   $(".checkbox-toggle").each(function () {
     var status = $(this).data("status");
     if (status !== "S") {
       $(this).prop("checked", false);
     }
   });
+
+  $("select").select2();
 });
 
-function getDados() {
+$("#btn-buscar").on("click", function () {
+  const matricula = $("#matricula").val();
+  const nome = $("#nome").val();
+  const cpf = $("#cpf").val();
+  const escola = $("#escola").val();
+  const curso = $("#curso").val();
+
+  if (!matricula && !nome && !cpf && !escola && !curso) {
+    Swal.fire({
+      icon: "error",
+      title: "Preencha ao menos um filtro",
+      text: "Por favor, informe ao menos um filtro para realizar a busca.",
+    });
+    return;
+  }
+
+  if (nome && nome.length < 3) {
+    Swal.fire({
+      icon: "error",
+      title: "Nome inválido",
+      text: "O campo Nome precisa ter pelo menos 3 caracteres.",
+    });
+    return;
+  }
+
+  if (cpf && cpf.length < 3) {
+    Swal.fire({
+      icon: "error",
+      title: "CPF inválido",
+      text: "O campo CPF precisa ter pelo menos 3 caracteres.",
+    });
+    return;
+  }
+
+  const filtros = {
+    matricula: matricula || "",
+    nome: nome || "",
+    cpf: cpf || "",
+    idEscola: escola || "",
+    idCurso: curso || "",
+  };
+
+  getDados(filtros);
+  showPage(currentPage);
+  updatePagination();
+});
+
+function getDados(filtros) {
   $.ajax({
-    url: url_base + "/alunos",
+    url:
+      url_base +
+      `/alunos?idConta=${contaId}&matricula=${filtros.matricula}&nome=${filtros.nome}&cpf=${filtros.cpf}&idEscola=${filtros.idEscola}&idCurso=${filtros.idCurso}`,
     type: "GET",
     async: false,
   })
     .done(function (data) {
-      dadosOriginais = data;
-      dados = data;
-      listarDados(data);
-      $('input[data-toggle="toggle"]').bootstrapToggle();
-      $('input[data-toggle="toggle"]').bootstrapToggle();
-      $(".searchInput").val("");
-      $(".checkbox-toggle").each(function () {
-        var status = $(this).data("status");
-        if (status !== "S") {
-          $(this).prop("checked", false);
-        }
-      });
-
-      $('input[data-toggle="toggle"]').bootstrapToggle();
+      if (data && data.length > 0) {
+        dadosOriginais = data;
+        dados = data;
+        listarDados(data);
+        $(".checkbox-toggle").each(function () {
+          var status = $(this).data("status");
+          if (status !== "S") {
+            $(this).prop("checked", false);
+          }
+        });
+        $('input[data-toggle="toggle"]').bootstrapToggle();
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Não foram encontrados dados para os filtros informados.",
+          text: "Verifique os valores e tente novamente.",
+        });
+      }
     })
     .fail(function (jqXHR, textStatus, errorThrown) {
-      console.error("Erro na solicitação AJAX:", textStatus, errorThrown);
+      Swal.fire({
+        icon: "error",
+        title: "Erro na solicitação",
+        text: errorThrown || "Não foi possível buscar os dados.",
+      });
+      console.error("Erro na solicitação AJAX:", jqXHR);
     });
 }
 
@@ -242,15 +337,15 @@ $("#limpa-filtros").click(function () {
 function listarDados(dados) {
   var html = dados
     .map(function (item) {
-      var ativo;
+      // var ativo;
 
-      if (item.ativo == "N") {
-        ativo =
-          '<i  style="color:#ff1f00" class="fa-solid iconeTabela fa-circle-xmark"></i> Não';
-      } else {
-        ativo =
-          "<i style='color:#2eaa3a' class='fa-solid iconeTabela fa-circle-check'></i> Sim";
-      }
+      // if (item.ativo == "N") {
+      //   ativo =
+      //     '<i  style="color:#ff1f00" class="fa-solid iconeTabela fa-circle-xmark"></i> Não';
+      // } else {
+      //   ativo =
+      //     "<i style='color:#2eaa3a' class='fa-solid iconeTabela fa-circle-check'></i> Sim";
+      // }
 
       const cpf =
         item.pessoa.cpf == null
@@ -293,7 +388,7 @@ function listarDados(dados) {
         '<span style="width:50%; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-primary btn-sm" ' +
         "data-id=" +
         item.idAluno +
-        ' onclick="showModal(this)"><i class="fa-solid fa-file-lines "></i></span>' +
+        ' onclick="showModal(this)"><i class="fa-solid fa-user "></i></span>' +
         '<span style="width:50%; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-primary btn-sm" ' +
         "data-id=" +
         item.idAluno +
@@ -307,6 +402,8 @@ function listarDados(dados) {
     })
     .join("");
 
+  $("#tableAlunos").show();
+  $("#textoInicial").hide();
   $("#cola-tabela").html(html);
 }
 

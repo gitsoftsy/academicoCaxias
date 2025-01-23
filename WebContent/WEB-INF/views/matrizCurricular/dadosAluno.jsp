@@ -175,8 +175,12 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
               aria-controls="nav-notas"
               aria-selected="false"
             >
-              Notas e Faltas
+              Notas
             </button>
+            <!-- <button class="nav-link" id="nav-faltas-tab" data-bs-toggle="tab"
+						data-bs-target="#nav-faltas" type="button" role="tab"
+						aria-controls="nav-faltas" aria-selected="false">
+						Faltas</button> -->
           </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
@@ -991,7 +995,7 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
             tabindex="0"
           >
             <div class="d-flex align-items-center justify-content-between">
-              <h2 id="tituloDados" class="mb-3">Notas e Faltas</h2>
+              <h2 id="tituloDados" class="mb-3">Notas</h2>
             </div>
             <div class="container-table">
               <table
@@ -1047,16 +1051,17 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
             ></button>
           </div>
           <div class="modal-body">
-            <table
-              class="table tableNot table-striped mb-0 mx-auto"
-            >
+            <table class="table tableNot table-striped mb-0 mx-auto">
               <thead>
                 <tr>
                   <th scope="col">Prova</th>
                   <th scope="col">Nota</th>
                 </tr>
               </thead>
-              <tbody id="cola-tabela-editNota" class="table-group-divider"></tbody>
+              <tbody
+                id="cola-tabela-editNota"
+                class="table-group-divider"
+              ></tbody>
             </table>
           </div>
           <div class="modal-footer">

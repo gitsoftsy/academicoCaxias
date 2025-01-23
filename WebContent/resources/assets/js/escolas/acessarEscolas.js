@@ -28,13 +28,17 @@ $(document).ready(function() {
 			return itemValue.includes(searchInput);
 		});
 
-		dados = filteredData
+		dados = filteredData;
 		listarDados(filteredData);
-		showPage(currentPage)
-		updatePagination()
+		showPage(currentPage);
+		updatePagination();
 		$('input[data-toggle="toggle"]').bootstrapToggle();
 		$(this).siblings(".searchInput").val("");
 		$(this).closest(".dropdown-content-form").removeClass("show");
+		
+		
+		updatePagination();
+		showPage(currentPage);
 	});
 
 	$(document).click(function(event) {
@@ -63,6 +67,9 @@ $(document).ready(function() {
 				})
 				.show();
 		}
+
+		updatePagination();
+		showPage(currentPage);
 	}
 
 	$(document).on("click", ".sortable .col", function() {
@@ -90,8 +97,8 @@ $(document).ready(function() {
 		} else {
 			icon.addClass("fa-sort");
 			listarDados(dadosOriginais);
-			showPage(currentPage)
-			updatePagination()
+			showPage(currentPage);
+			updatePagination();
 			$('input[data-toggle="toggle"]').bootstrapToggle();
 		}
 
@@ -122,8 +129,8 @@ function getDados() {
 	})
 		.done(function(data) {
 			dados = data;
-			dadosOriginais = data
-			console.log(data)
+			dadosOriginais = data;
+			console.log(data);
 			showPage(1);
 			$('input[data-toggle="toggle"]').bootstrapToggle();
 		})
@@ -180,42 +187,114 @@ function sortData(column, order) {
 			? valueA.localeCompare(valueB)
 			: valueB.localeCompare(valueA);
 	});
-	
-	dados = dadosOrdenados
+
+	dados = dadosOrdenados;
 	listarDados(dadosOrdenados);
-	showPage(currentPage)
-    updatePagination()
+	showPage(currentPage);
+	updatePagination();
 	$('input[data-toggle="toggle"]').bootstrapToggle();
 }
-
 
 function alteraStatus(element) {
 	var id = element.getAttribute("data-id");
 	var status = element.getAttribute("data-status");
 
-	const button = $(element).closest("tr").find(".btn-status");
 	if (status === "S") {
-		button.removeClass("btn-success").addClass("btn-danger");
-		button.find("i").removeClass("fa-check").addClass("fa-xmark");
-		element.setAttribute("data-status", "N");
+		$.ajax({
+			url:
+				url_base +
+				`/ofertasConcurso/conta/${contaId}/escolas/${id}/podeDesativar`,
+			type: "GET",
+			success: function(response) {
+				if (response.data[0].podeDesativar === "N") {
+					let modalContent =
+						'<p style="text-align: left;">Existem registros ativos atrelados a essa escola, para desativa-la primeiro desative:</p>';
+
+					if (response.data[0].ofertaAtiva === "S") {
+						modalContent +=
+							'<p style="text-align: left;">- Ofertas de Concurso: <a href="oferta-concurso">Desativar ofertas</a></p>';
+					}
+
+					if (response.data[0].turmaAtiva === "S") {
+						modalContent +=
+							'<p style="text-align: left;">- Turmas: <a href="turma">Desativar turmas</a></p>';
+					}
+
+					Swal.fire({
+						icon: "error",
+						title: "Alteração não Permitida",
+						html: modalContent,
+					});
+
+					getDados()
+				} else {
+					desativarEscola(element);
+				}
+			},
+			error: function(e) {
+				Swal.fire({
+					icon: "error",
+					title: "Erro ao verificar possibilidade de desativação",
+				});
+				console.log(e.responseJSON);
+			},
+		});
 	} else {
-		button.removeClass("btn-danger").addClass("btn-success");
-		button.find("i").removeClass("fa-xmark").addClass("fa-check");
-		element.setAttribute("data-status", "S");
+		ativarEscola(element);
+	}
 	}
 
+function desativarEscola(element) {
+	var id = element.getAttribute("data-id");
 	$.ajax({
-		url: url_base + `/escolas/${id}${status === "S" ? '/desativar' : '/ativar'}`,
-		type: "put",
+		url: url_base + `/escolas/${id}/desativar`,
+		type: "PUT",
+		success: function() {
+			const button = $(element).closest("tr").find(".btn-status");
+			button.removeClass("btn-success").addClass("btn-danger");
+			button.find("i").removeClass("fa-check").addClass("fa-xmark");
+			element.setAttribute("data-status", "N");
+			Swal.fire({
+				title: "Desativado com sucesso",
+				icon: "success",
+			});
+			getDados()
+
+		},
 		error: function(e) {
-			Swal.close();
-			console.log(e.responseJSON);
 			Swal.fire({
 				icon: "error",
-				title: e.responseJSON.message
+				title: e.responseJSON.message,
 			});
-		}
-	})
+			console.log(e.responseJSON);
+		},
+	});
+}
+
+function ativarEscola(element) {
+	var id = element.getAttribute("data-id");
+	$.ajax({
+		url: url_base + `/escolas/${id}/ativar`,
+		type: "PUT",
+		success: function() {
+			const button = $(element).closest("tr").find(".btn-status");
+			button.removeClass("btn-danger").addClass("btn-success");
+			button.find("i").removeClass("fa-xmark").addClass("fa-check");
+			element.setAttribute("data-status", "S");
+			Swal.fire({
+				title: "Ativado com sucesso",
+				icon: "success",
+			});
+			getDados()
+		},
+		error: function(e) {
+			Swal.fire({
+				icon: "error",
+				title: e.responseJSON.message,
+			});
+			console.log(e.responseJSON);
+		},
+	});
 }
 
 // Redireciona para a página de edição
@@ -223,7 +302,6 @@ function editar(ref) {
 	var id = ref.getAttribute("data-id");
 	window.location.href = "editar-escola?id=" + id;
 }
-
 
 function acessar(element) {
 	var id = $(element).data("id");

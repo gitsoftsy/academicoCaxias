@@ -36,6 +36,52 @@ $(document).ready(function () {
 	$(".dropdown-toggle-form").click(function() {
 		$(this).siblings(".dropdown-content-form").toggleClass("show");
 	});
+	
+	
+	$(".searchButton").click(function () {
+	  var searchInput = $(this)
+	    .siblings(".searchInput")
+	    .val()
+	    .toLowerCase()
+	    .normalize("NFD")
+	    .replace(/[\u0300-\u036f]/g, "");
+
+	  var columnToSearch = $(this).closest(".sortable").data("column");
+
+	  var filteredData = dadosOriginais.filter(function (item) {
+	    if (columnToSearch === "conta") {
+	      return (
+	        item.conta &&
+	        item.conta.conta &&
+	        item.conta.conta
+	          .toLowerCase()
+	          .normalize("NFD")
+	          .replace(/[\u0300-\u036f]/g, "")
+	          .includes(searchInput)
+	      );
+	    } else {
+	      return (
+	        item[columnToSearch] &&
+	        item[columnToSearch]
+	          .toString()
+	          .toLowerCase()
+	          .normalize("NFD")
+	          .replace(/[\u0300-\u036f]/g, "")
+	          .includes(searchInput)
+	      );
+	    }
+	  });
+
+	  dados = filteredData;
+
+	  showPage(1);
+	  updatePagination();
+	  $('input[data-toggle="toggle"]').bootstrapToggle();
+
+	  // Limpa o campo de pesquisa e fecha o dropdown
+	  $(this).siblings(".searchInput").val("");
+	  $(this).closest(".dropdown-content-form").removeClass("show");
+	});
 
 	$(".searchButton").click(function() {
 		var searchInput = $(this).siblings(".searchInput").val();
