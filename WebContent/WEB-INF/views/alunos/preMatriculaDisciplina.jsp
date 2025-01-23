@@ -77,108 +77,60 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 		</div>
 	</div>
 	<header id="menu"></header>
-	<main class="py-4 container-res">
-		<section class="mb-5">
-			<div class="card">
-				<div class="card-body title">
-					<i class="fa-solid fa-cogs fa-lg"></i> <span>Alunos</span>
+	<main class="py-1 mb-4 container-res">
+		<section id="containerInfoAluno" class="mb-5">
+			<div class="card p-3">
+				<div class="title mb-3">
+					<i class="fa-solid fa-user-graduate" style="font-size: 24px"></i> <span>Informações
+						do Aluno</span>
+				</div>
+
+				<div class="row mb-3">
+					<div class="col-md-6">
+						<label for="obsAprovacao" class="form-label">Matricula: </label> <input
+							type="text" id="matricula" autocomplete="off" name="obsAprovacao"
+							class="form-control" disabled />
+					</div>
+
+					<div class="col-md-6">
+						<label for="obsAprovacao" class="form-label">Nome: </label> <input
+							type="text" id="nomeAluno" autocomplete="off" name="obsAprovacao"
+							class="form-control" disabled />
+					</div>
 				</div>
 			</div>
 		</section>
-		<section class="pt-4 card card-table px-5 py-3">
-			<h3 id="tituloForm" class="text-start mb-5">Filtrar</h3>
-			<p>Informe ao menos um dos campos abaixo para poder filtrar e
-				encontrar o aluno desejado:</p>
 
-			<div class="row">
-				<div class="col-md-4 mb-3">
-					<label for="matricula" class="form-label">Matrícula</label> <input
-						type="text" id="matricula" class="form-control"
-						placeholder="Matrícula" />
-				</div>
-
-				<div class="col-md-4 mb-3">
-					<label for="nome" class="form-label">Nome</label> <input
-						type="text" id="nome" class="form-control" placeholder="Nome" />
-				</div>
-
-				<div class="col-md-4 mb-3">
-					<label for="cpf" class="form-label">CPF</label> <input type="text"
-						id="cpf" class="form-control" placeholder="CPF" />
+		<section class="mb-5">
+			<div class="card">
+				<div class="card-body title">
+					<i class="fa-solid fa-cogs fa-lg"></i> <span>Pré-Matrícula</span>
 				</div>
 			</div>
+		</section>
+		<section class="pt-4 card px-5 py-3">
+			<h3 id="tituloForm" class="text-start">Disciplinas já
+				matrículadas</h3>
+			<hr style="margin: 0px; margin-top: 0px; margin-bottom: 6px" />
+			<p>Abaixo está a relação de disciplinas já na matrícula do aluno:</p>
+			<h4 class="text-center w-100" id="notFound">Não foram
+				encontradas disciplinas na pré-matrícula para o aluno selecionado.</h4>
 
-			<div class="row">
-				<div class="col-md-4 mb-3">
-					<label for="escola" class="form-label">Escola</label> <select
-						id="escola" class="form-select">
-						<option value="">Selecione uma escola</option>
-					</select>
-				</div>
-
-				<div class="col-md-4 mb-3">
-					<label for="curso" class="form-label">Curso</label> <select
-						id="curso" class="form-select">
-						<option value="">Selecione um curso</option>
-					</select>
-				</div>
-
-				<div class="col-md-3 mb-3 align-self-end">
-					<button class="btn btn-warning px-5" id="btn-buscar"
-						style="font-weight: 500">
-						Buscar <i class="fas fa-search ms-2" style="color: #121212"></i>
-					</button>
-				</div>
-			</div>
-
-			<div class="w-100 d-flex align-items-center justify-content-center"
-				style="flex: 1" id="textoInicial">
-				<h2>Use os filtros acima para encontrar o
-					aluno desejado.</h2>
-			</div>
-			<div id="tableAlunos">
-				<div class="mt-3 mb-3"
-					style="display: flex; align-items: center; justify-content: end">
-					<div class="d-flex align-items-center gap-2">
-						<button id="limpa-filtros" class="btn btn-sm btn-danger">
-							Limpar Filtros</button>
-					</div>
-				</div>
+			<div id="tableMatriculas" class="container-table">
 				<table
-					class="table tabela-atos table-striped table-bordered mb-0 caption-top mx-auto">
+					class="table tableNot tabela-atos table-striped table-bordered mb-0 caption-top mx-auto">
 					<caption>Itens Cadastrados</caption>
 					<thead>
 						<tr>
-							<th class='text-center th-sem-filtro border-end' scope="col"
-								width="10%">Acessar</th>
-							<th scope="col" class="sortable border-end"
-								data-column="matriculaPes">Matricula</th>
-							<th scope="col" class="sortable border-end" data-column="nomePes">
-								<div
-									class="d-flex align-items-center justify-content-between pe-2">
-									<div
-										class="col d-flex align-items-center justify-content-between">
-										<span>Nome</span> <i class="fas fa-sort me-2 ms-2"
-											style="color: #dddddd"></i>
-									</div>
-								</div>
-							</th>
-							<th scope="col" class="sortable border-end" data-column="cpfPes">CPF</th>
-							<th scope="col" class="sortable border-end"
-								data-column="cursoPes">Curso</th>
-							<th scope="col" class="sortable border-end"
-								data-column="seriePes">Série</th>
-							<th scope="col" class="sortable border-end"
-								data-column="escolaPes">Escola</th>
-							<th scope="col" class="sortable border-end"
-								data-column="turnoPes">Turno</th>
-							<th scope="col" class="sortable border-end"
-								data-column="emailPes">Email Estudantil</th>
-							<th scope="col" class="sortable border-end"
-								data-column="situacaoAlunoPes">Situação Aluno</th>
+							<th scope="col" class="sortable border-end">Periodo Letivo</th>
+							<th scope="col" class="sortable border-end">Turma</th>
+							<th scope="col" class="sortable border-end">Disciplina</th>
+							<th scope="col" class="sortable border-end">Tipo</th>
+							<th scope="col" class="sortable border-end">Status</th>
+							<th scope="col" class="sortable border-end">Ação</th>
 						</tr>
 					</thead>
-					<tbody id="cola-tabela" class="table-group-divider"></tbody>
+					<tbody id="cola-tabela-matriculas" class="table-group-divider"></tbody>
 				</table>
 				<div id="pagination" class="mx-auto mt-auto">
 					<button id="prev" class="btn btn-sm">
@@ -190,7 +142,80 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 					</button>
 				</div>
 			</div>
+		</section>
+		<section class="pt-4 card px-5 py-3 mt-4">
+			<h3 id="tituloForm" class="text-start">Disciplinas disponíveis
+				para Pré-Matrícula</h3>
+			<hr style="margin: 0px; margin-top: 0px; margin-bottom: 6px" />
+			<p>Selecione ao menos os campos Ano, Semestre e Série que deseja
+				verificar as disciplinas disponíveis para Pré-Matricular o aluno e
+				clique em buscar:</p>
 
+			<div class="row">
+				<div class="col-md-4 mb-3">
+					<label for="serie" class="form-label">Série</label><span
+						class="text-danger">*</span> <select id="serie"
+						class="form-select">
+						<option value="">Selecione uma escola</option>
+					</select>
+				</div>
+
+				<div class="col-md-4 mb-3">
+					<label for="periodoLetivo" class="form-label">Período
+						Letivo<span class="text-danger">*</span>
+					</label> <select id="periodoLetivo" class="form-select">
+						<option value="">Selecione um curso</option>
+					</select>
+				</div>
+
+				<div class="col-md-4 mb-3">
+					<label for="tiposMatricula" class="form-label">Tipo
+						Matrícula<span class="text-danger">*</span>
+					</label> <select id="tiposMatricula" class="form-select">
+						<option value="">Selecione um curso</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-4 mb-3">
+					<label for="escola" class="form-label">Escola </label> <select
+						id="escola" class="form-select">
+						<option value="">Selecione uma escola</option>
+					</select>
+				</div>
+
+				<div class="col-md-3 mb-3 align-self-end">
+					<button class="btn btn-warning px-5" id="btn-buscar"
+						style="font-weight: 500">
+						Buscar <i class="fas fa-search ms-2" style="color: #121212"></i>
+					</button>
+				</div>
+			</div>
+			<div id="tablePreMatriculas" class="container-table">
+				<table
+					class="table tableNot tabela-atos table-striped table-bordered mb-0 caption-top mx-auto">
+					<caption>Itens Cadastrados</caption>
+					<thead>
+						<tr>
+							<th scope="col" class="sortable border-end">Escola</th>
+							<th scope="col" class="sortable border-end">Turma</th>
+							<th scope="col" class="sortable border-end">Disciplina</th>
+							<th scope="col" class="sortable border-end">Ação</th>
+						</tr>
+					</thead>
+					<tbody id="cola-tabela-pre-matricula" class="table-group-divider"></tbody>
+				</table>
+				<div id="pagination" class="mx-auto mt-auto">
+					<button id="prev" class="btn btn-sm">
+						<i class="fa-solid fa-angle-left fa-xl"></i>
+					</button>
+					<div id="page-numbers" class="btn-group mt-2"></div>
+					<button id="next" class="btn btn-sm">
+						<i class="fa-solid fa-angle-right fa-xl"></i>
+					</button>
+				</div>
+			</div>
 		</section>
 	</main>
 
@@ -211,7 +236,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 	<script charset="UTF-8"
 		src="<%=contextPath%>/resources/assets/js/comum.js"></script>
 	<script charset="UTF-8"
-		src="<%=contextPath%>/resources/assets/js/alunos/preMatricula.js"></script>
+		src="<%=contextPath%>/resources/assets/js/alunos/preMatriculaDisciplina.js"></script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	<script charset="UTF-8"

@@ -229,17 +229,15 @@ $("#btn-buscar").on("click", function() {
 });
 
 function getDados(filtros) {
-	/*const query = `/alunos?${filtros.matricula != "" ? 'matricula=' + filtros.matricula + '&' : ''}` +
+	const query = `/alunos/${filtros.idConta}/filtrar?${filtros.matricula != "" ? 'matricula=' + filtros.matricula + '&' : ''}` +
 		`${filtros.nome != "" ? 'nome=' + filtros.nome + '&' : ''}` +
 		`${filtros.cpf != "" ? 'cpf=' + filtros.cpf + '&' : ''}` +
 		`${filtros.idCurso != "" ? 'idCurso=' + filtros.idCurso + '&' : ''}` +
-		`${filtros.idConta != "" ? 'idConta=' + filtros.idConta + '&' : ''}` +
-		`${filtros.idEscola != "" ? 'idEscola=' + filtros.idEscola + '&' : ''}`*/
+		`${filtros.idEscola != "" ? 'idEscola=' + filtros.idEscola + '&' : ''}`
 
 	$.ajax({
-		url: url_base + `/alunos?matricula=${filtros.matricula}&nome=${filtros.nome}&cpf=${filtros.cpf}&idCurso=${filtros.idCurso}&idConta=${filtros.idConta}&idEscola=${filtros.idEscola}`,
+		url: url_base + query,
 		type: "GET",
-		data: filtros,
 		error: function(e) {
 			Swal.close();
 			console.log(e);
@@ -251,13 +249,13 @@ function getDados(filtros) {
 		},
 		async: false,
 	})
-		.done(function(data) {
-			console.log(data)
-			if (data && data.length > 0) {
+		.done(function(response) {
+			console.log(response)
+			if (response.data && response.data.length > 0) {
 				console.log("Entrou")
-				dadosOriginais = data;
-				dados = data;
-				listarDados(data);
+				dadosOriginais = response.data;
+				dados = response.data;
+				listarDados(response.data);
 				$(".checkbox-toggle").each(function() {
 					var status = $(this).data("status");
 					if (status !== "S") {
@@ -290,9 +288,9 @@ function listarDados(dados) {
 	var html = dados
 		.map(function(item) {
 			const cpf =
-				item.pessoa.cpf == null
+				item.cpf == null
 					? "Não possui"
-					: item.pessoa.cpf.replace(
+					: item.cpf.replace(
 						/(\d{3})(\d{3})(\d{3})(\d{2})/,
 						"$1.$2.$3-$4"
 					);
@@ -301,15 +299,15 @@ function listarDados(dados) {
 				"<tr>" +
 				`<td class="d-flex justify-content-center">
 				      <span class="btn btn-warning btn-sm" data-id="${item.idEscola
-				}" data-nome="${item.nomeEscola}" data-logo="${item.logoEscola}" onclick="acessar(this)" style="margin: 5%;" >
+				}" data-nome="${item.nomeEscola}" data-logo="${item.logoEscola}" onclick="acessar(${item.idAluno})" style="margin: 5%;" >
 				     <i class="fa-solid fa-right-to-bracket fa-lg"></i>
 				      </span>
 				</td>`+
 				"<td>" +
-				item.aluno +
+				item.nomeAluno +
 				"</td>" +
 				"<td>" +
-				item.pessoa.nomeCompleto +
+				item.nomeCompleto +
 				"</td>" +
 				"<td>" +
 				cpf +
@@ -342,7 +340,7 @@ function listarDados(dados) {
 	$("#cola-tabela").html(html);
 }
 
-const acessar = () => {
+const acessar = (id) => {
 	window.location.href = "pre-matricula-disciplina?id=" + id;
 }
 

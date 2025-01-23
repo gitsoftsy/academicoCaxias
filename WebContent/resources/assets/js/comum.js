@@ -6,10 +6,13 @@ const nomeConta = localStorage.getItem("nomeConta")
 const usuarioId = localStorage.getItem("usuarioId");
 const contaPadraoAcessoId = localStorage.getItem("idContaAcesso");
 
+
 $('#escolaIdStyle').css('display', 'none')
 $('#escolaIdStyleEdit').css('display', 'none')
 $(document).ready(function() {
 	
+	$('<script/>',{type:'text/javascript', src:'/front-educacional-caxias/resources/assets/js/util/getContainerAluno.js'}).appendTo('head');
+
 	// Fechar dropdowns quando clicar fora deles
 	$(document).on('click', function(e) {
 		if (!$(e.target).closest('.dropdown-form').length) {
