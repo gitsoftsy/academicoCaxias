@@ -1,6 +1,6 @@
 var dados = [];
 var sortOrder = {};
-const urlBaseAluno = "http://10.40.110.2:8080/api-aluno";
+const urlBaseAluno = "https://api.softsy.io/api-educacional-aluno-hml"
 var dadosOriginais = [];
 var rows = 12;
 var currentPage = 1;

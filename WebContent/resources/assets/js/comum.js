@@ -1,4 +1,4 @@
-var url_base = "http://10.40.110.2:8080/api-educacional-dev";
+var url_base = "https://api.softsy.io/api-educacional-hml";
 const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
 const path_base = $(location).attr("origin") + "/" + $(location).attr("pathname").split("/")[1] + "/resources/menu";
