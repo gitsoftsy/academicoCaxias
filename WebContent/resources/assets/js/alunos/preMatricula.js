@@ -231,7 +231,7 @@ $("#btn-buscar").on("click", function() {
 function getDados(filtros) {
 	const query = `/alunos/${filtros.idConta}/filtrar?${filtros.matricula != "" ? 'matricula=' + filtros.matricula + '&' : ''}` +
 		`${filtros.nome != "" ? 'nome=' + filtros.nome + '&' : ''}` +
-		`${filtros.cpf != "" ? 'cpf=' + filtros.cpf + '&' : ''}` +
+		`${filtros.cpf != "" ? 'cpf=' + filtros.cpf.replace(/[^\d]+/g, '') + '&' : ''}` +
 		`${filtros.idCurso != "" ? 'idCurso=' + filtros.idCurso + '&' : ''}` +
 		`${filtros.idEscola != "" ? 'idEscola=' + filtros.idEscola + '&' : ''}`
 
@@ -255,6 +255,7 @@ function getDados(filtros) {
 				console.log("Entrou")
 				dadosOriginais = response.data;
 				dados = response.data;
+				$("#textoInicial").hide();
 				listarDados(response.data);
 				$(".checkbox-toggle").each(function() {
 					var status = $(this).data("status");
@@ -272,6 +273,25 @@ function getDados(filtros) {
 			}
 		})
 }
+
+function ValidarCpf() {
+	const cpf = $('#cpf');
+	const message = $("<p id='errMessage'></p>").text("CPF Inválido").css('color', '#FF0000');
+	if (cpfValido(cpf.val())) {
+		$("#btn-submit").removeAttr('disabled');
+		cpf.removeClass('err-message')
+		$('#errMessage').css('display', 'none')
+	} else {
+		$("#btn-submit").attr("disabled", "disabled");
+		cpf.addClass('err-message')
+		$("#cardCpf").append(message)
+		message.show()
+	}
+
+}
+$("#cpf").blur(function() {
+	ValidarCpf()
+});
 
 $("#limpa-filtros").click(function() {
 	currentPage = 1;
@@ -336,7 +356,6 @@ function listarDados(dados) {
 		.join("");
 
 	$("#tableAlunos").show();
-	$("#textoInicial").hide();
 	$("#cola-tabela").html(html);
 }
 

@@ -109,10 +109,9 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 			</div>
 		</section>
 		<section class="pt-4 card px-5 py-3">
-			<h3 id="tituloForm" class="text-start">Disciplinas já
-				matrículadas</h3>
+			<h3 id="tituloForm" class="text-start">Disciplinas na pré-matrícula</h3>
 			<hr style="margin: 0px; margin-top: 0px; margin-bottom: 6px" />
-			<p>Abaixo está a relação de disciplinas já na matrícula do aluno:</p>
+			<p>Abaixo está a relação de disciplinas na pré-matrícula do aluno:</p>
 			<h4 class="text-center w-100" id="notFound">Não foram
 				encontradas disciplinas na pré-matrícula para o aluno selecionado.</h4>
 
@@ -147,8 +146,8 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 			<h3 id="tituloForm" class="text-start">Disciplinas disponíveis
 				para Pré-Matrícula</h3>
 			<hr style="margin: 0px; margin-top: 0px; margin-bottom: 6px" />
-			<p>Selecione ao menos os campos Ano, Semestre e Série que deseja
-				verificar as disciplinas disponíveis para Pré-Matricular o aluno e
+			<p>Selecione ao menos os campos série, período letivo e tipo da matrícula que deseja
+				verificar as disciplinas disponíveis para pré-matricular o aluno e
 				clique em buscar:</p>
 
 			<div class="row">

@@ -201,7 +201,7 @@ function editar() {
 		contaId: contaId,
 	};
 
-	var minutosInicio = converterHoraParaMinutos(objeto.horaInicio);
+	/*var minutosInicio = converterHoraParaMinutos(objeto.horaInicio);
 	var minutosFim = converterHoraParaMinutos(objeto.horaFim);
 
 	if (minutosFim < minutosInicio) {
@@ -212,7 +212,7 @@ function editar() {
 		});
 
 		return
-	}
+	}*/
 
 	$.ajax({
 		url: url_base + "/turno",
@@ -266,7 +266,7 @@ function cadastrar() {
 	};
 
 
-	var minutosInicio = converterHoraParaMinutos(objeto.horaInicio);
+	/*var minutosInicio = converterHoraParaMinutos(objeto.horaInicio);
 	var minutosFim = converterHoraParaMinutos(objeto.horaFim);
 
 	if (minutosFim < minutosInicio) {
@@ -277,7 +277,7 @@ function cadastrar() {
 		});
 
 		return
-	}
+	}*/
 
 	$.ajax({
 		url: url_base + "/turno",

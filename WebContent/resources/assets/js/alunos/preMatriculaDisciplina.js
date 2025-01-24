@@ -279,7 +279,7 @@ function listarDados(dados) {
 	var html = dados
 		.map(function(item) {
 			const nomeTurma = item.nomeTurma == null ? 'Sem turma' : item.nomeTurma
-			const nomeEscola = item.nomeEscola == null ? 'Sem turma' : item.nomeEscola
+			const nomeEscola = item.nomeEscola == null ? 'Sem escola' : item.nomeEscola
 
 			return (
 				"<tr>" +
@@ -441,12 +441,8 @@ const matricular = (idTurma, idDisciplina) => {
 
 		}
 	}).done(function(data) {
-		Swal.fire({
-			title: "Matriculado com sucesso",
-			icon: "success",
-		}).then((data) => {
-			window.location.reload()
-		})
+		getMatriculas()
+		getDados()
 	})
 }
 
@@ -494,12 +490,13 @@ const removerMatricula = (idPrematricula) => {
 					});
 				}
 			}).done(function(data) {
-				Swal.fire({
-					title: "Deletado com sucesso",
-					icon: "success",
-				}).then((data) => {
-					window.location.reload()
-				})
+				getMatriculas()
+				const serie = $("#serie").val();
+				const idPeriodoLetivo = $("#periodoLetivo").val();
+				const tipoMatricula = $("#tiposMatricula").val();
+				if (serie && idPeriodoLetivo && tipoMatricula) {
+				getDados()
+				}
 			})
 		} else if (result.isCanceled) { }
 	})
