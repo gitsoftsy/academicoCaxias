@@ -17,6 +17,26 @@ $(document).ready(function() {
 	$("#tableAlunos").hide();
 	$("select").select2();
 
+
+
+	$.ajax({
+		url: url_base + "/alunos/" + id,
+		type: "GET",
+		async: false,
+		error: function(e) {
+			console.log(e);
+			Swal.fire({
+				icon: "error",
+				title: "Oops...",
+				text: "Não foi possível realizar esse comando!",
+			});
+		},
+	})
+		.done(function(res) {
+			$("#matricula").val(res.aluno);
+			$("#nomeAluno").val(res.pessoa.nomeCompleto);
+		})
+
 	$.ajax({
 		url: url_base + "/escolas/ativos/conta/" + contaId,
 		type: "get",
@@ -181,9 +201,6 @@ $(document).ready(function() {
 	$("select").select2();
 
 	getDados()
-	showPage(currentPage);
-	updatePagination();
-
 });
 
 
@@ -208,17 +225,21 @@ function getDados() {
 				console.log("Entrou");
 				dadosOriginais = data.data;
 				dados = data.data;
+				disciplinasConfirmadas = []
+				disciplinasNaoConfirmadas = []
 
 				data.data.forEach(disciplina => {
-					if (disciplina.nomeTurma === "") {
+					if (disciplina.nomeTurma === "" && disciplina.tipo !== "Pré-Matricula") {
 						disciplinasNaoConfirmadas.push(disciplina);
-					} else {
+					} else if (disciplina.tipo === "Matricula") {
+
+					}
+					else {
 						disciplinasConfirmadas.push(disciplina);
 					}
 				});
 
-				console.log("Disciplinas Não Confirmadas:", disciplinasNaoConfirmadas);
-				console.log("Disciplinas Confirmadas:", disciplinasConfirmadas);
+
 
 				listarDisciplinasConfirmadas(disciplinasConfirmadas);
 				listarDisciplinasNaoConfirmadas(disciplinasNaoConfirmadas)
@@ -260,7 +281,7 @@ const listarDisciplinasConfirmadas = (dados) => {
 			return (
 				"<tr>" +
 				"<td>" +
-				(item.nomeTurma != '' ? item.nomeTurma : "(Sem Turma)") +
+				(item.nomeTurma != "" ? item.nomeTurma : "(Sem Turma)") +
 				"</td>" +
 				"<td>" +
 				item.codigoDisciplina +
@@ -279,6 +300,21 @@ const listarDisciplinasConfirmadas = (dados) => {
 				"<td>" +
 				item.tipo +
 				"</td>" +
+				`<td class="d-flex justify-content-center">
+                    <span 
+                        class="btn btn-primary btn-sm" 
+                        data-id-turma="${item.idTurma}" 
+                        data-id-disciplina="${item.idDisciplina}" 
+                        data-id-aluno="${item.idAluno}" 
+                        data-id-periodo-letivo="${item.idPeriodoLetivo}" 
+                        data-id-prematricula="${item.idPrematricula}" 
+                        data-id-tipo-matricula="${item.idTipoMatricula}" 
+                        data-id-serie="${item.idSerie}" 
+                        onclick="efetivar(this)" 
+                        style="margin: 5%;">
+                        Efetivar
+                    </span>
+                </td>` +
 				"</tr>"
 			);
 		})
@@ -305,7 +341,7 @@ const listarDisciplinasNaoConfirmadas = (dados) => {
 				(item.nomeTurma != '' ? item.nomeTurma : "(Sem Turma)") +
 				"</td>" +
 				"<td>" +
-				item.codigoDisciplina +
+				(`${item.codigoDisciplina} - ${item.nomeDisciplina}`)+
 				"</td>" +
 				"<td>" +
 				item.ano +
@@ -321,6 +357,21 @@ const listarDisciplinasNaoConfirmadas = (dados) => {
 				"<td>" +
 				item.tipo +
 				"</td>" +
+
+				`<td class="d-flex justify-content-center">
+                    <span 
+                        class="btn btn-primary btn-sm" 
+                        data-id-disciplina="${item.idDisciplina}" 
+                        data-id-aluno="${item.idAluno}" 
+                        data-id-periodo-letivo="${item.idPeriodoLetivo}" 
+                        data-id-prematricula="${item.idPrematricula}" 
+                        data-id-tipo-matricula="${item.idTipoMatricula}" 
+                        data-id-serie="${item.idSerie}" 
+                        onclick="showModalMatricular(this)" 
+                        style="margin: 5%;">
+                        Vincular Turma
+                    </span>
+                </td>` +
 				"</tr>"
 			);
 		})
@@ -328,52 +379,95 @@ const listarDisciplinasNaoConfirmadas = (dados) => {
 
 	$("#cola-tabela-disciplina").html(html);
 };
-const acessar = () => {
-	window.location.href = "pre-matricula-disciplina?id=" + id;
-}
+const efetivar = (element) => {
 
-function alteraStatus(element) {
-	var id = element.getAttribute("data-id");
-	var status = element.getAttribute("data-status");
+	const tipoMatriculaId = element.getAttribute("data-id-tipo-matricula");
+	const periodoLetivoId = element.getAttribute("data-id-periodo-letivo");
+	const disciplinaId = element.getAttribute("data-id-disciplina");
+	const turmaId = element.getAttribute("data-id-turma");
+	const serieId = element.getAttribute("data-id-serie");
+	const idPreMatricula = element.getAttribute("data-id-prematricula");
 
-	const button = $(element).closest("tr").find(".btn-status");
-	if (status === "S") {
-		button.removeClass("btn-success").addClass("btn-danger");
-		button.find("i").removeClass("fa-check").addClass("fa-xmark");
-		element.setAttribute("data-status", "N");
-	} else {
-		button.removeClass("btn-danger").addClass("btn-success");
-		button.find("i").removeClass("fa-xmark").addClass("fa-check");
-		element.setAttribute("data-status", "S");
-	}
+	let objeto = {
+		"contaId": contaId,
+		"tipoMatriculaId": tipoMatriculaId,
+		"ativo": "S",
+		"alunoId": id,
+		"periodoLetivoId": periodoLetivoId,
+		"disciplinaId": disciplinaId,
+		"turmaId": turmaId,
+		"serieId": serieId,
+		"manual": "S",
+		"usuarioId": usuarioId,
+		"observacao": "Observação de teste"
+	};
+
+	console.log(objeto)
 
 	$.ajax({
-		url:
-			url_base +
-			`/criteriosAvaliacao/${id}${status === "S" ? "/desativar" : "/ativar"}`,
-		type: "put",
+		url: url_base + "/matricula",
+		type: "POST",
+		data: JSON.stringify(objeto),
+		contentType: "application/json; charset=utf-8",
 		error: function(e) {
 			Swal.close();
 			console.log(e);
-			console.log(e.responseJSON);
 			Swal.fire({
 				icon: "error",
-				title: e.responseJSON.message,
+				title: "Oops...",
+				text: "Não foi possível cadastar nesse momento!",
 			});
 		},
-	}).then((data) => {
-		getDados();
+	}).done(function(res) {
+
+		$.ajax({
+			url: url_base + "/prematricula/" + idPreMatricula,
+			type: "DELETE",
+			contentType: "application/json; charset=utf-8",
+			async: false,
+			error: function(e) {
+				Swal.close();
+				console.log(e);
+				Swal.fire({
+					icon: "error",
+					title: "Oops...",
+					text: "Não foi possível cadastar nesse momento!",
+				});
+			},
+		}).done(function(res) {
+			Swal.fire({
+				title: "Matricula efetivada com sucesso",
+				icon: "success",
+			});
+			getDados()
+		});
 	});
+
 }
 
-function showModal(ref) {
-	id = ref.getAttribute("data-id");
 
-	window.location.href = "consulta-aluno?id=" + id;
+function showModalMatricular(element) {
+
+	const tipoMatriculaId = element.getAttribute("data-id-tipo-matricula");
+	const periodoLetivoId = element.getAttribute("data-id-periodo-letivo");
+	const disciplinaId = element.getAttribute("data-id-disciplina");
+	const turmaId = element.getAttribute("data-id-turma");
+	const serieId = element.getAttribute("data-id-serie");
+	const idPreMatricula = element.getAttribute("data-id-prematricula");
+
+	let objeto = {
+		"contaId": contaId,
+		"tipoMatriculaId": tipoMatriculaId,
+		"alunoId": id,
+		"periodoLetivoId": periodoLetivoId,
+		"disciplinaId": disciplinaId,
+		"serieId": serieId,
+		"usuarioId": usuarioId,
+		idPreMatricula: idPreMatricula
+	}
+
+
+	localStorage.setItem("objetoDisciplina", JSON.stringify(objeto))
+	window.location.href = "disciplina-turma?id=" + id;
 }
 
-function verAvisosAluno(ref) {
-	id = ref.getAttribute("data-id");
-
-	window.location.href = "avisos?idAluno=" + id;
-}

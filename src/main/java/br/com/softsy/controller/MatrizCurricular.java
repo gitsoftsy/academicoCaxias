@@ -142,6 +142,24 @@ public class MatrizCurricular {
 		return "matrizCurricular/matricula";
 	}
 	
+	@RequestMapping(value = { "pre-matricula-disciplina" }, method = RequestMethod.GET)
+	public String preMatriculaDisciplina(HttpSession session, Model model) throws Exception {
+		
+		return "alunos/preMatriculaDisciplina";
+	}
+	
+	
+	@RequestMapping(value = { "nova-pre-matricula" }, method = RequestMethod.GET)
+	public String preMatriculaCadastro(HttpSession session, Model model) throws Exception {
+		
+		return "matrizCurricular/preMatricula";
+	}
+	
+	@RequestMapping(value = { "disciplina-turma" }, method = RequestMethod.GET)
+	public String DisciplinaTurma(HttpSession session, Model model) throws Exception {
+		
+		return "matrizCurricular/disciplinaTurma";
+	}
 	
 
 }
