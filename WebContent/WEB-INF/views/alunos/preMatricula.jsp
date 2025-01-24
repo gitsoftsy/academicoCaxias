@@ -102,9 +102,10 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 						type="text" id="nome" class="form-control" placeholder="Nome" />
 				</div>
 
-				<div class="col-md-4 mb-3">
-					<label for="cpf" class="form-label">CPF</label> <input type="text"
-						id="cpf" class="form-control" placeholder="CPF" />
+				<div class="col-md-4 mb-3" id="cardCpf">
+					<label for="cpf" class="form-label">CPF:</label> <input type="text"
+						id="cpf" autocomplete="off" data-mask="000.000.000-00" name="cpf" placeholder="000.000.000-00" 
+						class="form-control" />
 				</div>
 			</div>
 
@@ -131,11 +132,15 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 				</div>
 			</div>
 
-			<div class="w-100 d-flex align-items-center justify-content-center"
-				style="flex: 1" id="textoInicial">
-				<h2>Use os filtros acima para encontrar o
-					aluno desejado.</h2>
-			</div>
+			<section id="textoInicial">
+				<div class="w-100 d-flex align-items-center justify-content-center"
+					style="flex: 1">
+					<h2>Use os filtros acima para encontrar o aluno desejado.</h2>
+				</div>
+			</section>
+
+
+
 			<div id="tableAlunos">
 				<div class="mt-3 mb-3"
 					style="display: flex; align-items: center; justify-content: end">

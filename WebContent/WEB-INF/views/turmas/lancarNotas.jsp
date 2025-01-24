@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-<%@ page import="java.util.Date" %>
+pageEncoding="UTF-8"%> <%@ page import="java.util.Date" %>
 <!DOCTYPE html>
 
 <% String contextPath = request.getContextPath(); %> <%@ taglib prefix="c"
@@ -95,58 +94,35 @@ https://kit.fontawesome.com/3ce21ff22c.js"
       <section class="mb-5">
         <div class="card">
           <div class="card-body title">
-            <i class="fa-solid fa-cogs fa-lg"></i> <span>Alunos</span>
+            <i class="fa-solid fa-file-lines fa-lg"></i> <span>Lançar Notas</span>
           </div>
         </div>
       </section>
       <section class="pt-4 card card-table px-5 py-3">
         <h3 id="tituloForm" class="text-start mb-5">Filtrar</h3>
         <p>
-          Informe ao menos um dos campos abaixo para poder filtrar e encontrar o
-          aluno desejado:
+          Informe ao menos um dos campos abaixo para poder filtrar e encontrar
+          as turmas desejadas:
         </p>
 
         <div class="row">
-          <div class="col-md-4 mb-3">
-            <label for="matricula" class="form-label">Matrícula</label>
-            <input
-              type="text"
-              id="matricula"
-              class="form-control"
-              placeholder="Matrícula"
-            />
+          <div class="col-md-3 mb-3">
+            <label for="periodoLetivo" class="form-label"
+              >Período Letivo
+            </label>
+            <select id="periodoLetivo" class="form-select">
+              <option value="">Selecione um período</option>
+            </select>
           </div>
 
-          <div class="col-md-4 mb-3">
-            <label for="nome" class="form-label">Nome</label>
-            <input
-              type="text"
-              id="nome"
-              class="form-control"
-              placeholder="Nome"
-            />
-          </div>
-
-          <div class="col-md-4 mb-3">
-            <label for="cpf" class="form-label">CPF</label>
-            <input
-              type="text"
-              id="cpf"
-              class="form-control"
-              placeholder="CPF"
-            />
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-4 mb-3">
+          <div class="col-md-3 mb-3">
             <label for="escola" class="form-label">Escola</label>
             <select id="escola" class="form-select">
               <option value="" selected disabled>Selecione uma escola</option>
             </select>
           </div>
 
-          <div class="col-md-4 mb-3">
+          <div class="col-md-3 mb-3">
             <label for="curso" class="form-label">Curso</label>
             <select id="curso" class="form-select">
               <option value="" selected disabled>Selecione um curso</option>
@@ -155,8 +131,9 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 
           <div class="col-md-3 mb-3 align-self-end">
             <button
-              class="btn btn-warning px-5"
+              type="submit"
               id="btn-buscar"
+              class="btn btn-warning px-5"
               style="font-weight: 500"
             >
               Buscar
@@ -164,17 +141,15 @@ https://kit.fontawesome.com/3ce21ff22c.js"
             </button>
           </div>
         </div>
-
+        <hr />
         <div
           class="w-100 d-flex align-items-center justify-content-center"
           style="flex: 1"
         >
-          <h2 id="textoInicial">
-            Use os filtros acima para encontrar o aluno desejado.
-          </h2>
+          <h2 id="textoInicial">Use os filtros acima para listar as turmas.</h2>
         </div>
 
-        <div id="tableAlunos">
+        <div id="tableTurma">
           <div
             class="mt-3 mb-3"
             style="display: flex; align-items: center; justify-content: end"
@@ -189,7 +164,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
             class="table tabela-atos table-striped table-bordered mb-0 caption-top mx-auto"
           >
             <caption>
-              Itens Cadastrados
+              Itens encontrados
             </caption>
             <thead>
               <tr>
@@ -594,7 +569,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 
     <script
       charset="UTF-8"
-      src="<%=contextPath%>/resources/assets/js/matrizCurricular/alunos.js?ver=<%=new Date().getTime()%>"
+      src="<%=contextPath%>/resources/assets/js/turmas/lancarNotas.js?ver=<%=new Date().getTime()%>"
     ></script>
 
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>

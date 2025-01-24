@@ -161,9 +161,9 @@ function getDados() {
 		.done(function(data) {
 			dados = data
 			dadosOriginais = data
-			listarDados(data); 
+			listarDados(data);
 			showPage(currentPage);
-	updatePagination();
+			updatePagination();
 			$('input[data-toggle="toggle"]').bootstrapToggle();
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
@@ -260,40 +260,40 @@ function alteraStatus(element) {
 	})
 }
 function showModal(ref) {
-    // Obtém os atributos do elemento de referência
-     id = ref.getAttribute("data-id");
-    const nome = ref.getAttribute("data-nome");
-    const dataIni = ref.getAttribute("data-dataInicio");
-    const dataFim = ref.getAttribute("data-dataFim");
-    const isAtivo = ref.getAttribute("data-ativo");
-    const periodoLetivoId = ref.getAttribute("data-idPeriodoLetivo");
+	// Obtém os atributos do elemento de referência
+	id = ref.getAttribute("data-id");
+	const nome = ref.getAttribute("data-nome");
+	const dataIni = ref.getAttribute("data-dataInicio");
+	const dataFim = ref.getAttribute("data-dataFim");
+	const isAtivo = ref.getAttribute("data-ativo");
+	const periodoLetivoId = ref.getAttribute("data-idPeriodoLetivo");
 
-    // Atualiza o valor do select oculto
-    $("#periodoLetivoIdEdit").val(periodoLetivoId).change();
+	// Atualiza o valor do select oculto
+	$("#periodoLetivoIdEdit").val(periodoLetivoId).change();
 
-    // Verifica se a opção correspondente está no select e obtém o texto
-    const periodoLetivoSelecionado = $("#periodoLetivoIdEdit option:selected").text();
-    if (periodoLetivoSelecionado) {
-        // Preenche o campo de pesquisa com o texto correspondente
-        $("#periodoLetivoSearchEdit").val(periodoLetivoSelecionado);
-    } else {
-        // Preencha com um valor padrão ou mensagem se a opção não for encontrada
-        $("#periodoLetivoSearchEdit").val("Período não encontrado");
-    }
+	// Verifica se a opção correspondente está no select e obtém o texto
+	const periodoLetivoSelecionado = $("#periodoLetivoIdEdit option:selected").text();
+	if (periodoLetivoSelecionado) {
+		// Preenche o campo de pesquisa com o texto correspondente
+		$("#periodoLetivoSearchEdit").val(periodoLetivoSelecionado);
+	} else {
+		// Preencha com um valor padrão ou mensagem se a opção não for encontrada
+		$("#periodoLetivoSearchEdit").val("Período não encontrado");
+	}
 
-    // Controle de exibição para elementos de ativação/desativação
-    if (isAtivo === "S") {
-        $(".ativar").hide();
-        $(".desativar").show();
-    } else {
-        $(".desativar").hide();
-        $(".ativar").show();
-    }
+	// Controle de exibição para elementos de ativação/desativação
+	if (isAtivo === "S") {
+		$(".ativar").hide();
+		$(".desativar").show();
+	} else {
+		$(".desativar").hide();
+		$(".ativar").show();
+	}
 
-    // Preenche outros campos
-    $('#edit-nome').val(nome);
-    $("#dataInicioEdit").val(dataIni);
-    $("#dataFimEdit").val(dataFim);
+	// Preenche outros campos
+	$('#edit-nome').val(nome);
+	$("#dataInicioEdit").val(dataIni);
+	$("#dataFimEdit").val(dataFim);
 }
 
 
@@ -310,9 +310,21 @@ function editar() {
 		concurso: $('#edit-nome').val(),
 		dataAbertura: $('#dataInicioEdit').val(),
 		dataFechamento: $("#dataFimEdit").val(),
-		periodoLetivoId: $("#periodoLeti'oIdEdit").val(),
+		periodoLetivoId: $("#periodoLetivoIdEdit").val(),
 		contaId: contaId
+	}
 
+	var dataInicio = new Date(objeto.dataAbertura);
+	var dataFim = new Date(objeto.dataFechamento);
+
+	if (dataFim < dataInicio) {
+		Swal.fire({
+			icon: "error",
+			title: "Oops...",
+			text: "A data de fim não pode ser menor que a data de início.",
+		});
+
+		return
 	}
 
 
@@ -365,6 +377,19 @@ function cadastrar() {
 		dataFechamento: $("#dataFechamento").val(),
 		periodoLetivoId: $("#periodoLetivoId").val(),
 		contaId: contaId
+	}
+
+	var dataInicio = new Date(objeto.dataAbertura);
+	var dataFim = new Date(objeto.dataFechamento);
+
+	if (dataFim < dataInicio) {
+		Swal.fire({
+			icon: "error",
+			title: "Oops...",
+			text: "A data de fim não pode ser menor que a data de início.",
+		});
+
+		return
 	}
 
 	$.ajax({

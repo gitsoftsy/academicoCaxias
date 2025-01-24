@@ -299,7 +299,7 @@ function listarDados(dados) {
 					'" style="width: 63px; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" title="Avaliações" class="btn btn-primary btn-sm"><i class="fa-solid fa-file-lines fa-lg"></i></a>' +
 					'<a href="turma-matriculas?turma=' +
 					item.idTurma +
-					'" style="width: 63px; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" title="Alunos da turma" class="btn btn-primary btn-sm"><i class="fa-solid fa-clipboard-list fa-lg"></i></a>' +
+					'" style="width: 63px; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" title="Alunos da turma" class="btn btn-primary btn-sm"><i class="fa-solid fa-users fa-lg"></i></a>' +
 					"</td>" +
 					"</tr>"
 				);

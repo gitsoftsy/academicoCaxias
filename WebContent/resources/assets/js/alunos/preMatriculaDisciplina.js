@@ -261,7 +261,7 @@ function getDados(filtros) {
 		async: false,
 	})
 		.done(function(response) {
-			console.log('response', response)
+			console.log('Response dados:', response)
 			dados = response.data
 			listarDados(response.data);
 			$(".checkbox-toggle").each(function() {
@@ -279,7 +279,7 @@ function listarDados(dados) {
 	var html = dados
 		.map(function(item) {
 			const nomeTurma = item.nomeTurma == null ? 'Sem turma' : item.nomeTurma
-			const nomeEscola = item.nomeEscola == null ? 'Sem turma' : item.nomeEscola
+			const nomeEscola = item.nomeEscola == null ? 'Sem escola' : item.nomeEscola
 
 			return (
 				"<tr>" +
@@ -326,6 +326,7 @@ const getMatriculas = () => {
 
 		if (response.data.length > 0) {
 			$("#tableMatriculas").show();
+			console.log('Response matriculas', response.data)
 			listarMatriculas(response.data);
 		} else {
 			$("#notFound").show();
@@ -342,7 +343,6 @@ const getMatriculas = () => {
 }
 
 function listarMatriculas(dados) {
-	console.log('Dados', dados)
 	var html = dados
 		.map(function(item) {
 
@@ -399,7 +399,7 @@ const matricular = (idTurma, idDisciplina) => {
 
 	console.log('idTurma:', idTurma)
 	console.log('idDisciplina:', idDisciplina)
-	
+
 	const body = {
 		"contaId": contaId,
 		"tipoMatriculaId": tipoMatricula,
@@ -423,24 +423,31 @@ const matricular = (idTurma, idDisciplina) => {
 		async: false,
 		error: function(e) {
 			console.log(e)
-			Swal.fire({
-				icon: "error",
-				title: "Oops...",
-				text: "Não foi possível realizar esse comando!"
+			if (e.responseJSON.error == "Erro de violação de chave única") {
+				Swal.fire({
+					icon: "info",
+					title: "Aluno já matriculado!",
+					text: "O aluno selecionado já foi matriculado nessa disciplina."
 
-			});
+				});
+			} else {
+				Swal.fire({
+					icon: "error",
+					title: "Oops...",
+					text: "Não foi possível realizar esse comando!"
+
+				});
+			}
+
 		}
 	}).done(function(data) {
-		Swal.fire({
-			title: "Matriculado com sucesso",
-			icon: "success",
-		}).then((data) => {
-			window.location.reload()
-		})
+		getMatriculas()
+		getDados()
 	})
 }
 
 const matricularAluno = (idTurma, idDisciplina) => {
+	console.log('Matricular:', idTurma, idDisciplina)
 	Swal.fire({
 		title: "Deseja mesmo matricular o aluno nesta disciplina?",
 		icon: "warning",
@@ -457,6 +464,7 @@ const matricularAluno = (idTurma, idDisciplina) => {
 }
 
 const removerMatricula = (idPrematricula) => {
+	console.log('Delete:', idPrematricula)
 	Swal.fire({
 		title: "Deseja mesmo remover?",
 		icon: "warning",
@@ -482,12 +490,13 @@ const removerMatricula = (idPrematricula) => {
 					});
 				}
 			}).done(function(data) {
-				Swal.fire({
-					title: "Deletado com sucesso",
-					icon: "success",
-				}).then((data) => {
-					window.location.reload()
-				})
+				getMatriculas()
+				const serie = $("#serie").val();
+				const idPeriodoLetivo = $("#periodoLetivo").val();
+				const tipoMatricula = $("#tiposMatricula").val();
+				if (serie && idPeriodoLetivo && tipoMatricula) {
+				getDados()
+				}
 			})
 		} else if (result.isCanceled) { }
 	})

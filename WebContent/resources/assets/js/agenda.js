@@ -20,7 +20,8 @@ const contaId = localStorage.getItem("contaId");
 
 $(document).ready(function () {
   $("#containerAnexos").hide();
-  getDados();
+  $("#tableTurma").hide();
+  $("select").select2();
 
   $.ajax({
     url: url_base + "/agendas",
@@ -391,8 +392,10 @@ $(document).ready(function () {
     $('input[data-toggle="toggle"]').bootstrapToggle();
   }
 
+  getDados();
   showPage(currentPage);
   updatePagination();
+  $("select").select2();
 });
 
 $("#limpa-filtros").click(function () {
@@ -469,18 +472,7 @@ function listarDados(dados) {
         item.idAgenda +
         '" onclick="selecionar(this)"><i class="fa-solid fa-right-to-bracket fa-lg"></i></span></td>' +
         "<td>" +
-        item.turma.escola.nomeEscola +
-        "</td>" +
-        "<td>" +
-        item.turma.periodoLetivo.ano +
-        "/" +
-        item.turma.periodoLetivo.periodo +
-        "</td>" +
-        "<td>" +
         item.turma.turno.turno +
-        "</td>" +
-        "<td>" +
-        item.turma.nomeTurma +
         "</td>" +
         "<td>" +
         item.turma.gradeCurricular.disciplina.nome +
@@ -536,6 +528,8 @@ function listarDados(dados) {
     })
     .join("");
 
+  $("#tableAlunos").show();
+  $("#textoInicial").hide();
   $("#cola-tabela").html(html);
 }
 
