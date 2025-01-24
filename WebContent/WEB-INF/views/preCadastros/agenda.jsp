@@ -92,238 +92,219 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
         </div>
       </section>
       <section class="pt-4 card px-5 py-3 mb-4">
-        <div
-          class="mt-3 mb-3"
-          style="display: flex; align-items: center; justify-content: end"
-        >
-          <div class="d-flex align-items-center gap-2">
-            <button id="limpa-filtros" class="btn btn-sm btn-danger">
-              Limpar Filtros
-            </button>
-            <button
-              id="exportar-excel"
-              class="btn btn-sm btn-success d-flex align-items-center gap-2"
-            >
-              <i class="fa-solid fa-file-export"></i> Exportar
-            </button>
-            <button
-              class="btn btn-primary btn-sm btn-new-alter px-3 py-1 ms-auto"
-              data-bs-toggle="modal"
-              onclick="limpaCampo()"
-              data-bs-target="#newCadastro"
-            >
-              Novo Cadastro
-            </button>
+        <h3 id="tituloForm" class="text-start mb-5">Filtrar</h3>
+
+        <form id="formGetTurma">
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label for="periodoLetivo" class="form-label"
+                >Período Letivo<span class="text-danger">*</span>
+              </label>
+              <select id="periodoLetivo" class="form-select">
+                <option value="">Selecione um período</option>
+              </select>
+            </div>
+
+            <div class="col-md-4 mb-3">
+              <label for="escola" class="form-label">Escola</label>
+              <select id="escola" class="form-select">
+                <option value="" selected disabled>Selecione uma escola</option>
+              </select>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="disciplina" class="form-label">Disciplina</label>
+              <select id="disciplina" class="form-select">
+                <option value="" selected disabled>
+                  Selecione uma disciplina
+                </option>
+              </select>
+            </div>
           </div>
+
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label for="turma" class="form-label">Turma</label>
+              <select id="turma" class="form-select">
+                <option value="" selected disabled>Selecione uma turma</option>
+              </select>
+            </div>
+
+            <div class="col-md-3 mb-3 align-self-end">
+              <button
+                type="submit"
+                id="btn-buscar"
+                class="btn btn-warning px-5"
+                style="font-weight: 500"
+              >
+                Buscar
+                <i class="fas fa-search ms-2" style="color: #121212"></i>
+              </button>
+            </div>
+          </div>
+        </form>
+        <hr />
+        <div
+          class="w-100 my-5 d-flex align-items-center justify-content-center"
+          style="flex: 1"
+        >
+          <h2 id="textoInicial">
+            Selecione os filtros para a realizar a busca.
+          </h2>
         </div>
 
-        <table
-          class="table tabela-cadastro table-striped table-bordered mb-0 caption-top mx-auto"
-        >
-          <caption>
-            Itens Cadastrados
-          </caption>
-          <thead>
-            <tr>
-              <th scope="col" class="border-end pe-2 th-sem-filtro">
-                Selecionar
-              </th>
-              <th
-                scope="col"
-                class="sortable border-end"
-                data-column="nomeEscola"
+        <div id="tableTurma">
+          <div
+            class="mt-3 mb-3"
+            style="display: flex; align-items: center; justify-content: end"
+          >
+            <div class="d-flex align-items-center gap-2">
+              <button id="limpa-filtros" class="btn btn-sm btn-danger">
+                Limpar Filtros
+              </button>
+              <button
+                id="exportar-excel"
+                class="btn btn-sm btn-success d-flex align-items-center gap-2"
               >
-                <div
-                  class="d-flex align-items-center justify-content-between pe-2"
-                >
-                  <div
-                    class="col d-flex align-items-center justify-content-between"
-                  >
-                    <span>Escola</span>
-                    <i class="fas fa-sort mx-2" style="color: #dddddd"></i>
-                  </div>
-                  <div class="dropdown-form">
-                    <div class="dropdown-toggle-form" id="dropdownButton1">
-                      <i class="fas fa-search" style="color: #dddddd"></i>
-                    </div>
-                    <div
-                      class="dropdown-content-form rounded-3 dropdown-content-left"
-                      id="dropdownContent1"
-                    >
-                      <input
-                        type="text"
-                        class="form-control mb-3 searchInput"
-                        placeholder="Digite a Escola"
-                      />
-                      <button
-                        class="btn btn-sm col-12 btn-success searchButton"
-                      >
-                        Buscar Escola
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </th>
-              <th scope="col" class="sortable border-end" data-column="ano">
-                <div
-                  class="d-flex align-items-center justify-content-between pe-2"
-                >
-                  <div
-                    class="col d-flex align-items-center justify-content-between"
-                  >
-                    <span>Período</span>
-                    <i class="fas fa-sort mx-2" style="color: #dddddd"></i>
-                  </div>
-                </div>
-              </th>
-              <th scope="col" class="sortable border-end" data-column="turno">
-                <div
-                  class="d-flex align-items-center justify-content-between pe-2"
-                >
-                  <div
-                    class="col d-flex align-items-center justify-content-between"
-                  >
-                    <span>Turno</span>
-                    <i class="fas fa-sort mx-2" style="color: #dddddd"></i>
-                  </div>
-                </div>
-              </th>
-              <th
-                scope="col"
-                class="sortable border-end"
-                data-column="nomeTurma"
+                <i class="fa-solid fa-file-export"></i> Exportar
+              </button>
+              <button
+                class="btn btn-primary btn-sm btn-new-alter px-3 py-1 ms-auto"
+                data-bs-toggle="modal"
+                onclick="limpaCampo()"
+                data-bs-target="#newCadastro"
               >
-                <div
-                  class="d-flex align-items-center justify-content-between pe-2"
-                >
-                  <div
-                    class="col d-flex align-items-center justify-content-between"
-                  >
-                    <span>Turma</span>
-                    <i class="fas fa-sort mx-2" style="color: #dddddd"></i>
-                  </div>
-                  <div class="dropdown-form">
-                    <div class="dropdown-toggle-form" id="dropdownButton1">
-                      <i class="fas fa-search" style="color: #dddddd"></i>
-                    </div>
-                    <div
-                      class="dropdown-content-form rounded-3 dropdown-content-left"
-                      id="dropdownContent1"
-                    >
-                      <input
-                        type="text"
-                        class="form-control mb-3 searchInput"
-                        placeholder="Digite o Nome da Turma"
-                      />
-                      <button
-                        class="btn btn-sm col-12 btn-success searchButton"
-                      >
-                        Buscar Turma
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </th>
-              <th
-                scope="col"
-                class="sortable border-end"
-                data-column="nomeDisciplina"
-              >
-                <div
-                  class="d-flex align-items-center justify-content-between pe-2"
-                >
-                  <div
-                    class="col d-flex align-items-center justify-content-between"
-                  >
-                    <span>Disciplina</span>
-                    <i class="fas fa-sort mx-2" style="color: #dddddd"></i>
-                  </div>
-                  <div class="dropdown-form">
-                    <div class="dropdown-toggle-form" id="dropdownButton1">
-                      <i class="fas fa-search" style="color: #dddddd"></i>
-                    </div>
-                    <div
-                      class="dropdown-content-form rounded-3 dropdown-content-left"
-                      id="dropdownContent1"
-                    >
-                      <input
-                        type="text"
-                        class="form-control mb-3 searchInput"
-                        placeholder="Digite a Disciplina"
-                      />
-                      <button
-                        class="btn btn-sm col-12 btn-success searchButton"
-                      >
-                        Buscar Disciplina
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </th>
+                Novo Cadastro
+              </button>
+            </div>
+          </div>
 
-              <th
-                scope="col"
-                class="sortable border-end"
-                data-column="dataAgenda"
-              >
-                <div
-                  class="d-flex align-items-center justify-content-between pe-2"
+          <table
+            class="table tabela-cadastro table-striped table-bordered mb-0 caption-top mx-auto"
+          >
+            <caption>
+              Itens Cadastrados
+            </caption>
+            <thead>
+              <tr>
+                <th scope="col" class="border-end pe-2 th-sem-filtro">
+                  Selecionar
+                </th>
+
+                <th scope="col" class="sortable border-end" data-column="turno">
+                  <div
+                    class="d-flex align-items-center justify-content-between pe-2"
+                  >
+                    <div
+                      class="col d-flex align-items-center justify-content-between"
+                    >
+                      <span>Turno</span>
+                      <i class="fas fa-sort mx-2" style="color: #dddddd"></i>
+                    </div>
+                  </div>
+                </th>
+                <th
+                  scope="col"
+                  class="sortable border-end"
+                  data-column="nomeDisciplina"
                 >
                   <div
-                    class="col d-flex align-items-center justify-content-between"
+                    class="d-flex align-items-center justify-content-between pe-2"
                   >
-                    <span>Data Agenda</span>
-                    <i class="fas fa-sort mx-2" style="color: #dddddd"></i>
-                  </div>
-                  <div class="dropdown-form">
-                    <div class="dropdown-toggle-form" id="dropdownButton1">
-                      <i class="fas fa-search" style="color: #dddddd"></i>
-                    </div>
                     <div
-                      class="dropdown-content-form rounded-3 dropdown-content-left"
-                      id="dropdownContent1"
+                      class="col d-flex align-items-center justify-content-between"
                     >
-                      <input
-                        type="date"
-                        class="form-control mb-3 searchInput"
-                      />
-                      <button
-                        class="btn btn-sm col-12 btn-success searchButton"
+                      <span>Disciplina</span>
+                      <i class="fas fa-sort mx-2" style="color: #dddddd"></i>
+                    </div>
+                    <div class="dropdown-form">
+                      <div class="dropdown-toggle-form" id="dropdownButton1">
+                        <i class="fas fa-search" style="color: #dddddd"></i>
+                      </div>
+                      <div
+                        class="dropdown-content-form rounded-3 dropdown-content-left"
+                        id="dropdownContent1"
                       >
-                        Buscar
-                      </button>
+                        <input
+                          type="text"
+                          class="form-control mb-3 searchInput"
+                          placeholder="Digite a Disciplina"
+                        />
+                        <button
+                          class="btn btn-sm col-12 btn-success searchButton"
+                        >
+                          Buscar Disciplina
+                        </button>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </th>
-              <th scope="col" class="border-end pe-2 th-sem-filtro">
-                Hora Início
-              </th>
-              <th scope="col" class="border-end pe-2 th-sem-filtro">
-                Hora Fim
-              </th>
-              <th scope="col" class="border-end pe-2 th-sem-filtro">
-                Titulo Aula
-              </th>
-              <th scope="col" class="border-end pe-2 th-sem-filtro">Resumo</th>
-              <th scope="col" class="border-end pe-2 th-sem-filtro">
-                Realizada
-              </th>
-              <th scope="col" class="border-end pe-2 th-sem-filtro">Ativo</th>
-              <th scope="col" class="border-end pe-2 th-sem-filtro">Ações</th>
-            </tr>
-          </thead>
-          <tbody id="cola-tabela" class="table-group-divider"></tbody>
-        </table>
+                </th>
 
-        <div id="pagination" class="mx-auto mt-auto">
-          <button id="prev" class="btn btn-sm">
-            <i class="fa-solid fa-angle-left fa-xl"></i>
-          </button>
-          <div id="page-numbers" class="btn-group mt-2"></div>
-          <button id="next" class="btn btn-sm">
-            <i class="fa-solid fa-angle-right fa-xl"></i>
-          </button>
+                <th
+                  scope="col"
+                  class="sortable border-end"
+                  data-column="dataAgenda"
+                >
+                  <div
+                    class="d-flex align-items-center justify-content-between pe-2"
+                  >
+                    <div
+                      class="col d-flex align-items-center justify-content-between"
+                    >
+                      <span>Data Agenda</span>
+                      <i class="fas fa-sort mx-2" style="color: #dddddd"></i>
+                    </div>
+                    <div class="dropdown-form">
+                      <div class="dropdown-toggle-form" id="dropdownButton1">
+                        <i class="fas fa-search" style="color: #dddddd"></i>
+                      </div>
+                      <div
+                        class="dropdown-content-form rounded-3 dropdown-content-left"
+                        id="dropdownContent1"
+                      >
+                        <input
+                          type="date"
+                          class="form-control mb-3 searchInput"
+                        />
+                        <button
+                          class="btn btn-sm col-12 btn-success searchButton"
+                        >
+                          Buscar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </th>
+                <th scope="col" class="border-end pe-2 th-sem-filtro">
+                  Hora Início
+                </th>
+                <th scope="col" class="border-end pe-2 th-sem-filtro">
+                  Hora Fim
+                </th>
+                <th scope="col" class="border-end pe-2 th-sem-filtro">
+                  Titulo Aula
+                </th>
+                <th scope="col" class="border-end pe-2 th-sem-filtro">
+                  Resumo
+                </th>
+                <th scope="col" class="border-end pe-2 th-sem-filtro">
+                  Realizada
+                </th>
+                <th scope="col" class="border-end pe-2 th-sem-filtro">Ativo</th>
+                <th scope="col" class="border-end pe-2 th-sem-filtro">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="cola-tabela" class="table-group-divider"></tbody>
+          </table>
+
+          <div id="pagination" class="mx-auto mt-auto">
+            <button id="prev" class="btn btn-sm">
+              <i class="fa-solid fa-angle-left fa-xl"></i>
+            </button>
+            <div id="page-numbers" class="btn-group mt-2"></div>
+            <button id="next" class="btn btn-sm">
+              <i class="fa-solid fa-angle-right fa-xl"></i>
+            </button>
+          </div>
         </div>
       </section>
 

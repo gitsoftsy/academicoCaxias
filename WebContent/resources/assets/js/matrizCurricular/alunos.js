@@ -263,7 +263,7 @@ $("#btn-buscar").on("click", function () {
     return;
   }
 
-  if (cpf && cpf.length < 3) {
+  if (cpf && cpf.length < 5) {
     Swal.fire({
       icon: "error",
       title: "CPF inválido",
@@ -286,18 +286,25 @@ $("#btn-buscar").on("click", function () {
 });
 
 function getDados(filtros) {
+  const queryParams = Object.entries(filtros)
+    .filter(
+      ([key, value]) => value !== null && value !== undefined && value !== ""
+    )
+    .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+    .join("&");
+
+  const fullUrl = `${url_base}/alunos/${contaId}/filtrar?${queryParams}`;
+
   $.ajax({
-    url:
-      url_base +
-      `/alunos?idConta=${contaId}&matricula=${filtros.matricula}&nome=${filtros.nome}&cpf=${filtros.cpf}&idEscola=${filtros.idEscola}&idCurso=${filtros.idCurso}`,
+    url: fullUrl,
     type: "GET",
     async: false,
   })
-    .done(function (data) {
-      if (data && data.length > 0) {
-        dadosOriginais = data;
-        dados = data;
-        listarDados(data);
+    .done(function (response) {
+      if (response && response.data.length > 0) {
+        dadosOriginais = response.data;
+        dados = response.data;
+        listarDados(response.data);
         $(".checkbox-toggle").each(function () {
           var status = $(this).data("status");
           if (status !== "S") {
@@ -348,9 +355,9 @@ function listarDados(dados) {
       // }
 
       const cpf =
-        item.pessoa.cpf == null
-          ? "Não possui"
-          : item.pessoa.cpf.replace(
+        item.cpf == null
+          ? "Não informado"
+          : item.cpf.replace(
               /(\d{3})(\d{3})(\d{3})(\d{2})/,
               "$1.$2.$3-$4"
             );
@@ -361,28 +368,28 @@ function listarDados(dados) {
         item.aluno +
         "</td>" +
         "<td>" +
-        item.pessoa.nomeCompleto +
+        item.nomeCompleto +
         "</td>" +
         "<td>" +
         cpf +
         "</td>" +
         "<td>" +
-        `${item.curso.nome} - ${item.curso.codCurso}` +
+        item.nomeCurso +
         "</td>" +
         "<td>" +
-        item.serie.serie +
+        item.serie +
         "</td>" +
         "<td>" +
-        item.escola.nomeEscola +
+        item.nomeEscola +
         "</td>" +
         "<td>" +
-        item.turno.turno +
+        item.turno +
         "</td>" +
         "<td>" +
         (item.emailInterno || "Não possui") +
         "</td>" +
         "<td>" +
-        item.situacaoAluno.situacaoAluno +
+        item.situacaoAluno +
         "</td>" +
         '<td class="d-flex justify-content-center">' +
         '<span style="width:50%; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-primary btn-sm" ' +

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%>
+<%@ page import="java.util.Date" %>
 <!DOCTYPE html>
 
 <% String contextPath = request.getContextPath(); %> <%@ taglib prefix="c"
@@ -588,13 +589,16 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 
     <script
       charset="UTF-8"
-      src="<%=contextPath%>/resources/assets/js/comum.js"
+      src="<%=contextPath%>/resources/assets/js/comum.js?ver=<%=new Date().getTime()%>"
     ></script>
+
     <script
       charset="UTF-8"
-      src="<%=contextPath%>/resources/assets/js/matrizCurricular/alunos.js"
+      src="<%=contextPath%>/resources/assets/js/matrizCurricular/alunos.js?ver=<%=new Date().getTime()%>"
     ></script>
+
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <script
       charset="UTF-8"
       src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"
