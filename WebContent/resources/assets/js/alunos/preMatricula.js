@@ -304,7 +304,7 @@ function listarDados(dados) {
 				      </span>
 				</td>`+
 				"<td>" +
-				item.nomeAluno +
+				item.aluno +
 				"</td>" +
 				"<td>" +
 				item.nomeCompleto +
@@ -313,22 +313,22 @@ function listarDados(dados) {
 				cpf +
 				"</td>" +
 				"<td>" +
-				`${item.curso.nome} - ${item.curso.codCurso}` +
+				`${item.nomeCurso}` +
 				"</td>" +
 				"<td>" +
-				item.serie.serie +
+				item.serie +
 				"</td>" +
 				"<td>" +
-				item.escola.nomeEscola +
+				item.nomeEscola +
 				"</td>" +
 				"<td>" +
-				item.turno.turno +
+				item.turno +
 				"</td>" +
 				"<td>" +
 				(item.emailInterno || "Não possui") +
 				"</td>" +
 				"<td>" +
-				item.situacaoAluno.situacaoAluno +
+				item.situacaoAluno +
 				"</td>" +
 				"</tr>"
 			);
