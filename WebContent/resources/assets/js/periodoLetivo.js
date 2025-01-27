@@ -36,51 +36,51 @@ $(document).ready(function () {
 	$(".dropdown-toggle-form").click(function() {
 		$(this).siblings(".dropdown-content-form").toggleClass("show");
 	});
-	
-	
-	$(".searchButton").click(function () {
-	  var searchInput = $(this)
-	    .siblings(".searchInput")
-	    .val()
-	    .toLowerCase()
-	    .normalize("NFD")
-	    .replace(/[\u0300-\u036f]/g, "");
 
-	  var columnToSearch = $(this).closest(".sortable").data("column");
 
-	  var filteredData = dadosOriginais.filter(function (item) {
-	    if (columnToSearch === "conta") {
-	      return (
-	        item.conta &&
-	        item.conta.conta &&
-	        item.conta.conta
-	          .toLowerCase()
-	          .normalize("NFD")
-	          .replace(/[\u0300-\u036f]/g, "")
-	          .includes(searchInput)
-	      );
-	    } else {
-	      return (
-	        item[columnToSearch] &&
-	        item[columnToSearch]
-	          .toString()
-	          .toLowerCase()
-	          .normalize("NFD")
-	          .replace(/[\u0300-\u036f]/g, "")
-	          .includes(searchInput)
-	      );
-	    }
-	  });
+	$(".searchButton").click(function() {
+		var searchInput = $(this)
+			.siblings(".searchInput")
+			.val()
+			.toLowerCase()
+			.normalize("NFD")
+			.replace(/[\u0300-\u036f]/g, "");
 
-	  dados = filteredData;
+		var columnToSearch = $(this).closest(".sortable").data("column");
 
-	  showPage(1);
-	  updatePagination();
-	  $('input[data-toggle="toggle"]').bootstrapToggle();
+		var filteredData = dadosOriginais.filter(function(item) {
+			if (columnToSearch === "conta") {
+				return (
+					item.conta &&
+					item.conta.conta &&
+					item.conta.conta
+						.toLowerCase()
+						.normalize("NFD")
+						.replace(/[\u0300-\u036f]/g, "")
+						.includes(searchInput)
+				);
+			} else {
+				return (
+					item[columnToSearch] &&
+					item[columnToSearch]
+						.toString()
+						.toLowerCase()
+						.normalize("NFD")
+						.replace(/[\u0300-\u036f]/g, "")
+						.includes(searchInput)
+				);
+			}
+		});
 
-	  // Limpa o campo de pesquisa e fecha o dropdown
-	  $(this).siblings(".searchInput").val("");
-	  $(this).closest(".dropdown-content-form").removeClass("show");
+		dados = filteredData;
+
+		showPage(1);
+		updatePagination();
+		$('input[data-toggle="toggle"]').bootstrapToggle();
+
+		// Limpa o campo de pesquisa e fecha o dropdown
+		$(this).siblings(".searchInput").val("");
+		$(this).closest(".dropdown-content-form").removeClass("show");
 	});
 
 	$(".searchButton").click(function() {
@@ -239,16 +239,14 @@ function getDados() {
 		url: url_base + "/periodoletivo/conta/" + contaId,
 		type: "GET",
 		async: false,
-	})
-		.done(function(data) {
-			dados = data;
-			dadosOriginais = data;
-			listarDados(data);
-			$('input[data-toggle="toggle"]').bootstrapToggle();
-		})
-		.fail(function(jqXHR, textStatus, errorThrown) {
-			console.error("Erro na solicitação AJAX:", jqXHR);
-		});
+	}).done(function(data) {
+		dados = data;
+		dadosOriginais = data;
+		listarDados(data);
+		$('input[data-toggle="toggle"]').bootstrapToggle();
+	}).fail(function(jqXHR, textStatus, errorThrown) {
+		console.error("Erro na solicitação AJAX:", jqXHR);
+	});
 }
 
 function formatarDataParaBR(data) {
@@ -359,8 +357,6 @@ function alteraStatus(element) {
 	});
 }
 
-// Exportar Dados
-
 $("#exportar-excel").click(function() {
 	var planilha = XLSX.utils.json_to_sheet(dados);
 
@@ -379,8 +375,6 @@ function formatarDataParaAPI(data) {
 
 	return year + "-" + month + "-" + day + "T" + hora;
 }
-
-// Abrir modal
 
 function showModal(ref) {
 	id = ref.getAttribute("data-id");
@@ -421,9 +415,7 @@ function showModal(ref) {
 function editar() {
 	var objeto = {
 		idPeriodoLetivo: id,
-
 		contaId: contaId,
-
 		ano: $("#anoEdit").val(),
 		periodo: $("#periodoEdit").val(),
 		dtInicio: $("#dtInicioEdit").val(),
@@ -432,37 +424,48 @@ function editar() {
 		tipoPeriodicidade: $("#tipoPeriodicidadeEdit").val(),
 	};
 
-	$.ajax({
-		url: url_base + "/periodoletivo",
-		type: "PUT",
-		data: JSON.stringify(objeto),
-		contentType: "application/json; charset=utf-8",
-		async: false,
-		error: function(e) {
-			console.log(e.responseJSON);
-			Swal.fire({
-				icon: "error",
-				title: "Oops...",
-				text: "Não foi possível realizar esse comando!",
-			});
-		},
-	}).done(function(data) {
-		$("#descricaoEdit").val("");
-		$("#anoEdit").val("");
-		$("#periodoEdit").val("");
-		$("#dtInicioEdit").val("");
-		$("#dtFimEdit").val("");
-		$("#tipoPeriodicidadeEdit").val("");
-		getDados();
-		showPage(currentPage);
-		updatePagination();
+	var dataInicio = new Date(objeto.dtInicio);
+	var dataFim = new Date(objeto.dtFim);
+
+	if (dataFim < dataInicio) {
 		Swal.fire({
-			title: "Editado com sucesso",
-			icon: "success",
-		}).then((data) => {
-			window.location.href = "periodo-letivo";
+			icon: "error",
+			title: "Oops...",
+			text: "A data de fim não pode ser menor que a data de início.",
 		});
-	});
+	} else {
+		$.ajax({
+			url: url_base + "/periodoletivo",
+			type: "PUT",
+			data: JSON.stringify(objeto),
+			contentType: "application/json; charset=utf-8",
+			async: false,
+			error: function(e) {
+				console.log(e.responseJSON);
+				Swal.fire({
+					icon: "error",
+					title: "Oops...",
+					text: "Não foi possível realizar esse comando!",
+				});
+			},
+		}).done(function(data) {
+			$("#descricaoEdit").val("");
+			$("#anoEdit").val("");
+			$("#periodoEdit").val("");
+			$("#dtInicioEdit").val("");
+			$("#dtFimEdit").val("");
+			$("#tipoPeriodicidadeEdit").val("");
+			getDados();
+			showPage(currentPage);
+			updatePagination();
+			Swal.fire({
+				title: "Editado com sucesso",
+				icon: "success",
+			}).then((data) => {
+				window.location.href = "periodo-letivo";
+			});
+		});
+	}
 
 	return false;
 }
@@ -485,6 +488,19 @@ function cadastrar() {
 		descricao: $("#descricao").val(),
 		tipoPeriodicidade: $("#tipoPeriodicidade").val(),
 	};
+
+	var dataInicio = new Date(objeto.dtInicio);
+	var dataFim = new Date(objeto.dtFim);
+
+	if (dataFim < dataInicio) {
+		Swal.fire({
+			icon: "error",
+			title: "Oops...",
+			text: "A data de fim não pode ser menor que a data de início.",
+		});
+		
+		return
+	}
 
 	$.ajax({
 		url: url_base + "/periodoletivo",

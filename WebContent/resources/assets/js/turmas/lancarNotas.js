@@ -12,7 +12,7 @@ var sortOrder = {};
 var dadosOriginais = [];
 
 $(document).ready(function () {
-  $("#tableAlunos").hide();
+  $("#tableTurma").hide();
   $("select").select2();
 
   $(".searchButton").click(function () {
@@ -127,6 +127,39 @@ $(document).ready(function () {
       );
     });
   });
+
+  $.ajax({
+    url: url_base + "/periodoletivo/conta/" + contaId,
+    type: "GET",
+    async: false,
+  })
+    .done(function (data) {
+      $.each(data, function (index, item) {
+        let tipoPeriodicidade;
+
+        switch (item.tipoPeriodicidade) {
+          case "A":
+            tipoPeriodicidade = "Anual";
+          case "B":
+            tipoPeriodicidade = "Bimestral";
+          case "T":
+            tipoPeriodicidade = "Trimestral";
+          case "S":
+            tipoPeriodicidade = "Semestral";
+        }
+
+        $("#periodoLetivo").append(
+          $("<option>", {
+            value: item.idPeriodoLetivo,
+            text: `${item.ano}/${item.periodo} - ${tipoPeriodicidade}`,
+            name: item.periodo,
+          })
+        );
+      });
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+      console.error("Erro na solicitação AJAX:", textStatus, errorThrown);
+    });
 
   $.ajax({
     url: url_base + "/cursos/ativos/conta/" + contaId,
@@ -254,24 +287,6 @@ $("#btn-buscar").on("click", function () {
     return;
   }
 
-  if (nome && nome.length < 3) {
-    Swal.fire({
-      icon: "error",
-      title: "Nome inválido",
-      text: "O campo Nome precisa ter pelo menos 3 caracteres.",
-    });
-    return;
-  }
-
-  if (cpf && cpf.length < 5) {
-    Swal.fire({
-      icon: "error",
-      title: "CPF inválido",
-      text: "O campo CPF precisa ter pelo menos 3 caracteres.",
-    });
-    return;
-  }
-
   const filtros = {
     matricula: matricula || "",
     nome: nome || "",
@@ -344,24 +359,6 @@ $("#limpa-filtros").click(function () {
 function listarDados(dados) {
   var html = dados
     .map(function (item) {
-      // var ativo;
-
-      // if (item.ativo == "N") {
-      //   ativo =
-      //     '<i  style="color:#ff1f00" class="fa-solid iconeTabela fa-circle-xmark"></i> Não';
-      // } else {
-      //   ativo =
-      //     "<i style='color:#2eaa3a' class='fa-solid iconeTabela fa-circle-check'></i> Sim";
-      // }
-
-      const cpf =
-        item.cpf == null
-          ? "Não informado"
-          : item.cpf.replace(
-              /(\d{3})(\d{3})(\d{3})(\d{2})/,
-              "$1.$2.$3-$4"
-            );
-
       return (
         "<tr>" +
         "<td>" +
@@ -369,9 +366,6 @@ function listarDados(dados) {
         "</td>" +
         "<td>" +
         item.nomeCompleto +
-        "</td>" +
-        "<td>" +
-        cpf +
         "</td>" +
         "<td>" +
         item.nomeCurso +
@@ -391,71 +385,12 @@ function listarDados(dados) {
         "<td>" +
         item.situacaoAluno +
         "</td>" +
-        '<td class="d-flex justify-content-center">' +
-        '<span style="width:50%; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-primary btn-sm" ' +
-        "data-id=" +
-        item.idAluno +
-        ' onclick="showModal(this)"><i class="fa-solid fa-user "></i></span>' +
-        '<span style="width:50%; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-primary btn-sm" ' +
-        "data-id=" +
-        item.idAluno +
-        ' onclick="verAvisosAluno(this)"><i class="fa-solid fa-bell"></i></span>' +
-        /*			'<span style="width: 63px; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-warning btn-sm" data-id="' +
-						item.idAluno +
-						'" onclick="showModal(this)"><i class="fa-solid fa-pen fa-lg"></i></span>' +*/
-        "</td>" +
         "</tr>"
       );
     })
     .join("");
 
-  $("#tableAlunos").show();
+  $("#tableTurma").show();
   $("#textoInicial").hide();
   $("#cola-tabela").html(html);
-}
-
-function alteraStatus(element) {
-  var id = element.getAttribute("data-id");
-  var status = element.getAttribute("data-status");
-
-  const button = $(element).closest("tr").find(".btn-status");
-  if (status === "S") {
-    button.removeClass("btn-success").addClass("btn-danger");
-    button.find("i").removeClass("fa-check").addClass("fa-xmark");
-    element.setAttribute("data-status", "N");
-  } else {
-    button.removeClass("btn-danger").addClass("btn-success");
-    button.find("i").removeClass("fa-xmark").addClass("fa-check");
-    element.setAttribute("data-status", "S");
-  }
-
-  $.ajax({
-    url:
-      url_base +
-      `/criteriosAvaliacao/${id}${status === "S" ? "/desativar" : "/ativar"}`,
-    type: "put",
-    error: function (e) {
-      Swal.close();
-      console.log(e);
-      console.log(e.responseJSON);
-      Swal.fire({
-        icon: "error",
-        title: e.responseJSON.message,
-      });
-    },
-  }).then((data) => {
-    getDados();
-  });
-}
-
-function showModal(ref) {
-  id = ref.getAttribute("data-id");
-
-  window.location.href = "consulta-aluno?id=" + id;
-}
-
-function verAvisosAluno(ref) {
-  id = ref.getAttribute("data-id");
-
-  window.location.href = "avisos?idAluno=" + id;
 }

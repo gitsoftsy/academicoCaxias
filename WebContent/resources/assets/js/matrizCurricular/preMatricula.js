@@ -305,7 +305,7 @@ function listarDados(dados) {
 				item.pessoa.nomeCompleto +
 				"</td>" +
 				"<td>" +
-				cpf +
+				(item.pessoa.cpf !== null ? item.pessoa.cpf : "Não informado")  +
 				"</td>" +
 				"<td>" +
 				`${item.curso.nome} - ${item.curso.codCurso}` +

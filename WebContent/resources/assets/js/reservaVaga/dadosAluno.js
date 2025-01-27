@@ -8,6 +8,7 @@ var ofertaConcursoId = 0
 var aprovado = ""
 var usuarioAprovacaoId = 0
 var classificacao = ""
+var motivoReprovacaoId = 0
 
 
 $(document).ready(function() {
@@ -390,10 +391,15 @@ $(document).ready(function() {
 			dadosFormulario.candidatoDTO.pessoaId = idPessoa
 			dadosFormulario.pessoaDTO.idPessoa = idPessoa
 			dadosFormulario.candidatoDTO.aprovado = aprovado
+			if(aprovado === "N"){
+				dadosFormulario.candidatoDTO.motivoReprovacaoCandidatoId = motivoReprovacaoId
+			}
+			
 			dadosFormulario.candidatoDTO.candidato = Number(numeroCandidato)
 			dadosFormulario.candidatoDTO.ofertaConcursoId = ofertaConcursoId
 			dadosFormulario.candidatoDTO.usuarioAprovacaoId = usuarioAprovacaoId
 			dadosFormulario.candidatoDTO.classificacao = classificacao
+			dadosFormulario.candidatoDTO.motivoReprovacaoId = 
 
 			localStorage.setItem('jsonAluno', JSON.stringify(dadosFormulario))
 			localStorage.setItem('numeroReserva', dadosFormulario.candidatoDTO.candidato)
@@ -476,6 +482,10 @@ function carregarDados(id) {
 			ofertaConcursoId = data.ofertaConcursoId
 			usuarioAprovacaoId = data.usuarioAprovacao
 			classificacao = data.classificacao
+			if(aprovado === "N"){
+				motivoReprovacaoId = data.motivoReprovacaoCandidato.idMotivoReprovacaoCandidato
+			}
+			
 
 			$.ajax({
 				url: url_base + '/pessoas/' + data.pessoa,
