@@ -10,11 +10,11 @@ const contaPadraoAcessoId = localStorage.getItem("idContaAcesso");
 $('#escolaIdStyle').css('display', 'none')
 $('#escolaIdStyleEdit').css('display', 'none')
 $(document).ready(function() {
-	
+
 	// Caminho base para os favicons
-		var contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf('/', 1));
-	
-	$('<script/>',{type:'text/javascript', src:`${contextPath}/resources/assets/js/util/getContainerAluno.js`}).appendTo('head')
+	var contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf('/', 1));
+
+	$('<script/>', { type: 'text/javascript', src: `${contextPath}/resources/assets/js/util/getContainerAluno.js` }).appendTo('head')
 
 	// Fechar dropdowns quando clicar fora deles
 	$(document).on('click', function(e) {
@@ -28,10 +28,10 @@ $(document).ready(function() {
 		$('.dropdown-content-form').not($(this).next()).hide();
 		$(this).next('.dropdown-content-form').toggle();
 	});
-	
-	 $('.searchButton').click(function() {
-        $(this).closest('.dropdown-content-form').slideUp();
-    });
+
+	$('.searchButton').click(function() {
+		$(this).closest('.dropdown-content-form').slideUp();
+	});
 
 	// Array de favicons para adicionar
 	var favicons = [
@@ -95,27 +95,27 @@ $(document).ready(function() {
 		sessionStorage.setItem('contaId', contaId)
 
 		let transacao = "/" + $(location).attr('href').split("/")[$(location).attr('href').split("/").length - 1];
-		
+
 
 		if (transacao.includes('?')) {
 			let pathUrl = transacao
-			
+
 			transacao = pathUrl.split('?')[0]
-			
+
 		}
 
 		$.ajax({
 			url: url_base + `/transacoes/acessos/${usuarioId}?url=${transacao}`,
 			type: "get",
 			error: function(e) {
-				
+
 				if (e.responseText == "Nenhum acesso encontrado para o usuário ou transação informado.") {
 					console.log(e.responseText)
-					
+
 				}
 			}
 		}).then(data => {
-			
+
 			if (data[0].acessa == 'N') {
 				Swal.fire({
 					title: "Acesso não autorizado.",
@@ -185,7 +185,7 @@ $(document).ready(function() {
 			})
 		}
 	}
-	
+
 	const perfilEscola = sessionStorage.getItem("perfil")
 	if (window.location.pathname.includes('escola') && !(window.location.toString().includes("acessar")) && !(window.location.toString().includes("nova-escola")) && !(window.location.toString().includes("editar-escola"))) {
 
