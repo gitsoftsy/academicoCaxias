@@ -10,7 +10,7 @@ let nomeCandidato = ""
 let ofertaConcurso = {}
 let candidato = {}
 let idOfertaConcurso
-	
+
 
 const getDadosOfertaConcurso = () => {
 	$.ajax({
@@ -262,6 +262,16 @@ function gerarSenhaAleatoria(tamanho = 8) {
 	return senha;
 }
 
+function validarObjeto(obj) {
+	for (const [chave, valor] of Object.entries(obj)) {
+		if (valor === null || valor === undefined) {
+			console.error(`O campo "${chave}" está inválido (null ou undefined).`);
+			return false;
+		}
+	}
+	return true;
+}
+
 $('#gerarAluno').click((event) => {
 	event.preventDefault()
 	const objeto = {
@@ -277,7 +287,18 @@ $('#gerarAluno').click((event) => {
 		"emailInterno": $('#emailInterno').val(),
 		"senha": $('#senha').val(),
 		"geraPrematricula": $('#geraMatricula:checked').val() != 'on' ? "N" : "S",
-		"tipoMatriculaId": $('#geraMatricula:checked').val() != 'on' ?  null : Number($("#tipoMatriculaId").val())
+		"tipoMatriculaId": $('#geraMatricula:checked').val() != 'on' ? null : Number($("#tipoMatriculaId").val()),
+		"curriculoId": $("#curriculoId").val()
+	}
+
+	if (!validarObjeto(objeto)) {
+		Swal.fire({
+			icon: "info",
+			title: "Campos inválidos",
+			text: "Preencha todos os campos!"
+
+		});
+		return
 	}
 
 	console.log(objeto)
@@ -297,7 +318,9 @@ $('#gerarAluno').click((event) => {
 
 			});
 		}
-	}).done(function(data) {
+	}).done(function(response) {
+		console.log(response)
+
 		$.ajax({
 			url: url_base + "/candidatos/" + Number(idCandidato) + '/aprovar',
 			type: "put",
@@ -318,32 +341,33 @@ $('#gerarAluno').click((event) => {
 			$('#emailInterno').val('')
 			$('#senha').val('')
 			Swal.fire({
-				title: "Aluno criado com sucesso",
+				title: "Aprovado!",
+				text: "Aluno criado com sucesso",
 				icon: "success",
-			}).then((data) => {
-				window.location.href = 'alunos'
+			}).then(result => {
+				window.location.href = 'consulta-aluno?id=' + response.idAluno
 			})
 		})
 	})
 })
 
-$('#mtMatricula').change(() => {
+/*$('#mtMatricula').change(() => {
 	if ($('#mtMatricula:checked').val() == 'on') {
 		$('#divMatricula').hide()
 	} else {
 		$('#divMatricula').show()
 	}
 
-})
+})*/
 
-$('#geraMatricula').change(() => {
+/*$('#geraMatricula').change(() => {
 	if ($('#geraMatricula:checked').val() == 'on') {
 		$('.divTipoMatricula').show()
 	} else {
 		$('.divTipoMatricula').hide()
 	}
 
-})
+})*/
 
 const reprovarCandidato = () => {
 	Swal.fire({
@@ -646,7 +670,7 @@ const getDadosCandidato = () => {
 
 
 			})
-			
+
 			$('#municipioNascimentoId').val(data.municipioNascimento.idMunicipio);
 
 
@@ -666,7 +690,7 @@ const getDadosCandidato = () => {
 
 				$('#certidaoNascimentoNumero').val(data.certidaoNascimentoNumero);
 				$('#certidaoNascimentoCartorio').val(data.certidaoNascimentoCartorio);
-				
+
 				$('#certidaoNascimentoUfCartorioId').val(data.certidaoNascimentoMunicipioCartorio != null ? data.certidaoNascimentoMunicipioCartorio.ufId : "")
 				$.ajax({
 					url: url_base + '/municipio/uf/' + $('#certidaoNascimentoUfCartorioId').val(),

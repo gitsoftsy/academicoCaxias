@@ -1584,10 +1584,7 @@ String contextPath = request.getContextPath();
 					</div>
 					<div class="modal-body">
 						<form id="formModalAprovarCandidato">
-							<!-- <div class="d-flex flex-column align-items-center mb-4 gap-2"
-								id="divSenha">
-							</div> -->
-							<div class="mb-4">
+							<!-- <div class="mb-4">
 								<label for="mtMatricula" class="form-label">Gerar
 									matricula:<span class="red">*</span>
 								</label>
@@ -1598,38 +1595,23 @@ String contextPath = request.getContextPath();
 										class="slider slider-certidao"></span>
 									</label> <label for="mtMatricula">Manual</label>
 								</div>
-							</div>
-							<!-- 							<div class="mb-4">
-								<label for="mtMatricula" class="form-label">Forma de
-									matricula:</label>
-								<div class="form-control">
-									<div class="form-check form-check-inline">
-										<input class="form-check-input" type="radio" checked
-											name="mtMatricula" id="mtMatricula" value="auto" />
-										<label class="form-check-label" for="auto">Automática</label>
-									</div>
-									<div class="form-check form-check-inline">
-										<input class="form-check-input" type="radio"
-											name="mtMatricula" id="mtMatricula" value="manual" /> <label
-											class="form-check-label" for="manual">Manual</label>
-									</div>
-								</div>
 							</div> -->
+
 							<div class="mb-4" id='divMatricula'>
-								<label for="aluno" class="form-label">Matricula: </label> <input
+								<label for="aluno" class="form-label">Matricula: <span class="text-danger">*</span> </label> <input
 									type="text" id="aluno" autocomplete="off" name="aluno"
 									class="form-control" />
 							</div>
 							<div class="mb-4">
 								<label for="situacaoAlunoId" class="form-label">Situação
-									Aluno: </label> <select class="form-select" aria-label="Situação Aluno"
+									Aluno: <span class="text-danger">*</span> </label> <select class="form-select" aria-label="Situação Aluno"
 									id="situacaoAlunoId" name="situacaoAlunoId">
 									<option selected disabled>Selecione uma opção</option>
 								</select>
 							</div>
 							<div class="mb-4">
 								<label for="emailInterno" class="form-label">Email
-									interno: </label> <input type="text" id="emailInterno"
+									interno: <span class="text-danger">*</span> </label> <input type="text" id="emailInterno"
 									autocomplete="off" name="emailInterno" class="form-control" />
 							</div>
 							<div class="mb-4">
@@ -1656,7 +1638,7 @@ String contextPath = request.getContextPath();
 
 							<div class="mb-4 divTipoMatricula">
 								<label for="tipoMatriculaId" class="form-label">Tipo
-									Matricula: </label> <select class="form-select"
+									Matricula:<span class="text-danger">*</span> </label> <select class="form-select"
 									aria-label="Tipo Matricula" id="tipoMatriculaId"
 									name="tipoMatriculaId">
 									<option selected disabled>Selecione uma opção</option>

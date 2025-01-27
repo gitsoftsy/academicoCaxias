@@ -567,7 +567,7 @@ function alteraStatus(element) {
 			});
 		},
 	}).then((data) => {
-		window.location.href = "oferta-concurso";
+		buscar()
 	});
 }
 
