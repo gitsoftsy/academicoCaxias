@@ -200,16 +200,16 @@ function cadastrar() {
 	const tipoMatriculaId = dadosDisciplina.tipoMatriculaId;
 	const periodoLetivoId = dadosDisciplina.periodoLetivoId;
 	const disciplinaId = dadosDisciplina.disciplinaId;
-	const turmaId =  $("#turmaId").val();
+	const turmaId = $("#turmaId").val();
 	const serieId = dadosDisciplina.serieId;
 	const idPreMatricula = dadosDisciplina.idPreMatricula;
-	
+
 
 	let objeto = {
 		"contaId": contaId,
 		"tipoMatriculaId": tipoMatriculaId,
 		"ativo": "S",
-		"alunoId": id,
+		"alunosId": [id],
 		"periodoLetivoId": periodoLetivoId,
 		"disciplinaId": disciplinaId,
 		"turmaId": turmaId,
@@ -221,11 +221,12 @@ function cadastrar() {
 
 	console.log(objeto)
 
+
 	$.ajax({
-		url: url_base + "/matricula",
-		type: "POST",
-		data: JSON.stringify(objeto),
+		url: url_base + "/prematricula/" + idPreMatricula,
+		type: "DELETE",
 		contentType: "application/json; charset=utf-8",
+		async: false,
 		error: function(e) {
 			Swal.close();
 			console.log(e);
@@ -237,11 +238,12 @@ function cadastrar() {
 		},
 	}).done(function(res) {
 
+
 		$.ajax({
-			url: url_base + "/prematricula/" + idPreMatricula,
-			type: "DELETE",
+			url: url_base + "/prematricula",
+			type: "POST",
+			data: JSON.stringify(objeto),
 			contentType: "application/json; charset=utf-8",
-			async: false,
 			error: function(e) {
 				Swal.close();
 				console.log(e);
@@ -252,13 +254,17 @@ function cadastrar() {
 				});
 			},
 		}).done(function(res) {
+
 			Swal.fire({
 				title: "Matricula efetivada com sucesso",
 				icon: "success",
 			});
 			window.location.href = "matricular-disciplina?id=" + id
 		});
+
 	});
+
+
 }
 
 

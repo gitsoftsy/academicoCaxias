@@ -405,7 +405,7 @@ const efetivar = (element) => {
 	console.log(objeto)
 
 	$.ajax({
-		url: url_base + "/matricula",
+		url: url_base + "/prematricula",
 		type: "POST",
 		data: JSON.stringify(objeto),
 		contentType: "application/json; charset=utf-8",

@@ -177,7 +177,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 					<div class="col-md-6">
 						<label for="escolaId" class="form-label">Escola:<span
 							class="red">*</span></label> <select class="form-select"
-							aria-label="escolaId" id="escolaId" required name="escolaId">
+							aria-label="escolaId" id="escolaId" required name="escolaId" disabled>
 							<option value="" selected disabled>Selecione a Escola</option>
 						</select>
 					</div>

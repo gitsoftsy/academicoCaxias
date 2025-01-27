@@ -102,6 +102,7 @@ $('#formSubmit').submit(function(event) {
 	if (id != undefined) {
 
 		dadosForm.pessoaDTO.idCandidato = id
+		console.log(dadosForm)
 		$.ajax({
 			url: url_base + '/candidatos/pessoa-candidato',
 			type: "PUT",
