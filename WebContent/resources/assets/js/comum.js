@@ -11,6 +11,9 @@ $('#escolaIdStyle').css('display', 'none')
 $('#escolaIdStyleEdit').css('display', 'none')
 $(document).ready(function() {
 	
+	// Caminho base para os favicons
+		var contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf('/', 1));
+	
 	$('<script/>',{type:'text/javascript', src:`${contextPath}/resources/assets/js/util/getContainerAluno.js`}).appendTo('head')
 
 	// Fechar dropdowns quando clicar fora deles
@@ -29,9 +32,6 @@ $(document).ready(function() {
 	 $('.searchButton').click(function() {
         $(this).closest('.dropdown-content-form').slideUp();
     });
-	
-	// Caminho base para os favicons
-	var contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf('/', 1));
 
 	// Array de favicons para adicionar
 	var favicons = [
