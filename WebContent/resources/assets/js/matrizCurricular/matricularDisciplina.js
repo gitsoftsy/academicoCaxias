@@ -341,7 +341,7 @@ const listarDisciplinasNaoConfirmadas = (dados) => {
 				(item.nomeTurma != '' ? item.nomeTurma : "(Sem Turma)") +
 				"</td>" +
 				"<td>" +
-				(`${item.codigoDisciplina} - ${item.nomeDisciplina}`)+
+				(`${item.codigoDisciplina} - ${item.nomeDisciplina}`) +
 				"</td>" +
 				"<td>" +
 				item.ano +
@@ -405,7 +405,7 @@ const efetivar = (element) => {
 	console.log(objeto)
 
 	$.ajax({
-		url: url_base + "/prematricula",
+		url: url_base + "/matricula",
 		type: "POST",
 		data: JSON.stringify(objeto),
 		contentType: "application/json; charset=utf-8",

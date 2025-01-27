@@ -83,8 +83,8 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 		<section class="mb-5">
 			<div class="card">
 				<div class="card-body title">
-					<i class="fa-solid fa-plus fa-lg"></i><span>Efetivação de
-						Aluno</span>
+					<i class="fa-solid fa-plus fa-lg"></i><span> Vinculação de
+						Turma</span>
 				</div>
 			</div>
 		</section>
@@ -177,7 +177,8 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 					<div class="col-md-6">
 						<label for="escolaId" class="form-label">Escola:<span
 							class="red">*</span></label> <select class="form-select"
-							aria-label="escolaId" id="escolaId" required name="escolaId" disabled>
+							aria-label="escolaId" id="escolaId" required name="escolaId"
+							disabled>
 							<option value="" selected disabled>Selecione a Escola</option>
 						</select>
 					</div>
@@ -197,7 +198,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 
 				<div class="col-md-12 text-center mt-5">
 					<button type="submit" class="btn btn-primary px-5" id="btn-submit">
-						Efetivar</button>
+						Vincular</button>
 				</div>
 			</form>
 		</section>
