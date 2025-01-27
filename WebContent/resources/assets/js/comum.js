@@ -11,7 +11,7 @@ $('#escolaIdStyle').css('display', 'none')
 $('#escolaIdStyleEdit').css('display', 'none')
 $(document).ready(function() {
 	
-	$('<script/>',{type:'text/javascript', src:'/front-educacional-caxias/resources/assets/js/util/getContainerAluno.js'}).appendTo('head');
+	$('<script/>',{type:'text/javascript', src:`${contextPath}/resources/assets/js/util/getContainerAluno.js`}).appendTo('head')
 
 	// Fechar dropdowns quando clicar fora deles
 	$(document).on('click', function(e) {
