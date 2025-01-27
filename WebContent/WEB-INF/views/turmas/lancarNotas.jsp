@@ -92,7 +92,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
     <header id="menu"></header>
     <main class="py-4 container-res">
       <section class="mb-5">
-        <div class="card">
+        <div class="card"> 
           <div class="card-body title">
             <i class="fa-solid fa-file-lines fa-lg"></i> <span>Lançar Notas</span>
           </div>

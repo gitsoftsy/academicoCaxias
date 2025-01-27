@@ -121,11 +121,10 @@ function getDados() {
     async: false,
   })
     .done(function (data) {
-      console.log(data)
       $("#nomeTurma").val(data.nomeTurma);
-      $("#escola").val(`${data.codigoInep} - ${data.escola.nomeEscola}`);
+      $("#escola").val(`${data.escola.codigoInep} - ${data.escola.nomeEscola}`);
       $("#disciplina").val(
-        `${data.codDiscip} - ${data.gradeCurricular.disciplina.nome}`
+        `${data.gradeCurricular.disciplina.codDiscip} - ${data.gradeCurricular.disciplina.nome}`
       );
       $("#periodoLetivo").val(
         `${data.periodoLetivo.periodo} - ${data.periodoLetivo.descricao}`
@@ -147,6 +146,7 @@ function getDados() {
       ) {
         dados = data.data;
         dadosOriginais = data.data;
+        console.log(data.data);
         listarDados(data.data);
         $('input[data-toggle="toggle"]').bootstrapToggle();
       } else {
@@ -167,8 +167,78 @@ function getDados() {
 }
 
 function listarDados(dados) {
-  var html = dados
+  var provas = dados[0].lstProva;
+
+  var headerHtml =
+    "<tr>" +
+    `
+  <th scope="col" class="sortable border-end" data-column="aluno">
+    <div class="d-flex align-items-center justify-content-between pe-2">
+      <div class="col d-flex align-items-center justify-content-between">
+        <span>Aluno</span>
+        <i class="fas fa-sort me-3" style="color: #dddddd"></i>
+      </div>
+      <div class="dropdown-form">
+        <div class="dropdown-toggle-form" id="dropdownButtonAluno">
+          <i class="fas fa-search" style="color: #dddddd"></i>
+        </div>
+        <div class="dropdown-content-form rounded-3 dropdown-content-left" id="dropdownContentAluno">
+          <input
+            type="text"
+            class="form-control mb-3 searchInput"
+            placeholder="Digite o nome do aluno"
+            id="searchAluno"
+          />
+          <button class="btn btn-sm col-12 btn-success searchButton" onclick="filtrarTabela('aluno')">
+            Buscar
+          </button>
+        </div>
+      </div>
+    </div>
+  </th>
+  <th scope="col" class="sortable border-end" data-column="nomeCompleto">
+    <div class="d-flex align-items-center justify-content-between pe-2">
+      <div class="col d-flex align-items-center justify-content-between">
+        <span>Nome</span>
+        <i class="fas fa-sort me-3" style="color: #dddddd"></i>
+      </div>
+      <div class="dropdown-form">
+        <div class="dropdown-toggle-form" id="dropdownButtonNome">
+          <i class="fas fa-search" style="color: #dddddd"></i>
+        </div>
+        <div class="dropdown-content-form rounded-3 dropdown-content-left" id="dropdownContentNome">
+          <input
+            type="text"
+            class="form-control mb-3 searchInput"
+            placeholder="Digite o nome completo"
+            id="searchNome"
+          />
+          <button class="btn btn-sm col-12 btn-success searchButton" onclick="filtrarTabela('nomeCompleto')">
+            Buscar
+          </button>
+        </div>
+      </div>
+    </div>
+  </th>
+  ${provas.map((prova) => `<th>${prova.nomeAbreviado}</th>`).join("")}
+  </tr>`;
+
+  var bodyHtml = dados
     .map(function (item) {
+      var provasHtml = item.lstProva
+        .map(function (prova) {
+          return (
+            "<td>" +
+            '<input type="text" class="form-control" id="prova-' +
+            prova.idProva +
+            '" value="' +
+            (prova.nota !== null ? prova.nota : "") +
+            '" style="width: 50px;" />' +
+            "</td>"
+          );
+        })
+        .join("");
+
       return (
         "<tr>" +
         "<td style='cursor: pointer;'>" +
@@ -181,13 +251,10 @@ function listarDados(dados) {
         "<td>" +
         item.nomeCompleto +
         "</td>" +
-        "<td>" +
-        item.nomeAbreviado +
-        "</td>" +
+        provasHtml +
         "</tr>"
       );
     })
     .join("");
-
-  $("#cola-tabela").html(html);
+  $("#cola-tabela").html(headerHtml + bodyHtml);
 }
