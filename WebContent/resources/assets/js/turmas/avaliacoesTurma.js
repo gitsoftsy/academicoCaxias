@@ -299,8 +299,10 @@ $("#periodo").change(() => {
     $("#turno").append(
       `<option value='0' selected disabled>Selecione um turno</option>`
     );
+	
+	console.log(data)
 
-    if (data != "Nenhum resultado encontrado para os parâmetros informados.") {
+    if (data.mensagem == undefined) {
       $.each(data, function (index, item) {
         $("#turno").append(
           $("<option>", {
@@ -333,7 +335,7 @@ $("#turno").change(() => {
   $.ajax({
     url:
       url_base +
-      `/turma/filtroDisciplina?idEscola=${$(
+      `	?idEscola=${$(
         "#escolaId"
       ).val()}&idPeriodoLetivo=${$("#periodo").val()}&idTurno=${$(
         "#turno"

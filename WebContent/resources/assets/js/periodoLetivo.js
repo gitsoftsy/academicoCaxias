@@ -4,6 +4,7 @@ var dadosOriginais = [];
 var rows = 10;
 var currentPage = 1;
 var pagesToShow = 5;
+var totalPages = 5;
 const contaId = localStorage.getItem("contaId");
 
 $(document).ready(function () {
@@ -98,42 +99,57 @@ $(document).ready(function () {
 				: "";
 		}
 
-		// Normalizar o input de busca
-		var normalizedSearchInput = normalizeString(searchInput);
 
-		if (columnToSearch === "dtInicio" || columnToSearch === "dtFim") {
-			normalizedSearchInput = normalizedSearchInput.split("t")[0]; // Normalizar e remover "T" se houver
-			filteredData = dadosOriginais.filter(function(item) {
-				var itemDate = item[columnToSearch]
-					? normalizeString(item[columnToSearch].split("T")[0])
-					: "";
-				return itemDate.includes(normalizedSearchInput);
-			});
-		} else if (columnToSearch === "dependenciaAdm") {
-			filteredData = dadosOriginais.filter(function(item) {
-				var valueToCheck = item.dependenciaAdm.dependenciaAdministrativa
-					? normalizeString(item.dependenciaAdm.dependenciaAdministrativa)
-					: "";
-				return valueToCheck.includes(normalizedSearchInput);
-			});
-		} else {
-			filteredData = dadosOriginais.filter(function(item) {
-				var valueToCheck = item[columnToSearch]
-					? normalizeString(item[columnToSearch].toString())
-					: "";
-				return valueToCheck.includes(normalizedSearchInput);
-			});
-		}
 
-		dados = filteredData;
 
+	showPage(currentPage);
+	updatePagination();
+	$('input[data-toggle="toggle"]').bootstrapToggle();
+
+	$(this).siblings(".searchInput").val("");
+	$(this).closest(".dropdown-content-form").removeClass("show");
+
+	})
+	
+	showPage(currentPage);
+	updatePagination();
+});
+
+$(document).on("click", ".sortable .col", function() {
+	var column = $(this).closest("th").data("column");
+	var currentOrder = sortOrder[column] || "vazio";
+	var newOrder;
+
+	if (currentOrder === "vazio") {
+		newOrder = "asc";
+	} else if (currentOrder === "asc") {
+		newOrder = "desc";
+	} else {
+		newOrder = "vazio";
+	}
+
+	$(".sortable span").removeClass("asc desc");
+	$(this).find("span").addClass(newOrder);
+
+	var icon = $(this).find("i");
+	icon.removeClass("fa-sort-up fa-sort-down fa-sort");
+
+	if (newOrder === "asc") {
+		icon.addClass("fa-sort-up");
+		sortData(column, newOrder);
+	} else if (newOrder === "desc") {
+		icon.addClass("fa-sort-down");
+		sortData(column, newOrder);
+	} else {
+		icon.addClass("fa-sort");
+		dados = dadosOriginais;
 		showPage(1);
 		updatePagination();
 		$('input[data-toggle="toggle"]').bootstrapToggle();
 
 		$(this).siblings(".searchInput").val("");
 		$(this).closest(".dropdown-content-form").removeClass("show");
-	});
+	};
 
 	$(document).on("click", ".sortable .col", function() {
 		var column = $(this).closest("th").data("column");
@@ -223,7 +239,7 @@ $(document).ready(function () {
 			$(this).prop("checked", false);
 		}
 	});
-
+	dados = dadosOrdenados;
 	showPage(currentPage);
 	updatePagination();
 });
@@ -498,7 +514,7 @@ function cadastrar() {
 			title: "Oops...",
 			text: "A data de fim não pode ser menor que a data de início.",
 		});
-		
+
 		return
 	}
 

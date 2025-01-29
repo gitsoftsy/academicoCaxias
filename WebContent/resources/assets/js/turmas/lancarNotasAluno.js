@@ -10,6 +10,9 @@ var idEscola = "";
 const turmaId = params.get("turma");
 
 $(document).ready(function () {
+  $('input[type="text"]').each(function () {
+    $(this).data("original-value", $(this).val());
+  });
   getDados();
 
   // Dropdown de Pesquisa
@@ -42,7 +45,6 @@ $(document).ready(function () {
     });
 
     listarDados(filteredData);
-    $('input[data-toggle="toggle"]').bootstrapToggle();
     $(this).siblings(".searchInput").val("");
     $(this).closest(".dropdown-content-form").removeClass("show");
   });
@@ -75,8 +77,6 @@ $(document).ready(function () {
     } else {
       icon.addClass("fa-sort");
       listarDados(dadosOriginais);
-      $('input[data-toggle="toggle"]').bootstrapToggle();
-      $('input[data-toggle="toggle"]').bootstrapToggle();
     }
 
     sortOrder[column] = newOrder;
@@ -96,11 +96,10 @@ $(document).ready(function () {
     });
 
     listarDados(dadosOrdenados);
-    $('input[data-toggle="toggle"]').bootstrapToggle();
   }
 
-  showPage(currentPage);
   updatePagination();
+  showPage(currentPage);
 });
 
 $("#limpa-filtros").click(function () {
@@ -111,7 +110,6 @@ $("#limpa-filtros").click(function () {
   showPage(currentPage);
 
   $(".searchInput").val("");
-  $('input[data-toggle="toggle"]').bootstrapToggle();
 });
 
 function getDados() {
@@ -148,7 +146,6 @@ function getDados() {
         dadosOriginais = data.data;
         console.log(data.data);
         listarDados(data.data);
-        $('input[data-toggle="toggle"]').bootstrapToggle();
       } else {
         Swal.fire({
           title: "Nenhum aluno está matriculado a essa turma",
@@ -171,28 +168,12 @@ function listarDados(dados) {
 
   var headerHtml =
     "<tr>" +
-    `
+    ` 
   <th scope="col" class="sortable border-end" data-column="aluno">
     <div class="d-flex align-items-center justify-content-between pe-2">
       <div class="col d-flex align-items-center justify-content-between">
         <span>Aluno</span>
         <i class="fas fa-sort me-3" style="color: #dddddd"></i>
-      </div>
-      <div class="dropdown-form">
-        <div class="dropdown-toggle-form" id="dropdownButtonAluno">
-          <i class="fas fa-search" style="color: #dddddd"></i>
-        </div>
-        <div class="dropdown-content-form rounded-3 dropdown-content-left" id="dropdownContentAluno">
-          <input
-            type="text"
-            class="form-control mb-3 searchInput"
-            placeholder="Digite o nome do aluno"
-            id="searchAluno"
-          />
-          <button class="btn btn-sm col-12 btn-success searchButton" onclick="filtrarTabela('aluno')">
-            Buscar
-          </button>
-        </div>
       </div>
     </div>
   </th>
@@ -201,22 +182,6 @@ function listarDados(dados) {
       <div class="col d-flex align-items-center justify-content-between">
         <span>Nome</span>
         <i class="fas fa-sort me-3" style="color: #dddddd"></i>
-      </div>
-      <div class="dropdown-form">
-        <div class="dropdown-toggle-form" id="dropdownButtonNome">
-          <i class="fas fa-search" style="color: #dddddd"></i>
-        </div>
-        <div class="dropdown-content-form rounded-3 dropdown-content-left" id="dropdownContentNome">
-          <input
-            type="text"
-            class="form-control mb-3 searchInput"
-            placeholder="Digite o nome completo"
-            id="searchNome"
-          />
-          <button class="btn btn-sm col-12 btn-success searchButton" onclick="filtrarTabela('nomeCompleto')">
-            Buscar
-          </button>
-        </div>
       </div>
     </div>
   </th>
@@ -229,11 +194,27 @@ function listarDados(dados) {
         .map(function (prova) {
           return (
             "<td>" +
-            '<input type="text" class="form-control" id="prova-' +
+            '<input type="text" class="form-control py-1" id="prova-' +
             prova.idProva +
             '" value="' +
             (prova.nota !== null ? prova.nota : "") +
-            '" style="width: 50px;" />' +
+            '" style="width: 50px;" ' +
+            'data-id="' +
+            prova.idProva +
+            '" ' +
+            'data-id-nota="' +
+            (prova.idNota !== null ? prova.idNota : "") +
+            '" ' +
+            'data-tipo-conceito="' +
+            prova.tipoConceito +
+            '" ' +
+            'data-conceito-max="' +
+            prova.conceitoMax +
+            '" ' +
+            'data-original-value="' +
+            (prova.nota !== null ? prova.nota : "") +
+            '" ' +
+            'oninput="validarNota(this)" />' +
             "</td>"
           );
         })
@@ -256,5 +237,156 @@ function listarDados(dados) {
       );
     })
     .join("");
+
   $("#cola-tabela").html(headerHtml + bodyHtml);
+}
+
+function validarNota(input) {
+  var nota = input.value;
+  var tipoConceito = input.getAttribute("data-tipo-conceito");
+  var conceitoMax = input.getAttribute("data-conceito-max");
+
+  if (tipoConceito === "N") {
+    if (isNaN(nota)) {
+      input.setCustomValidity("A nota deve ser um número.");
+      input.reportValidity();
+      document.getElementById("btnSave").disabled = true;
+      return;
+    } else if (parseFloat(nota) > parseFloat(conceitoMax)) {
+      input.setCustomValidity(`A nota não pode ser maior que ${conceitoMax}.`);
+      input.reportValidity();
+      document.getElementById("btnSave").disabled = true;
+      return;
+    } else {
+      input.setCustomValidity("");
+      document.getElementById("btnSave").disabled = false;
+    }
+  } else if (tipoConceito === "A") {
+    if (/\d/.test(nota)) {
+      input.setCustomValidity("A nota não pode conter números.");
+      input.reportValidity();
+      document.getElementById("btnSave").disabled = true;
+      return;
+    } else {
+      input.setCustomValidity("");
+      document.getElementById("btnSave").disabled = false;
+    }
+  }
+}
+
+function salvarNotas() {
+  let erroValidacao = false;
+
+  $("tr").each(function () {
+    const row = $(this);
+    const idAluno = row
+      .find('a[href*="consulta-aluno"]')
+      .attr("href")
+      ?.split("=")[1];
+
+    if (idAluno) {
+      row.find('input[type="text"]').each(function () {
+        const inputValidate = $(this)[0];
+
+        if (!inputValidate.checkValidity()) {
+          erroValidacao = true;
+          return;
+        }
+
+        const input = $(this);
+        const idProva = input.data("id");
+        const idNota = input.data("id-nota");
+        const nota = input.val();
+
+        if (nota !== undefined && nota.trim() !== "") {
+          const notaObjPost = {
+            alunoId: parseInt(idAluno),
+            provaId: parseInt(idProva),
+            nota: nota,
+            usuarioId: usuarioId,
+            compareceu: "S",
+          };
+          const notaObjPut = {
+            idNota: idNota,
+            provaId: parseInt(idProva),
+            alunoId: parseInt(idAluno),
+            nota: nota,
+            usuarioId: usuarioId,
+            compareceu: "S",
+          };
+
+          const method = idNota ? "PUT" : "POST";
+          const objetoNota = idNota ? notaObjPut : notaObjPost;
+
+          $.ajax({
+            url: `${url_base}/nota`,
+            type: method,
+            async: false,
+            contentType: "application/json",
+            data: JSON.stringify(objetoNota),
+            error: function (e) {
+              console.error(e);
+              Swal.fire({
+                icon: "error",
+                title: "Erro ao salvar",
+                text: `Não foi possível alterar todas as notas.`,
+              });
+              return;
+            },
+          });
+        }
+      });
+    }
+  });
+
+  if (erroValidacao) {
+    Swal.fire({
+      icon: "error",
+      title: "Erro na validação",
+      text: "Algumas notas não atendem os critérios.",
+    });
+    return;
+  }
+
+  document.getElementById("btnSave").disabled = false;
+  Swal.fire({
+    icon: "success",
+    title: "Alterado com sucesso!",
+  });
+
+  getAlunos();
+  updatePagination();
+  showPage(currentPage);
+}
+
+function getAlunos() {
+  $.ajax({
+    url: url_base + "/alunos/prova/listarAluno?idTurma=" + turmaId,
+    type: "GET",
+    async: false,
+  })
+    .done(function (data) {
+      if (
+        data.message !=
+        "Nenhum resultado encontrado para os parâmetros informados."
+      ) {
+        console.log(data.data);
+        dados = data.data;
+        dadosOriginais = data.data;
+        listarDados(data.data);
+      } else {
+        Swal.fire({
+          title: "Nenhum aluno está matriculado a essa turma",
+          icon: "info",
+          confirmButtonText: `
+    						 Matricular Alunos
+  					`,
+        }).then(() => {
+          window.location.href = "matricula?turma=" + turmaId;
+        });
+      }
+    })
+    .fail(function (jqXHR, textStatus, errorThrown) {
+      console.error("Erro na solicitação AJAX:", textStatus, errorThrown);
+    });
 }

@@ -53,6 +53,11 @@ String contextPath = request.getContextPath();
 	href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
 	rel="stylesheet" />
 
+<!-- Select 2 -->
+<link
+	href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css"
+	rel="stylesheet" />
+
 <!-- FontAwesome -->
 <script charset="UTF-8" src="https://kit.fontawesome.com/3ce21ff22c.js"
 	crossorigin="anonymous"></script>
@@ -78,172 +83,228 @@ String contextPath = request.getContextPath();
 				</div>
 			</div>
 		</section>
-		<section class="pt-4 card px-5 py-3 mb-4">
-			<div class="mt-3 mb-3"
-				style="display: flex; align-items: center; justify-content: end">
-				<div class="d-flex align-items-center gap-2">
-					<button id="limpa-filtros" class="btn btn-sm btn-danger">
-						Limpar Filtros</button>
-					<button id="exportar-excel"
-						class="btn btn-sm btn-success d-flex align-items-center gap-2">
-						<i class="fa-solid fa-file-export"></i> Exportar
-					</button>
-					<button
-						class="btn btn-primary btn-sm btn-new-alter px-3 py-1 ms-auto"
-						data-bs-toggle="modal" onclick="limpaCampo()"
-						data-bs-target="#newCadastro">Novo Cadastro
+		<section class="pt-4 card card-table px-5 py-3 mb-4">
+
+			<h3 id="tituloForm" class="text-start mb-5">Filtrar</h3>
+			<p>Informe os dados nos filtros abaixo para realizar a busca de
+				uma turma:</p>
+
+			<div class="row">
+				<div class="col-md-6 mb-3">
+					<label for="periodoLetivo" class="form-label">Período
+						Letivo</label> <select id="periodoLetivo" class="form-select">
+						<option value="">Selecione um período letivo</option>
+					</select>
+				</div>
+
+				<div class="col-md-6 mb-3">
+					<label for="escola" class="form-label">Escola</label> <select
+						id="escola" class="form-select">
+						<option value="">Selecione uma escola</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-5 mb-3">
+					<label for="disciplina" class="form-label">Disciplina</label> <select
+						id="disciplina" class="form-select">
+						<option value="">Selecione uma disciplina</option>
+					</select>
+				</div>
+
+				<div class="col-md-5 mb-3">
+					<label for="turma" class="form-label">Turma</label> <select
+						id="turma" class="form-select">
+						<option value="">Selecione uma disciplina</option>
+					</select>
+				</div>
+
+				<div class="col-md-2 mb-3 align-self-end">
+					<button class="btn btn-warning px-5" id="btn-buscar"
+						style="font-weight: 500">
+						Buscar <i class="fas fa-search ms-2" style="color: #121212"></i>
 					</button>
 				</div>
 			</div>
 
-			<table
-				class="table tabela-cadastro table-striped table-bordered mb-0 caption-top mx-auto">
-				<caption>Itens Cadastrados</caption>
-				<thead>
-					<tr>
-						<th scope="col" class="border-end pe-2 th-sem-filtro">
-							Selecionar</th>
-						<th scope="col" class="sortable border-end"
-							data-column="nomeEscola">
-							<div
-								class="d-flex align-items-center justify-content-between pe-2">
-								<div
-									class="col d-flex align-items-center justify-content-between">
-									<span>Escola</span> <i class="fas fa-sort mx-2"
-										style="color: #dddddd"></i>
-								</div>
-								<div class="dropdown-form">
-									<div class="dropdown-toggle-form" id="dropdownButton1">
-										<i class="fas fa-search" style="color: #dddddd"></i>
-									</div>
-									<div
-										class="dropdown-content-form rounded-3 dropdown-content-left"
-										id="dropdownContent1">
-										<input type="text" class="form-control mb-3 searchInput"
-											placeholder="Digite a Escola" />
-										<button class="btn btn-sm col-12 btn-success searchButton">
-											Buscar Escola</button>
-									</div>
-								</div>
-							</div>
-						</th>
-						<th scope="col" class="sortable border-end" data-column="ano">
-							<div
-								class="d-flex align-items-center justify-content-between pe-2">
-								<div
-									class="col d-flex align-items-center justify-content-between">
-									<span>Período</span> <i class="fas fa-sort mx-2"
-										style="color: #dddddd"></i>
-								</div>
-							</div>
-						</th>
-						<th scope="col" class="sortable border-end" data-column="turno">
-							<div
-								class="d-flex align-items-center justify-content-between pe-2">
-								<div
-									class="col d-flex align-items-center justify-content-between">
-									<span>Turno</span> <i class="fas fa-sort mx-2"
-										style="color: #dddddd"></i>
-								</div>
-							</div>
-						</th>
-						<th scope="col" class="sortable border-end"
-							data-column="nomeTurma">
-							<div
-								class="d-flex align-items-center justify-content-between pe-2">
-								<div
-									class="col d-flex align-items-center justify-content-between">
-									<span>Turma</span> <i class="fas fa-sort mx-2"
-										style="color: #dddddd"></i>
-								</div>
-								<div class="dropdown-form">
-									<div class="dropdown-toggle-form" id="dropdownButton1">
-										<i class="fas fa-search" style="color: #dddddd"></i>
-									</div>
-									<div
-										class="dropdown-content-form rounded-3 dropdown-content-left"
-										id="dropdownContent1">
-										<input type="text" class="form-control mb-3 searchInput"
-											placeholder="Digite o Nome da Turma" />
-										<button class="btn btn-sm col-12 btn-success searchButton">
-											Buscar Turma</button>
-									</div>
-								</div>
-							</div>
-						</th>
-						<th scope="col" class="sortable border-end"
-							data-column="nomeDisciplina">
-							<div
-								class="d-flex align-items-center justify-content-between pe-2">
-								<div
-									class="col d-flex align-items-center justify-content-between">
-									<span>Disciplina</span> <i class="fas fa-sort mx-2"
-										style="color: #dddddd"></i>
-								</div>
-								<div class="dropdown-form">
-									<div class="dropdown-toggle-form" id="dropdownButton1">
-										<i class="fas fa-search" style="color: #dddddd"></i>
-									</div>
-									<div
-										class="dropdown-content-form rounded-3 dropdown-content-left"
-										id="dropdownContent1">
-										<input type="text" class="form-control mb-3 searchInput"
-											placeholder="Digite a Disciplina" />
-										<button class="btn btn-sm col-12 btn-success searchButton">
-											Buscar Disciplina</button>
-									</div>
-								</div>
-							</div>
-						</th>
+			<section id="textoInicial">
+				<div
+					class="w-100 d-flex align-items-center justify-content-center mt-2"
+					style="flex: 1">
+					<h2>Use os filtros acima para encontrar a turma desejada.</h2>
+				</div>
+			</section>
 
-						<th scope="col" class="sortable border-end"
-							data-column="dataAgenda">
-							<div
-								class="d-flex align-items-center justify-content-between pe-2">
-								<div
-									class="col d-flex align-items-center justify-content-between">
-									<span>Data Agenda</span> <i class="fas fa-sort mx-2"
-										style="color: #dddddd"></i>
-								</div>
-								<div class="dropdown-form">
-									<div class="dropdown-toggle-form" id="dropdownButton1">
-										<i class="fas fa-search" style="color: #dddddd"></i>
-									</div>
-									<div
-										class="dropdown-content-form rounded-3 dropdown-content-left"
-										id="dropdownContent1">
-										<input type="date" class="form-control mb-3 searchInput" />
-										<button class="btn btn-sm col-12 btn-success searchButton">
-											Buscar</button>
-									</div>
-								</div>
-							</div>
-						</th>
-						<th scope="col" class="border-end pe-2 th-sem-filtro">Hora
-							Início</th>
-						<th scope="col" class="border-end pe-2 th-sem-filtro">Hora
-							Fim</th>
-						<th scope="col" class="border-end pe-2 th-sem-filtro">Titulo
-							Aula</th>
-						<th scope="col" class="border-end pe-2 th-sem-filtro">Resumo</th>
-						<th scope="col" class="border-end pe-2 th-sem-filtro">
-							Realizada</th>
-						<th scope="col" class="border-end pe-2 th-sem-filtro">Ativo</th>
-						<th scope="col" class="border-end pe-2 th-sem-filtro">Ações</th>
-					</tr>
-				</thead>
-				<tbody id="cola-tabela" class="table-group-divider"></tbody>
-			</table>
+			<div id="boxAgenda">
+				<div class="mt-3 mb-3"
+					style="display: flex; align-items: center; justify-content: end">
+					<div class="d-flex align-items-center gap-2">
+						<button id="limpa-filtros" class="btn btn-sm btn-danger">
+							Limpar Filtros</button>
+						<button id="exportar-excel"
+							class="btn btn-sm btn-success d-flex align-items-center gap-2">
+							<i class="fa-solid fa-file-export"></i> Exportar
+						</button>
+						<button
+							class="btn btn-primary btn-sm btn-new-alter px-3 py-1 ms-auto"
+							data-bs-toggle="modal" onclick="limpaCampo()"
+							data-bs-target="#newCadastro">Novo Cadastro</button>
+					</div>
+				</div>
 
-			<div id="pagination" class="mx-auto mt-auto">
-				<button id="prev" class="btn btn-sm">
-					<i class="fa-solid fa-angle-left fa-xl"></i>
-				</button>
-				<div id="page-numbers" class="btn-group mt-2"></div>
-				<button id="next" class="btn btn-sm">
-					<i class="fa-solid fa-angle-right fa-xl"></i>
-				</button>
+				<div class="container-table">
+					<table
+						class="table tableNot tabela-cadastro table-striped table-bordered mb-0 caption-top mx-auto">
+						<caption>Itens Cadastrados</caption>
+						<thead>
+							<tr>
+								<th scope="col" class="border-end pe-2 th-sem-filtro">
+									Selecionar</th>
+								<th scope="col" class="sortable border-end"
+									data-column="nomeEscola">
+									<div
+										class="d-flex align-items-center justify-content-between pe-2">
+										<div
+											class="col d-flex align-items-center justify-content-between">
+											<span>Escola</span> <i class="fas fa-sort mx-2"
+												style="color: #dddddd"></i>
+										</div>
+										<div class="dropdown-form">
+											<div class="dropdown-toggle-form" id="dropdownButton1">
+												<i class="fas fa-search" style="color: #dddddd"></i>
+											</div>
+											<div
+												class="dropdown-content-form rounded-3 dropdown-content-left"
+												id="dropdownContent1">
+												<input type="text" class="form-control mb-3 searchInput"
+													placeholder="Digite a Escola" />
+												<button class="btn btn-sm col-12 btn-success searchButton">
+													Buscar Escola</button>
+											</div>
+										</div>
+									</div>
+								</th>
+								<th scope="col" class="sortable border-end" data-column="ano">
+									<div
+										class="d-flex align-items-center justify-content-between pe-2">
+										<div
+											class="col d-flex align-items-center justify-content-between">
+											<span>Período</span> <i class="fas fa-sort mx-2"
+												style="color: #dddddd"></i>
+										</div>
+									</div>
+								</th>
+								<th scope="col" class="sortable border-end" data-column="turno">
+									<div
+										class="d-flex align-items-center justify-content-between pe-2">
+										<div
+											class="col d-flex align-items-center justify-content-between">
+											<span>Turno</span> <i class="fas fa-sort mx-2"
+												style="color: #dddddd"></i>
+										</div>
+									</div>
+								</th>
+								<th scope="col" class="sortable border-end"
+									data-column="nomeTurma">
+									<div
+										class="d-flex align-items-center justify-content-between pe-2">
+										<div
+											class="col d-flex align-items-center justify-content-between">
+											<span>Turma</span> <i class="fas fa-sort mx-2"
+												style="color: #dddddd"></i>
+										</div>
+										<div class="dropdown-form">
+											<div class="dropdown-toggle-form" id="dropdownButton1">
+												<i class="fas fa-search" style="color: #dddddd"></i>
+											</div>
+											<div
+												class="dropdown-content-form rounded-3 dropdown-content-left"
+												id="dropdownContent1">
+												<input type="text" class="form-control mb-3 searchInput"
+													placeholder="Digite o Nome da Turma" />
+												<button class="btn btn-sm col-12 btn-success searchButton">
+													Buscar Turma</button>
+											</div>
+										</div>
+									</div>
+								</th>
+								<th scope="col" class="sortable border-end"
+									data-column="nomeDisciplina">
+									<div
+										class="d-flex align-items-center justify-content-between pe-2">
+										<div
+											class="col d-flex align-items-center justify-content-between">
+											<span>Disciplina</span> <i class="fas fa-sort mx-2"
+												style="color: #dddddd"></i>
+										</div>
+										<div class="dropdown-form">
+											<div class="dropdown-toggle-form" id="dropdownButton1">
+												<i class="fas fa-search" style="color: #dddddd"></i>
+											</div>
+											<div
+												class="dropdown-content-form rounded-3 dropdown-content-left"
+												id="dropdownContent1">
+												<input type="text" class="form-control mb-3 searchInput"
+													placeholder="Digite a Disciplina" />
+												<button class="btn btn-sm col-12 btn-success searchButton">
+													Buscar Disciplina</button>
+											</div>
+										</div>
+									</div>
+								</th>
+
+								<th scope="col" class="sortable border-end"
+									data-column="dataAgenda">
+									<div
+										class="d-flex align-items-center justify-content-between pe-2">
+										<div
+											class="col d-flex align-items-center justify-content-between">
+											<span>Data Agenda</span> <i class="fas fa-sort mx-2"
+												style="color: #dddddd"></i>
+										</div>
+										<div class="dropdown-form">
+											<div class="dropdown-toggle-form" id="dropdownButton1">
+												<i class="fas fa-search" style="color: #dddddd"></i>
+											</div>
+											<div
+												class="dropdown-content-form rounded-3 dropdown-content-left"
+												id="dropdownContent1">
+												<input type="date" class="form-control mb-3 searchInput" />
+												<button class="btn btn-sm col-12 btn-success searchButton">
+													Buscar</button>
+											</div>
+										</div>
+									</div>
+								</th>
+								<th scope="col" class="border-end pe-2 th-sem-filtro">Hora
+									Início</th>
+								<th scope="col" class="border-end pe-2 th-sem-filtro">Hora
+									Fim</th>
+								<th scope="col" class="border-end pe-2 th-sem-filtro">Titulo
+									Aula</th>
+								<th scope="col" class="border-end pe-2 th-sem-filtro">Resumo</th>
+								<th scope="col" class="border-end pe-2 th-sem-filtro">
+									Realizada</th>
+								<th scope="col" class="border-end pe-2 th-sem-filtro">Ativo</th>
+								<th scope="col" class="border-end pe-2 th-sem-filtro">Ações</th>
+							</tr>
+						</thead>
+						<tbody id="cola-tabela" class="table-group-divider"></tbody>
+					</table>
+					<div id="pagination" class="mx-auto mt-auto">
+						<button id="prev" class="btn btn-sm">
+							<i class="fa-solid fa-angle-left fa-xl"></i>
+						</button>
+						<div id="page-numbers" class="btn-group mt-2"></div>
+						<button id="next" class="btn btn-sm">
+							<i class="fa-solid fa-angle-right fa-xl"></i>
+						</button>
+					</div>
+				</div>
 			</div>
+
 		</section>
 
 		<section class="pt-4 card px-5 py-3" id="containerAnexos">
@@ -258,8 +319,7 @@ String contextPath = request.getContextPath();
 					<button
 						class="btn btn-primary btn-sm btn-new-alter px-3 py-1 ms-auto"
 						data-bs-toggle="modal" onclick="showModalAnexo()"
-						data-bs-target="#newCadastroAnexo">Novo
-						Cadastro</button>
+						data-bs-target="#newCadastroAnexo">Novo Cadastro</button>
 				</div>
 			</div>
 
@@ -334,11 +394,9 @@ String contextPath = request.getContextPath();
 
 								<div class="d-flex justify-content-end gap-2">
 									<button type="button" class="btn btn-secondary"
-										data-bs-dismiss="modal">Fechar
-									</button>
+										data-bs-dismiss="modal">Fechar</button>
 									<button type="submit" data-bs-dismiss="modal"
-										class="btn btn-primary">Salvar
-									</button>
+										class="btn btn-primary">Salvar</button>
 								</div>
 							</form>
 						</div>
@@ -388,11 +446,9 @@ String contextPath = request.getContextPath();
 
 								<div class="d-flex justify-content-end gap-2">
 									<button type="button" class="btn btn-secondary"
-										data-bs-dismiss="modal">Fechar
-									</button>
+										data-bs-dismiss="modal">Fechar</button>
 									<button type="submit" data-bs-dismiss="modal"
-										class="btn btn-primary">Salvar
-									</button>
+										class="btn btn-primary">Salvar</button>
 								</div>
 							</form>
 						</div>
@@ -446,16 +502,16 @@ String contextPath = request.getContextPath();
 							<div class="row">
 								<div class="col-md-6">
 									<div class="mb-4">
-										<label for="horaIni" class="form-label">Hora
-											Início:<span class="red">*</span>
+										<label for="horaIni" class="form-label">Hora Início:<span
+											class="red">*</span>
 										</label><input autocomplete="off" type="time" id="horaIni"
 											name="horaIni" class="form-control" required />
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="mb-4">
-										<label for="horaFim" class="form-label">Hora
-											Fim:<span class="red">*</span>
+										<label for="horaFim" class="form-label">Hora Fim:<span
+											class="red">*</span>
 										</label><input autocomplete="off" type="time" id="horaFim"
 											name="horaFim" class="form-control" required />
 									</div>
@@ -549,8 +605,8 @@ String contextPath = request.getContextPath();
 								</div>
 								<div class="col-md-6">
 									<div class="mb-4">
-										<label for="horaFimEdit" class="form-label">Hora
-											Fim:<span class="red">*</span>
+										<label for="horaFimEdit" class="form-label">Hora Fim:<span
+											class="red">*</span>
 										</label><input autocomplete="off" type="time" id="horaFimEdit"
 											name="horaFimEdit" class="form-control" required />
 									</div>
@@ -572,8 +628,8 @@ String contextPath = request.getContextPath();
 										<div class="form-control card-form-infra">
 											<label for="isRealizadaEdit">Sim</label> <label
 												class="switch"> <input type="checkbox"
-												id="isRealizadaEdit" name="isRealizadaEdit" />
-												<span class="slider"></span>
+												id="isRealizadaEdit" name="isRealizadaEdit" /> <span
+												class="slider"></span>
 											</label> <label for="isRealizadaEdit">Não</label>
 										</div>
 									</div>
@@ -657,6 +713,8 @@ String contextPath = request.getContextPath();
 		src="<%=contextPath%>/resources/assets/js/agenda.js"></script>
 	<script charset="UTF-8"
 		src="<%=contextPath%>/resources/assets/js/comum.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 	<script charset="UTF-8"
 		src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 </body>

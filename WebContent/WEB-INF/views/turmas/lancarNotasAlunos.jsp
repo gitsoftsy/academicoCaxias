@@ -39,10 +39,6 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
       href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
       rel="stylesheet"
     />
-    <script
-      charset="UTF-8"
-      src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"
-    ></script>
 
     <!-- Sweetalert -->
     <script
@@ -161,8 +157,13 @@ https://kit.fontawesome.com/3ce21ff22c.js"
           style="display: flex; align-items: center; justify-content: end"
         >
           <div class="d-flex align-items-center gap-2">
-            <button id="limpa-filtros" class="btn btn-sm btn-danger">
-              Limpar Filtros
+            <button
+              id="btnSave"
+              class="btn btn-success"
+              disabled
+              onclick="salvarNotas()"
+            >
+              Salvar alterações
             </button>
           </div>
         </div>
@@ -172,9 +173,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
           <caption>
             Alunos Matriculados
           </caption>
-          <thead>
-            
-          </thead>
+          <thead></thead>
           <tbody id="cola-tabela" class="table-group-divider"></tbody>
         </table>
         <div id="pagination" class="mx-auto mt-auto">

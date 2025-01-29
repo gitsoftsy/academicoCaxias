@@ -645,6 +645,7 @@ function editar() {
 
 $("#formEdit").on("submit", function(e) {
 	e.preventDefault();
+
 	const isValidEdit =
 		validateDates(
 			dtHomologacaoEdit,
@@ -658,7 +659,9 @@ $("#formEdit").on("submit", function(e) {
 			"errMessagePrazosEdit",
 			prazoIdealEdit
 		);
-	if (!isValidEdit) editar();
+		
+		
+	if (isValidEdit) editar();
 	return false;
 });
 
