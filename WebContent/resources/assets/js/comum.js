@@ -13,7 +13,8 @@ $(document).ready(function() {
 
 	// Caminho base para os favicons
 	var contextPath = window.location.pathname.substring(0, window.location.pathname.indexOf('/', 1));
-
+	
+	$('<script/>', { type: 'text/javascript', src: `${contextPath}/resources/assets/js/util/counterTable.js` }).appendTo('head')
 	$('<script/>', { type: 'text/javascript', src: `${contextPath}/resources/assets/js/util/getContainerAluno.js` }).appendTo('head')
 
 	// Fechar dropdowns quando clicar fora deles
