@@ -2,6 +2,7 @@ const contaId = localStorage.getItem("contaId");
 let idGradeCurricularSelecionada;
 let listaGrades;
 const idOfertaConcurso = params.get("id");
+const idConcurso = params.get("concurso");
 
 $(document).ready(function () {
   $("select").select2();
@@ -23,6 +24,10 @@ $(document).ready(function () {
         })
       );
     });
+    
+    console.log(idConcurso)
+    $("#concursoId").val(idConcurso);
+    $("#concursoId").prop("disabled", true);
   });
 
   $.ajax({

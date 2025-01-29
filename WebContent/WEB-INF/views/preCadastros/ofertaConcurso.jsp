@@ -120,8 +120,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 						class="btn btn-sm btn-success d-flex align-items-center gap-2">
 						<i class="fa-solid fa-file-export"></i>Exportar
 					</button>
-					<a class="btn btn-primary btn-sm px-3 py-1 ms-auto"
-						href="nova-oferta-concurso">Novo Cadastro </a>
+					<button class="btn btn-primary btn-sm px-3 py-1 ms-auto" onclick="novaOferta()" >Novo Cadastro </button>
 				</div>
 			</div>
 
