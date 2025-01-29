@@ -93,7 +93,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 
 			<div class="row mb-3">
 				<div class="col-md-6">
-					<label for="concursoSearch" class="form-label">Turma:<span
+					<label for="concursoSearch" class="form-label">Concurso:<span
 						class="red">*</span></label> <select class="form-select"
 						aria-label="concursoSearch" id="concursoSearch" required
 						name="concursoSearch">

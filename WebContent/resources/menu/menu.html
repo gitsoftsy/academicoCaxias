@@ -6,7 +6,7 @@
 	<section id="menu-mobile" class="menu-mobile">
 		<div class="container-header">
 			<div class="img-mobile-menu">
-				<img class="logo-mobile" src="resources/assets/img/logo-sumare.png"
+				<img class="logo-mobile" src="resources/assets/img/logoPrefeitura.png"
 					alt="Logo Prefeitura Caxias do Sul" />
 			</div>
 			<i class="fa-solid fa-bars" id="barsIcon"></i>
@@ -56,11 +56,9 @@
 <script charset="UTF-8" type="text/javascript">
     var perfilArmazenado = JSON.parse(sessionStorage.getItem("perfil"));
     var idContaAcesso = localStorage.getItem("idContaAcesso");
-    var logoConta = localStorage.getItem("imagemLogo");
+    // var logoConta = localStorage.getItem("imagemLogo");
 
-    console.log("Logo");
-    console.log(logoConta);
-    $("#imgLogoMenu").attr("src", `data:image/png;base64,${logoConta}`);
+    // $("#imgLogoMenu").attr("src", `data:image/png;base64,${logoConta}`);
 
     let isMenuClickEventAttached = false;
 
