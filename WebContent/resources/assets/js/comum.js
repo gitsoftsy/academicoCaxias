@@ -455,23 +455,49 @@ function showPage(page) {
 
 // Função para atualizar os números de página e controlar os botões 'Prev' e 'Next'
 function updatePagination() {
-	totalPages = Math.ceil(dados.length / rows);
-	let paginationHTML = "";
+    totalPages = Math.ceil(dados.length / rows);
+    let paginationHTML = "";
 
-	// Gera os botões de número de página dinamicamente
-	for (let i = 1; i <= totalPages; i++) {
-		paginationHTML += `
-            <button class="btn btn-sm page-number" data-page="${i}">
+    // Define quantos botões serão exibidos antes e depois da página atual
+    const maxVisible = 2; // Número de páginas visíveis antes e depois da atual
+    const startPage = Math.max(1, currentPage - maxVisible);
+    const endPage = Math.min(totalPages, currentPage + maxVisible);
+
+    // Adiciona o primeiro botão sempre que não for a primeira página
+    if (startPage > 1) {
+        paginationHTML += `
+            <button class="btn btn-sm page-number" data-page="1">1</button>
+        `;
+        if (startPage > 2) {
+            paginationHTML += `<span class="dots">...</span>`;
+        }
+    }
+
+    // Gera os botões de número de página dinamicamente
+    for (let i = startPage; i <= endPage; i++) {
+        paginationHTML += `
+            <button class="btn btn-sm page-number ${i === currentPage ? 'active' : ''}" data-page="${i}">
                 ${i}
             </button>`;
-	}
+    }
 
-	$("#page-numbers").html(paginationHTML);
+    // Adiciona os últimos botões sempre que não for a última página
+    if (endPage < totalPages) {
+        if (endPage < totalPages - 1) {
+            paginationHTML += `<span class="dots">...</span>`;
+        }
+        paginationHTML += `
+            <button class="btn btn-sm page-number" data-page="${totalPages}">${totalPages}</button>
+        `;
+    }
 
-	// Habilita ou desabilita os botões de 'Prev' e 'Next'
-	$("#prev").prop("disabled", currentPage === 1);
-	$("#next").prop("disabled", currentPage === totalPages);
+    $("#page-numbers").html(paginationHTML);
+
+    // Habilita ou desabilita os botões de 'Prev' e 'Next'
+    $("#prev").prop("disabled", currentPage === 1);
+    $("#next").prop("disabled", currentPage === totalPages);
 }
+
 
 // Evento de clique nos números de página
 $(document).on("click", ".page-number", function() {
