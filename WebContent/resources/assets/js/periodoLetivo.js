@@ -4,6 +4,7 @@ var dadosOriginais = [];
 var rows = 10;
 var currentPage = 1;
 var pagesToShow = 5;
+var totalPages = 5;
 const contaId = localStorage.getItem("contaId");
 
 $(document).ready(function() {
@@ -103,41 +104,19 @@ $(document).ready(function() {
 		}
 	});
 
-	// Normalizar o input de busca
-	var normalizedSearchInput = normalizeString(searchInput);
 
-	if (columnToSearch === "dtInicio" || columnToSearch === "dtFim") {
-		normalizedSearchInput = normalizedSearchInput.split("t")[0]; // Normalizar e remover "T" se houver
-		filteredData = dadosOriginais.filter(function(item) {
-			var itemDate = item[columnToSearch]
-				? normalizeString(item[columnToSearch].split("T")[0])
-				: "";
-			return itemDate.includes(normalizedSearchInput);
-		});
-	} else if (columnToSearch === "dependenciaAdm") {
-		filteredData = dadosOriginais.filter(function(item) {
-			var valueToCheck = item.dependenciaAdm.dependenciaAdministrativa
-				? normalizeString(item.dependenciaAdm.dependenciaAdministrativa)
-				: "";
-			return valueToCheck.includes(normalizedSearchInput);
-		});
-	} else {
-		filteredData = dadosOriginais.filter(function(item) {
-			var valueToCheck = item[columnToSearch]
-				? normalizeString(item[columnToSearch].toString())
-				: "";
-			return valueToCheck.includes(normalizedSearchInput);
-		});
-	}
 
-	dados = filteredData;
 
-	showPage(1);
+	showPage(currentPage);
 	updatePagination();
 	$('input[data-toggle="toggle"]').bootstrapToggle();
 
 	$(this).siblings(".searchInput").val("");
 	$(this).closest(".dropdown-content-form").removeClass("show");
+
+
+	showPage(currentPage);
+	updatePagination();
 });
 
 $(document).on("click", ".sortable .col", function() {
@@ -217,7 +196,7 @@ function sortData(column, order) {
 		}
 	});
 	dados = dadosOrdenados;
-	showPage(1);
+	showPage(currentPage);
 	updatePagination();
 	$('input[data-toggle="toggle"]').bootstrapToggle();
 }
@@ -501,7 +480,7 @@ function cadastrar() {
 			title: "Oops...",
 			text: "A data de fim não pode ser menor que a data de início.",
 		});
-		
+
 		return
 	}
 

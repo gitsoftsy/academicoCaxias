@@ -10,6 +10,8 @@ let descricao = ''
 let id = ''
 
 $(document).ready(function() {
+	
+	
 
 	getDados()
 
@@ -57,11 +59,12 @@ $(document).ready(function() {
 
 function getDados() {
 	$.ajax({
-		url: url_base + "/serie",
+		url: url_base + "/serie/conta/" + contaId,
 		type: "GET",
 		async: false,
 	})
 		.done(function(data) {
+			dados = data
 			listarDados(data); $('input[data-toggle="toggle"]').bootstrapToggle(); $('input[data-toggle="toggle"]').bootstrapToggle();
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
@@ -95,7 +98,7 @@ function listarDados(dados) {
 				item.ativo +
 				'" data-id="' +
 				item.idSerie +
-				' " onChange="alteraStatus(this)" checked data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-on="Sim" data-off="Não" data-width="63" class="checkbox-toggle" data-size="sm">' +
+				' " onChange="alteraStatus(this)" ' + (item.ativo === "S" ? "checked" : "") + ' data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-on="Sim" data-off="Não" data-width="63" class="checkbox-toggle" data-size="sm">' +
 				"</td>" +
 				'<td class="d-flex justify-content-center"><span style="width: 63px; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-warning btn-sm" data-id="' +
 				item.idSerie +
@@ -142,7 +145,9 @@ function alteraStatus(element) {
 			});
 		}
 	}).then(data => {
-		window.location.href = 'serie-matriz-curricular'
+		getDados()
+		showPage(currentPage)
+		updatePagination()
 	})
 }
 
