@@ -529,6 +529,12 @@ function listarDados(dados) {
 	// Reaplicar a estilização do toggle
 }
 
+function novaOferta(){
+	let concursoId = $("#concursoSearch").val();
+
+	window.location.href = "nova-oferta-concurso?concurso=" + concursoId;
+}
+
 const showRef = (ref) => {
 	id = ref.getAttribute("data-id");
 
