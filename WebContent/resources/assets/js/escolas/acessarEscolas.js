@@ -130,7 +130,6 @@ function getDados() {
 		.done(function(data) {
 			dados = data;
 			dadosOriginais = data;
-			console.log(data);
 			showPage(1);
 			$('input[data-toggle="toggle"]').bootstrapToggle();
 		})
@@ -174,6 +173,7 @@ function listarDados(dados) {
             </tr>`;
 		})
 		.join("");
+	
 
 	$("#cola-tabela").html(html);
 }

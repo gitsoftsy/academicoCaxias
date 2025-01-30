@@ -156,9 +156,11 @@ uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
         </div>
 
         <div class="container-table contTable pt-4">
+        
           <table
             class="table tableNot tabela-atos table-striped table-bordered mb-0 caption-top mx-auto"
           >
+          <caption>Itens Cadastrados</caption>
             <thead>
               <tr>
                 <th

@@ -53,6 +53,7 @@ function getDados() {
 	})
 		.done(function(data) {
 			dados = data	
+			dadosOriginais = data
 			listarDados(data); $('input[data-toggle="toggle"]').bootstrapToggle(); $('input[data-toggle="toggle"]').bootstrapToggle();
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
