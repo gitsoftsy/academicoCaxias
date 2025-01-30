@@ -276,6 +276,8 @@ $('#btn-buscar').click(() => {
 		}).done(function(data) {
 			if (data.length != 0) {
 				grades = data
+				$("caption").text(`Itens Cadastrados Total: ${data.length}`)
+
 				listarGradeCurricular(data);
 				$('.container-table').not('.contTable').show()
 				$('.row-hidden').show()

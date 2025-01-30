@@ -257,6 +257,7 @@ function getDados(idCurriculo) {
 		if (data.length > 0) {
 			console.log(data)
 			dados = data
+			$("caption").text(`Itens Cadastrados Total: ${data.length}`)
 			listarDados(data)
 			$('input[data-toggle="toggle"]').bootstrapToggle();
 		} else {

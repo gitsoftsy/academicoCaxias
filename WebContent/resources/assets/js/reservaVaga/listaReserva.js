@@ -17,8 +17,8 @@ let concurso = ""
 $(document).ready(function() {
 	$('#grid').hide()
 	$("#containerCadastros").hide();
-	getDados();
-
+/*	getDados();
+*/
 	$.ajax({
 		url: url_base + "/concursos/conta/" + contaId,
 		type: "get",
@@ -230,7 +230,7 @@ function buscar() {
 		});
 }
 
-
+/*
 function getDados() {
 	$.ajax({
 		url: url_base + "/candidatos/listaReservaDeVagas?idUsuario=" + idUsuario,
@@ -263,7 +263,7 @@ function getDados() {
 			console.error("Erro na solicitação AJAX:", textStatus, errorThrown);
 		});
 }
-
+*/
 function editar(candidato) {
 	var idCandidato = candidato.getAttribute("data-id");
 	window.location.href = "dados-aluno?id=" + idCandidato;

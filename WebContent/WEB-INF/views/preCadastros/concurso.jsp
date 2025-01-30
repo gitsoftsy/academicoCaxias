@@ -146,15 +146,17 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 					<div class="modal-body">
 						<form id="formCadastro">
 							<div class="mb-4">
-								<label for="cadastro-nome" class="form-label">Concurso:<span class="red">*</span></label>
-								<input type="text" class="form-control" id="cadastro-nome"
-									required aria-describedby="Descricao" autocomplete="off">
+								<label for="cadastro-nome" class="form-label">Concurso:<span
+									class="red">*</span></label> <input type="text" class="form-control"
+									id="cadastro-nome" required aria-describedby="Descricao"
+									autocomplete="off">
 							</div>
 
 							<div class="mb-4">
-								<label for="dataInicio" class="form-label">Data Inicio:<span class="red">*</span></label>
-								<input type="date" class="form-control" id="dataInicio" required
-									aria-describedby="Descricao 2" autocomplete="off">
+								<label for="dataInicio" class="form-label">Data Inicio:<span
+									class="red">*</span></label> <input type="date" class="form-control"
+									id="dataInicio" required aria-describedby="Descricao 2"
+									autocomplete="off">
 							</div>
 							<div class="mb-4">
 								<label for="dataFechamento" class="form-label">Data
@@ -166,16 +168,23 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 							<div class="mb-4">
 								<label for="periodoLetivo" class="form-label">Período
 									Letivo:<span class="red">*</span>
-								</label> 
+								</label>
 								<div class="custom-select">
-									<input type="text" id="periodoLetivoSearch" class="form-control"
-										placeholder="Selecione ou pesquise..." autocomplete="off" />
+									<input type="text" id="periodoLetivoSearch"
+										class="form-control" placeholder="Selecione ou pesquise..."
+										autocomplete="off" />
 									<ul class="options-list" id="periodoLetivoOption"></ul>
 								</div>
 								<select class="form-select" aria-label="periodoLetivo"
 									id="periodoLetivoId" name="periodoLetivo" hidden>
 									<option selected disabled value="">Selecione o período</option>
 								</select>
+							</div>
+							<div class="mb-4">
+								<label for="edital" class="form-label">Edital: </label> <input
+									autocomplete="off" type="file" id="edital"
+									name="edital" class="form-control" />
+
 							</div>
 							<div class="d-flex justify-content-end gap-2">
 
@@ -201,9 +210,10 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 					<div class="modal-body">
 						<form id="formEdit">
 							<div class="mb-4">
-								<label for="edit-nome" class="form-label">Concurso:</label><span class="red">*</span> <input
-									type="text" class="form-control" id="edit-nome" required
-									aria-describedby="Descricao" autocomplete="off">
+								<label for="edit-nome" class="form-label">Concurso:</label><span
+									class="red">*</span> <input type="text" class="form-control"
+									id="edit-nome" required aria-describedby="Descricao"
+									autocomplete="off">
 							</div>
 
 							<div class="mb-4">
@@ -224,13 +234,21 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 									Letivo:<span class="red">*</span>
 								</label>
 								<div class="custom-select">
-									<input type="text" id="periodoLetivoSearchEdit" class="form-control"
-										placeholder="Selecione ou pesquise..." autocomplete="off" />
+									<input type="text" id="periodoLetivoSearchEdit"
+										class="form-control" placeholder="Selecione ou pesquise..."
+										autocomplete="off" />
 									<ul class="options-list" id="periodoLetivoOptionEdit"></ul>
-								</div> <select class="form-select" aria-label="periodoLetivoEdit"
-									id="periodoLetivoIdEdit"  name="idPeriodoLetivo" hidden>
+								</div>
+								<select class="form-select" aria-label="periodoLetivoEdit"
+									id="periodoLetivoIdEdit" name="idPeriodoLetivo" hidden>
 									<option selected disabled value="">Selecione o período</option>
 								</select>
+							</div>
+							<div class="mb-4">
+								<label for="editalEdit" class="form-label">Edital: </label> <input
+									autocomplete="off" type="file" id="editalEdit"
+									name="editalEdit" class="form-control" />
+
 							</div>
 
 
