@@ -102,7 +102,7 @@ public class MatrizCurricular {
 	@RequestMapping(value = { "alunos" }, method = RequestMethod.GET)
 	public String alunos(HttpSession session, Model model) throws Exception {
 
-		return "matrizCurricular/alunos";
+		return "alunos/alunos";
 	}
 	
 	@RequestMapping(value = { "consulta-aluno" }, method = RequestMethod.GET)
@@ -152,7 +152,7 @@ public class MatrizCurricular {
 	@RequestMapping(value = { "nova-pre-matricula" }, method = RequestMethod.GET)
 	public String preMatriculaCadastro(HttpSession session, Model model) throws Exception {
 		
-		return "matrizCurricular/preMatricula";
+		return "alunos/alunos";
 	}
 	
 	@RequestMapping(value = { "disciplina-turma" }, method = RequestMethod.GET)

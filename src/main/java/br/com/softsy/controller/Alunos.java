@@ -16,7 +16,7 @@ public class Alunos {
 	@RequestMapping(value = { "pre-matricula" }, method = RequestMethod.GET)
 	public String preMatricula(HttpSession session, Model model) throws Exception {
 		
-		return "alunos/preMatricula";
+		return "alunos/alunos";
 	}
 	
 	

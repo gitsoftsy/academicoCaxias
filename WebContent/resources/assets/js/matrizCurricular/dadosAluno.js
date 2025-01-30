@@ -68,7 +68,7 @@ const listarDados = (dados) => {
       return (
         "<tr>" +
         "<td>" +
-        (item.nomeTurma != '' ? item.nomeTurma : "(Sem Turma)" ) +
+        (item.nomeTurma != "" ? item.nomeTurma : "(Sem Turma)") +
         "</td>" +
         "<td>" +
         item.codigoDisciplina +
@@ -884,3 +884,7 @@ $("#btn-edit").click(() => {
     });
   });
 });
+
+function verAvisosAluno() {
+  window.location.href = "avisos?idAluno=" + idAluno;
+}

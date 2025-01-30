@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
-<%@ page import="java.util.Date" %>
+pageEncoding="UTF-8"%> <%@ page import="java.util.Date" %>
 <!DOCTYPE html>
 
 <% String contextPath = request.getContextPath(); %> <%@ taglib prefix="c"
@@ -153,14 +152,15 @@ https://kit.fontawesome.com/3ce21ff22c.js"
             </select>
           </div>
 
-          <div class="col-md-3 mb-3 align-self-end">
-            <button
-              class="btn btn-warning px-5"
-              id="btn-buscar"
-              style="font-weight: 500"
-            >
+          <div class="col mb-3 align-self-end">
+            <button class="btn btn-warning" id="btn-buscar">
               Buscar
               <i class="fas fa-search ms-2" style="color: #121212"></i>
+            </button>
+          </div>
+          <div class="col mb-3 align-self-end">
+            <button id="limpa-filtros" class="btn btn-danger">
+              Limpar filtros
             </button>
           </div>
         </div>
@@ -175,16 +175,6 @@ https://kit.fontawesome.com/3ce21ff22c.js"
         </div>
 
         <div id="tableAlunos">
-          <div
-            class="mt-3 mb-3"
-            style="display: flex; align-items: center; justify-content: end"
-          >
-            <div class="d-flex align-items-center gap-2">
-              <button id="limpa-filtros" class="btn btn-sm btn-danger">
-                Limpar Filtros
-              </button>
-            </div>
-          </div>
           <table
             class="table tabela-atos table-striped table-bordered mb-0 caption-top mx-auto"
           >
@@ -193,6 +183,12 @@ https://kit.fontawesome.com/3ce21ff22c.js"
             </caption>
             <thead>
               <tr>
+                <th
+                  class="text-center th-sem-filtro border-end"
+                  scope="col"
+                >
+                  Acessar
+                </th>
                 <th
                   scope="col"
                   class="sortable border-end"
@@ -210,29 +206,8 @@ https://kit.fontawesome.com/3ce21ff22c.js"
                         style="color: #dddddd"
                       ></i>
                     </div>
-                    <div class="dropdown-form">
-                      <div class="dropdown-toggle-form" id="dropdownButton3">
-                        <i class="fas fa-search" style="color: #dddddd"></i>
-                      </div>
-                      <div
-                        class="dropdown-content-form rounded-3 dropdown-content-left"
-                        id="dropdownContent3"
-                      >
-                        <input
-                          type="text"
-                          class="form-control mb-3 searchInput"
-                          placeholder="Digite..."
-                        />
-                        <button
-                          class="btn btn-sm col-12 btn-success searchButton"
-                        >
-                          Buscar
-                        </button>
-                      </div>
-                    </div>
                   </div>
                 </th>
-
                 <th
                   scope="col"
                   class="sortable border-end"
@@ -249,26 +224,6 @@ https://kit.fontawesome.com/3ce21ff22c.js"
                         class="fas fa-sort me-2 ms-2"
                         style="color: #dddddd"
                       ></i>
-                    </div>
-                    <div class="dropdown-form">
-                      <div class="dropdown-toggle-form" id="dropdownButton3">
-                        <i class="fas fa-search" style="color: #dddddd"></i>
-                      </div>
-                      <div
-                        class="dropdown-content-form rounded-3 dropdown-content-left"
-                        id="dropdownContent3"
-                      >
-                        <input
-                          type="text"
-                          class="form-control mb-3 searchInput"
-                          placeholder="Digite..."
-                        />
-                        <button
-                          class="btn btn-sm col-12 btn-success searchButton"
-                        >
-                          Buscar
-                        </button>
-                      </div>
                     </div>
                   </div>
                 </th>
@@ -289,26 +244,6 @@ https://kit.fontawesome.com/3ce21ff22c.js"
                         style="color: #dddddd"
                       ></i>
                     </div>
-                    <div class="dropdown-form">
-                      <div class="dropdown-toggle-form" id="dropdownButton3">
-                        <i class="fas fa-search" style="color: #dddddd"></i>
-                      </div>
-                      <div
-                        class="dropdown-content-form rounded-3 dropdown-content-left"
-                        id="dropdownContent3"
-                      >
-                        <input
-                          type="text"
-                          class="form-control mb-3 searchInput"
-                          placeholder="Digite..."
-                        />
-                        <button
-                          class="btn btn-sm col-12 btn-success searchButton"
-                        >
-                          Buscar
-                        </button>
-                      </div>
-                    </div>
                   </div>
                 </th>
                 <th
@@ -328,29 +263,8 @@ https://kit.fontawesome.com/3ce21ff22c.js"
                         style="color: #dddddd"
                       ></i>
                     </div>
-                    <div class="dropdown-form">
-                      <div class="dropdown-toggle-form" id="dropdownButton3">
-                        <i class="fas fa-search" style="color: #dddddd"></i>
-                      </div>
-                      <div
-                        class="dropdown-content-form rounded-3 dropdown-content-left"
-                        id="dropdownContent3"
-                      >
-                        <input
-                          type="text"
-                          class="form-control mb-3 searchInput"
-                          placeholder="Digite..."
-                        />
-                        <button
-                          class="btn btn-sm col-12 btn-success searchButton"
-                        >
-                          Buscar
-                        </button>
-                      </div>
-                    </div>
                   </div>
                 </th>
-
                 <th
                   scope="col"
                   class="sortable border-end"
@@ -367,26 +281,6 @@ https://kit.fontawesome.com/3ce21ff22c.js"
                         class="fas fa-sort me-2 ms-2"
                         style="color: #dddddd"
                       ></i>
-                    </div>
-                    <div class="dropdown-form">
-                      <div class="dropdown-toggle-form" id="dropdownButton3">
-                        <i class="fas fa-search" style="color: #dddddd"></i>
-                      </div>
-                      <div
-                        class="dropdown-content-form rounded-3 dropdown-content-left"
-                        id="dropdownContent3"
-                      >
-                        <input
-                          type="text"
-                          class="form-control mb-3 searchInput"
-                          placeholder="Digite..."
-                        />
-                        <button
-                          class="btn btn-sm col-12 btn-success searchButton"
-                        >
-                          Buscar
-                        </button>
-                      </div>
                     </div>
                   </div>
                 </th>
@@ -407,26 +301,6 @@ https://kit.fontawesome.com/3ce21ff22c.js"
                         style="color: #dddddd"
                       ></i>
                     </div>
-                    <div class="dropdown-form">
-                      <div class="dropdown-toggle-form" id="dropdownButton3">
-                        <i class="fas fa-search" style="color: #dddddd"></i>
-                      </div>
-                      <div
-                        class="dropdown-content-form rounded-3 dropdown-content-left"
-                        id="dropdownContent3"
-                      >
-                        <input
-                          type="text"
-                          class="form-control mb-3 searchInput"
-                          placeholder="Digite..."
-                        />
-                        <button
-                          class="btn btn-sm col-12 btn-success searchButton"
-                        >
-                          Buscar
-                        </button>
-                      </div>
-                    </div>
                   </div>
                 </th>
                 <th
@@ -445,26 +319,6 @@ https://kit.fontawesome.com/3ce21ff22c.js"
                         class="fas fa-sort me-2 ms-2"
                         style="color: #dddddd"
                       ></i>
-                    </div>
-                    <div class="dropdown-form">
-                      <div class="dropdown-toggle-form" id="dropdownButton3">
-                        <i class="fas fa-search" style="color: #dddddd"></i>
-                      </div>
-                      <div
-                        class="dropdown-content-form rounded-3 dropdown-content-left"
-                        id="dropdownContent3"
-                      >
-                        <input
-                          type="text"
-                          class="form-control mb-3 searchInput"
-                          placeholder="Digite..."
-                        />
-                        <button
-                          class="btn btn-sm col-12 btn-success searchButton"
-                        >
-                          Buscar
-                        </button>
-                      </div>
                     </div>
                   </div>
                 </th>
@@ -489,21 +343,6 @@ https://kit.fontawesome.com/3ce21ff22c.js"
                       <div class="dropdown-toggle-form" id="dropdownButton3">
                         <i class="fas fa-search" style="color: #dddddd"></i>
                       </div>
-                      <div
-                        class="dropdown-content-form rounded-3 dropdown-content-left"
-                        id="dropdownContent3"
-                      >
-                        <input
-                          type="text"
-                          class="form-control mb-3 searchInput"
-                          placeholder="Digite..."
-                        />
-                        <button
-                          class="btn btn-sm col-12 btn-success searchButton"
-                        >
-                          Buscar
-                        </button>
-                      </div>
                     </div>
                   </div>
                 </th>
@@ -524,29 +363,8 @@ https://kit.fontawesome.com/3ce21ff22c.js"
                         style="color: #dddddd"
                       ></i>
                     </div>
-                    <div class="dropdown-form">
-                      <div class="dropdown-toggle-form" id="dropdownButton3">
-                        <i class="fas fa-search" style="color: #dddddd"></i>
-                      </div>
-                      <div
-                        class="dropdown-content-form rounded-3 dropdown-content-left"
-                        id="dropdownContent3"
-                      >
-                        <input
-                          type="text"
-                          class="form-control mb-3 searchInput"
-                          placeholder="Digite..."
-                        />
-                        <button
-                          class="btn btn-sm col-12 btn-success searchButton"
-                        >
-                          Buscar
-                        </button>
-                      </div>
-                    </div>
                   </div>
                 </th>
-                <th class="text-center" scope="col" width="10%">Ações</th>
               </tr>
             </thead>
             <tbody id="cola-tabela" class="table-group-divider"></tbody>
@@ -594,7 +412,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 
     <script
       charset="UTF-8"
-      src="<%=contextPath%>/resources/assets/js/matrizCurricular/alunos.js?ver=<%=new Date().getTime()%>"
+      src="<%=contextPath%>/resources/assets/js/alunos/alunos.js?ver=<%=new Date().getTime()%>"
     ></script>
 
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
