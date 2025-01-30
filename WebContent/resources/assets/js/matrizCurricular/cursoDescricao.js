@@ -72,7 +72,7 @@ function listarDados(dados) {
 		  <i class="fa-solid fa-pen fa-lg"></i>
 		</button>` +
         `<button class="btn btn-danger px-3 btn-sm" onclick="remover(${item.idCursoDescr})">
-		  <i class="fas fa-minus fa-lg"></i>
+		  <i class="fas fa-trash fa-lg"></i>
 		</button>` +
         `</td>` +
         `</tr>`
@@ -97,8 +97,7 @@ function editar(button) {
 }
 
 function remover(id) {
-  console.log("Remover descrição com ID:", id);
-  // Adicione aqui a lógica de remoção
+  
 }
 
 function limpaCampo() {
