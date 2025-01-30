@@ -43,6 +43,12 @@ public class MatrizCurricular {
 
 		return "matrizCurricular/cursos";
 	}
+
+	@RequestMapping(value = { "curso-descricao" }, method = RequestMethod.GET)
+	public String cursoDescricao(HttpSession session, Model model) throws Exception {
+
+		return "matrizCurricular/cursoDescricao";
+	}
 	
 	@RequestMapping(value = { "novo-curso" }, method = RequestMethod.GET)
 	public String novoCurso(HttpSession session, Model model) throws Exception {
