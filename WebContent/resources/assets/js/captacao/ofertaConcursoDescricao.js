@@ -1,9 +1,10 @@
+var dadosOriginais = [];
 const contaId = localStorage.getItem("contaId");
 var dados = [];
 var rows = 8;
 var currentPage = 1;
 var pagesToShow = 5;
-var dadosOriginais = [];
+var dados = [];
 var idDescr;
 const id = params.get("id");
 const idUsuario = localStorage.getItem("usuarioId");
@@ -25,13 +26,15 @@ $(document).ready(function () {
 });
 
 function getDados() {
+	console.log(`/ofertaConcursoDescr/ofertas/${id}/descricoes`)
   $.ajax({
-    url: url_base + `/cursoDescr/cursos/${id}/descricoes`,
+    url: url_base + `/ofertaConcursoDescr/ofertas/${id}/descricoes`,
     type: "GET",
     headers: {
       idConta: contaId,
     },
     success: function (data) {
+	console.log(data)
       dados = data;
       dadosOriginais = data;
       listarDados(data);
@@ -64,14 +67,14 @@ function listarDados(dados) {
         `<td>${descricao}</td>` +
         `<td class="d-flex justify-content-center">` +
         `<button onclick="editar(this)" class="btn btn-warning px-3 btn-sm me-2 btn-editar" 
-		  data-id="${item.idCursoDescr}" 
+		  data-id="${item.idOfertaConcursoDescr}" 
 		  data-titulo="${item.titulo}" 
 		  data-descricao="${item.descricao}" 
 		  data-ordem="${item.ordem}" 
 		  data-bs-toggle="modal" data-bs-target="#editItem">
 		  <i class="fa-solid fa-pen fa-lg"></i>
 		</button>` +
-        `<button class="btn btn-danger px-3 btn-sm" onclick="remover(${item.idCursoDescr})">
+        `<button class="btn btn-danger px-3 btn-sm" onclick="remover(${item.idOfertaConcursoDescr})">
 		  <i class="fas fa-trash fa-lg"></i>
 		</button>` +
         `</td>` +
@@ -98,7 +101,7 @@ function editar(button) {
 
 function remover(id) {
   $.ajax({
-    url: url_base + `/cursoDescr/cursos/descricao/${id}`,
+    url: url_base + `/ofertaConcursoDescr/ofertas/descricao/${id}`,
     type: "DELETE",
     headers: {
       idConta: contaId,
@@ -158,7 +161,7 @@ $("#formCadastro").on("submit", function (e) {
   };
 
   $.ajax({
-    url: url_base + `/cursoDescr`,
+    url: url_base + `/ofertaConcursoDescr`,
     type: "POST",
     headers: {
       idConta: contaId,
@@ -215,7 +218,7 @@ $("#formEdit").on("submit", function (e) {
   };
 
   $.ajax({
-    url: url_base + `/cursoDescr/cursos/descricao`,
+    url: url_base + `/ofertaConcursoDescr/ofertas/descricao`,
     type: "PUT",
     headers: {
       idConta: contaId,

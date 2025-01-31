@@ -166,7 +166,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
         <div class="modal-content">
           <div class="modal-header">
             <h1 class="modal-title fs-5" id="title-novo-ato">
-              Cadastro de Descrição
+              Cadastro de Descrição de Oferta Concurso
             </h1>
             <button
               type="button"
@@ -315,15 +315,15 @@ https://kit.fontawesome.com/3ce21ff22c.js"
       charset="UTF-8"
       src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"
     ></script>
-
+<script
+      charset="UTF-8"
+      src="<%=contextPath%>/resources/assets/js/captacao/ofertaConcursoDescricao.js.js"
+    ></script>
     <script
       charset="UTF-8"
       src="<%=contextPath%>/resources/assets/js/comum.js"
     ></script>
-    <script
-      charset="UTF-8"
-      src="<%=contextPath%>/resources/assets/js/captacao/ofertaConcursoDescricao.js.js"
-    ></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script
       charset="UTF-8"
