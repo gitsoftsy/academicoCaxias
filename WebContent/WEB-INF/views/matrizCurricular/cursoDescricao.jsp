@@ -99,8 +99,8 @@ https://kit.fontawesome.com/3ce21ff22c.js"
       <section class="mb-5">
         <div class="card">
           <div class="card-body title">
-            <i class="fa-solid fa-cogs fa-lg"></i>
-            <span>ADM - Administração</span>
+            <i class="fa-solid fa-graduation-cap fa-lg"></i>
+            <span>Descrições do Curso</span>
           </div>
         </div>
       </section>
@@ -110,10 +110,9 @@ https://kit.fontawesome.com/3ce21ff22c.js"
           style="
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: end;
           "
         >
-          <h3 id="tituloForm" class="mb-0">Descrições do curso</h3>
           <button
             class="btn btn-primary px-4"
             data-bs-toggle="modal"
@@ -123,7 +122,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
             Novo
           </button>
         </div>
-        <hr />
+        
         <div id="tableMatriculas" class="container-table">
           <table
             class="table tableNot tabela-atos table-striped table-bordered mb-0 caption-top mx-auto"

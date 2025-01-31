@@ -97,15 +97,39 @@ function editar(button) {
 }
 
 function remover(id) {
-  
+  $.ajax({
+    url: url_base + `/cursoDescr/cursos/descricao/${id}`,
+    type: "DELETE",
+    headers: {
+      idConta: contaId,
+    },
+    async: false,
+    success: function (response) {
+      Swal.fire({
+        title: "Removido com sucesso!",
+        icon: "success",
+      }).then(() => {
+        getDados();
+        showPage(currentPage);
+        updatePagination();
+      });
+    },
+    error: function (error) {
+      Swal.fire({
+        title: error.responseJSON.error,
+        text: error.responseJSON.message,
+        icon: "error",
+      });
+    },
+  });
 }
 
 function limpaCampo() {
-  $("#descricao").val("");
-  $("#titulo").val("");
+  $("#descricao").summernote("code", "");
+  $("#titulo").summernote("code", "");
   $("#ordem").val("");
-  $("#descricaoEdit").val("");
-  $("#tituloEdit").val("");
+  $("#descricaoEdit").summernote("code", "");
+  $("#tituloEdit").summernote("code", "");
   $("#ordemEdit").val("");
 }
 
@@ -152,6 +176,7 @@ $("#formCadastro").on("submit", function (e) {
         showPage(currentPage);
         updatePagination();
       });
+      limpaCampo()
     },
     error: function (error) {
       Swal.fire({
@@ -159,6 +184,7 @@ $("#formCadastro").on("submit", function (e) {
         text: error.responseJSON.message,
         icon: "error",
       });
+      limpaCampo()
     },
   });
 });
@@ -207,6 +233,7 @@ $("#formEdit").on("submit", function (e) {
         showPage(currentPage);
         updatePagination();
       });
+      limpaCampo()
     },
     error: function (error) {
       Swal.fire({
@@ -214,6 +241,7 @@ $("#formEdit").on("submit", function (e) {
         text: error.responseJSON.message,
         icon: "error",
       });
+      limpaCampo()
     },
   });
 });
