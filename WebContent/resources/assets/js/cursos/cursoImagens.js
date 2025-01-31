@@ -8,303 +8,384 @@ var escolas = [];
 var id = "";
 var idEscola = "";
 var ativo = "";
-const contaId = localStorage.getItem("contaId");
+const cursoId = params.get("id")
 
-$(document).ready(function () {
-  $.ajax({
-    url: url_base + "/escolas",
-    type: "GET",
-    async: false,
-  })
-    .done(function (data) {
-      escolas = data;
-    })
-    .fail(function (jqXHR, textStatus, errorThrown) {
-      console.error("Erro na solicitação AJAX:", textStatus, errorThrown);
-    });
+$(document).ready(function() {
 
-  getDados();
 
-  // Dropdown de Pesquisa
-  $(".dropdown-toggle-form").click(function () {
-    $(this).siblings(".dropdown-content-form").toggleClass("show");
-  });
+	getDados();
 
-  $(".searchButton").click(function () {
-    var searchInput = $(this)
-      .siblings(".searchInput")
-      .val()
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
-    var columnToSearch = $(this).closest(".sortable").data("column");
-    var filteredData;
+	// Dropdown de Pesquisa
+	$(".dropdown-toggle-form").click(function() {
+		$(this).siblings(".dropdown-content-form").toggleClass("show");
+	});
 
-    if (columnToSearch === "dependenciaAdm") {
-      filteredData = dadosOriginais.filter(function (item) {
-        return item.dependenciaAdm.dependenciaAdministrativa
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .includes(searchInput);
-      });
-    } else if (columnToSearch === "escolaId") {
-      filteredData = dadosOriginais.filter(function (item) {
-        var escola = escolas.find(function (school) {
-          return school.idEscola === item.escolaId;
-        });
-        var nomeEscola = escola
-          ? escola.nomeEscola
-              .toLowerCase()
-              .normalize("NFD")
-              .replace(/[\u0300-\u036f]/g, "")
-          : "";
-        return nomeEscola.includes(searchInput);
-      });
-    } else {
-      filteredData = dadosOriginais.filter(function (item) {
-        return item[columnToSearch]
-          .toString()
-          .toLowerCase()
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .includes(searchInput);
-      });
-    }
+	$(".searchButton").click(function() {
+		var searchInput = $(this)
+			.siblings(".searchInput")
+			.val()
+			.toLowerCase()
+			.normalize("NFD")
+			.replace(/[\u0300-\u036f]/g, "");
+		var columnToSearch = $(this).closest(".sortable").data("column");
+		var filteredData;
 
-    dados = filteredData;
-    showPage(1);
-    updatePagination();
+		if (columnToSearch === "dependenciaAdm") {
+			filteredData = dadosOriginais.filter(function(item) {
+				return item.dependenciaAdm.dependenciaAdministrativa
+					.toLowerCase()
+					.normalize("NFD")
+					.replace(/[\u0300-\u036f]/g, "")
+					.includes(searchInput);
+			});
+		} else if (columnToSearch === "escolaId") {
+			filteredData = dadosOriginais.filter(function(item) {
+				var escola = escolas.find(function(school) {
+					return school.idEscola === item.escolaId;
+				});
+				var nomeEscola = escola
+					? escola.nomeEscola
+						.toLowerCase()
+						.normalize("NFD")
+						.replace(/[\u0300-\u036f]/g, "")
+					: "";
+				return nomeEscola.includes(searchInput);
+			});
+		} else {
+			filteredData = dadosOriginais.filter(function(item) {
+				return item[columnToSearch]
+					.toString()
+					.toLowerCase()
+					.normalize("NFD")
+					.replace(/[\u0300-\u036f]/g, "")
+					.includes(searchInput);
+			});
+		}
 
-    $('input[data-toggle="toggle"]').bootstrapToggle();
+		dados = filteredData;
+		showPage(1);
+		updatePagination();
 
-    $(this).siblings(".searchInput").val("");
-    $(this).closest(".dropdown-content-form").removeClass("show");
-  });
+		$('input[data-toggle="toggle"]').bootstrapToggle();
 
-  $(document).on("click", ".sortable .col", function () {
-    var column = $(this).closest("th").data("column");
-    var currentOrder = sortOrder[column] || "vazio";
-    var newOrder;
+		$(this).siblings(".searchInput").val("");
+		$(this).closest(".dropdown-content-form").removeClass("show");
+	});
 
-    if (currentOrder === "vazio") {
-      newOrder = "asc";
-    } else if (currentOrder === "asc") {
-      newOrder = "desc";
-    } else {
-      newOrder = "vazio";
-    }
+	$(document).on("click", ".sortable .col", function() {
+		var column = $(this).closest("th").data("column");
+		var currentOrder = sortOrder[column] || "vazio";
+		var newOrder;
 
-    $(".sortable span").removeClass("asc desc");
-    $(this).find("span").addClass(newOrder);
+		if (currentOrder === "vazio") {
+			newOrder = "asc";
+		} else if (currentOrder === "asc") {
+			newOrder = "desc";
+		} else {
+			newOrder = "vazio";
+		}
 
-    var icon = $(this).find("i");
-    icon.removeClass("fa-sort-up fa-sort-down fa-sort");
+		$(".sortable span").removeClass("asc desc");
+		$(this).find("span").addClass(newOrder);
 
-    if (newOrder === "asc") {
-      icon.addClass("fa-sort-up");
-      sortData(column, newOrder);
-    } else if (newOrder === "desc") {
-      icon.addClass("fa-sort-down");
-      sortData(column, newOrder);
-    } else {
-      icon.addClass("fa-sort");
-      dados = dadosOriginais;
-      showPage(1);
-      updatePagination();
-      $('input[data-toggle="toggle"]').bootstrapToggle();
-    }
+		var icon = $(this).find("i");
+		icon.removeClass("fa-sort-up fa-sort-down fa-sort");
 
-    sortOrder[column] = newOrder;
-  });
+		if (newOrder === "asc") {
+			icon.addClass("fa-sort-up");
+			sortData(column, newOrder);
+		} else if (newOrder === "desc") {
+			icon.addClass("fa-sort-down");
+			sortData(column, newOrder);
+		} else {
+			icon.addClass("fa-sort");
+			dados = dadosOriginais;
+			showPage(1);
+			updatePagination();
+			$('input[data-toggle="toggle"]').bootstrapToggle();
+		}
 
-  function sortData(column, order) {
-    var dadosOrdenados = dadosOriginais.slice();
+		sortOrder[column] = newOrder;
+	});
 
-    dadosOrdenados.sort(function (a, b) {
-      if (column === "dependenciaAdm") {
-        var valueA = a.dependenciaAdm.dependenciaAdministrativa.toLowerCase();
-        var valueB = b.dependenciaAdm.dependenciaAdministrativa.toLowerCase();
-        if (order === "asc") {
-          return valueA.localeCompare(valueB);
-        } else {
-          return valueB.localeCompare(valueA);
-        }
-      } else if (column === "escolaId") {
-        var escolaA = escolas.find(function (school) {
-          return school.idEscola === a.escolaId;
-        });
-        var escolaB = escolas.find(function (school) {
-          return school.idEscola === b.escolaId;
-        });
-        var nomeEscolaA = escolaA ? escolaA.nomeEscola.toLowerCase() : "";
-        var nomeEscolaB = escolaB ? escolaB.nomeEscola.toLowerCase() : "";
-        if (order === "asc") {
-          return nomeEscolaA.localeCompare(nomeEscolaB);
-        } else {
-          return nomeEscolaB.localeCompare(nomeEscolaA);
-        }
-      } else {
-        var valueA = a[column].toString().toLowerCase();
-        var valueB = b[column].toString().toLowerCase();
-        if (order === "asc") {
-          return valueA.localeCompare(valueB);
-        } else {
-          return valueB.localeCompare(valueA);
-        }
-      }
-    });
-    dados = dadosOrdenados;
-    showPage(1);
-    updatePagination();
-    $('input[data-toggle="toggle"]').bootstrapToggle();
-  }
+	function sortData(column, order) {
+		var dadosOrdenados = dadosOriginais.slice();
 
-  $(".checkbox-toggle").each(function () {
-    var status = $(this).data("status");
-    if (status !== "S") {
-      $(this).prop("checked", false);
-    }
-  });
+		dadosOrdenados.sort(function(a, b) {
+			if (column === "dependenciaAdm") {
+				var valueA = a.dependenciaAdm.dependenciaAdministrativa.toLowerCase();
+				var valueB = b.dependenciaAdm.dependenciaAdministrativa.toLowerCase();
+				if (order === "asc") {
+					return valueA.localeCompare(valueB);
+				} else {
+					return valueB.localeCompare(valueA);
+				}
+			} else if (column === "escolaId") {
+				var escolaA = escolas.find(function(school) {
+					return school.idEscola === a.escolaId;
+				});
+				var escolaB = escolas.find(function(school) {
+					return school.idEscola === b.escolaId;
+				});
+				var nomeEscolaA = escolaA ? escolaA.nomeEscola.toLowerCase() : "";
+				var nomeEscolaB = escolaB ? escolaB.nomeEscola.toLowerCase() : "";
+				if (order === "asc") {
+					return nomeEscolaA.localeCompare(nomeEscolaB);
+				} else {
+					return nomeEscolaB.localeCompare(nomeEscolaA);
+				}
+			} else {
+				var valueA = a[column].toString().toLowerCase();
+				var valueB = b[column].toString().toLowerCase();
+				if (order === "asc") {
+					return valueA.localeCompare(valueB);
+				} else {
+					return valueB.localeCompare(valueA);
+				}
+			}
+		});
+		dados = dadosOrdenados;
+		showPage(1);
+		updatePagination();
+		$('input[data-toggle="toggle"]').bootstrapToggle();
+	}
 
-  showPage(currentPage);
-  updatePagination();
+	$(".checkbox-toggle").each(function() {
+		var status = $(this).data("status");
+		if (status !== "S") {
+			$(this).prop("checked", false);
+		}
+	});
+
+	showPage(currentPage);
+	updatePagination();
 });
 
-$("#limpa-filtros").click(function () {
-  currentPage = 1;
-  dados = [...dadosOriginais];
+$("#limpa-filtros").click(function() {
+	currentPage = 1;
+	dados = [...dadosOriginais];
 
-  updatePagination();
-  showPage(currentPage);
+	updatePagination();
+	showPage(currentPage);
 
-  $(".searchInput").val("");
-  $('input[data-toggle="toggle"]').bootstrapToggle();
+	$(".searchInput").val("");
+	$('input[data-toggle="toggle"]').bootstrapToggle();
 });
 
 function getDados() {
-  $.ajax({
-    url: url_base + "/cursos/conta/" + contaId,
-    type: "GET",
-    async: false,
-  })
-    .done(function (data) {
-      dados = data;
-      dadosOriginais = data;
-      listarDados(data);
-      $('input[data-toggle="toggle"]').bootstrapToggle();
-    })
-    .fail(function (jqXHR, textStatus, errorThrown) {
-      console.error("Erro na solicitação AJAX:", textStatus, errorThrown);
-    });
+	$.ajax({
+		url: url_base + `/cursoImg/cursos/${cursoId}/imagens`,
+		type: "GET",
+		async: false,
+		headers: {
+			"idConta": contaId
+		}
+	})
+		.done(function(data) {
+			dados = data;
+			dadosOriginais = data;
+			listarDados(data);
+			$('input[data-toggle="toggle"]').bootstrapToggle();
+		})
+		.fail(function(jqXHR, textStatus, errorThrown) {
+			console.error("Erro na solicitação AJAX:", textStatus, errorThrown);
+		});
+
 }
 
 function alteraStatus(element) {
-  var id = element.getAttribute("data-id");
-  var status = element.getAttribute("data-status");
+	var id = element.getAttribute("data-id");
+	var status = element.getAttribute("data-status");
 
-  const button = $(element).closest("tr").find(".btn-status");
-  if (status === "S") {
-    button.removeClass("btn-success").addClass("btn-danger");
-    button.find("i").removeClass("fa-check").addClass("fa-xmark");
-    element.setAttribute("data-status", "N");
-  } else {
-    button.removeClass("btn-danger").addClass("btn-success");
-    button.find("i").removeClass("fa-xmark").addClass("fa-check");
-    element.setAttribute("data-status", "S");
-  }
+	const button = $(element).closest("tr").find(".btn-status");
+	if (status === "S") {
+		button.removeClass("btn-success").addClass("btn-danger");
+		button.find("i").removeClass("fa-check").addClass("fa-xmark");
+		element.setAttribute("data-status", "N");
+	} else {
+		button.removeClass("btn-danger").addClass("btn-success");
+		button.find("i").removeClass("fa-xmark").addClass("fa-check");
+		element.setAttribute("data-status", "S");
+	}
 
-  console.log(id);
-  console.log(status);
+	console.log(id);
+	console.log(status);
 
-  $.ajax({
-    url: url_base + `/cursos/${id}${status === "S" ? "/desativar" : "/ativar"}`,
-    type: "put",
-    error: function (e) {
-      Swal.close();
-      console.log(e.responseJSON);
-      Swal.fire({
-        icon: "error",
-        title: e.responseJSON.message,
-      });
-    },
-  }).then((data) => {
-    window.location.href = "curso";
-  });
+	$.ajax({
+		url: url_base + `/cursos/${id}${status === "S" ? "/desativar" : "/ativar"}`,
+		type: "put",
+		error: function(e) {
+			Swal.close();
+			console.log(e.responseJSON);
+			Swal.fire({
+				icon: "error",
+				title: e.responseJSON.message,
+			});
+		},
+	}).then((data) => {
+		window.location.href = "curso";
+	});
 }
 
 function listarDados(dados) {
-  var html = dados
-    .map(function (item) {
-      var escola = escolas.find(function (school) {
-        return school.idEscola === item.escolaId;
-      });
+	var html = dados
+		.map(function(item) {
 
-      if (item.ativo == "N") {
-        ativo =
-          '<i  style="color:#ff1f00" class="fa-solid iconeTabela fa-circle-xmark"></i> Não';
-      } else {
-        ativo =
-          "<i style='color:#2eaa3a' class='fa-solid iconeTabela fa-circle-check'></i> Sim";
-      }
+			if (item.ativo == "N") {
+				ativo =
+					'<i  style="color:#ff1f00" class="fa-solid iconeTabela fa-circle-xmark"></i> Não';
+			} else {
+				ativo =
+					"<i style='color:#2eaa3a' class='fa-solid iconeTabela fa-circle-check'></i> Sim";
+			}
 
-      var nomeEscola = escola ? escola.nomeEscola : "Escola não encontrada";
+			return (
+				"<tr>" +
+				"<td>" +
+				item.ordem +
+				"</td>" +
+				"<td>" +
+				(item.tipoDispositivo != "M" ? "Desktop" : "Mobile") +
+				"</td>" +
+				"<td>" +
+				item.url +
+				"</td>" +
 
-      return (
-        "<tr>" +
-        "<td>" +
-        item.codCurso +
-        "</td>" +
-        "<td>" +
-        item.nome +
-        "</td>" +
-        "<td>" +
-        '<input type="checkbox" data-status="' +
-        item.ativo +
-        '" data-id="' +
-        item.idCurso +
-        ' " onChange="alteraStatus(this)" ' +
-        `${item.ativo === "S" ? "checked" : ""}` +
-        ' data-toggle="toggle" data-onstyle="success" data-offstyle="danger" data-on="Sim" data-off="Não" data-width="63" class="checkbox-toggle" data-size="sm">' +
-        "</td>" +
-        '<td class="d-flex justify-content-center"><span style="width:50%; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-warning btn-sm" data-contaId="' +
-        item.conta.idConta +
-        '" data-id="' +
-        item.idCurso +
-        '" data-nome="' +
-        item.nome +
-        '" data-codCursoInpe="' +
-        item.codCursoInpe +
-        '" data-codCurso="' +
-        item.codCurso +
-        '" data-ativo="' +
-        item.ativo +
-        '"  onclick="editar(this)" data-bs-toggle="modal" data-bs-target="#editItem"><i class="fa-solid fa-pen fa-lg"></i></span></td>' +
-        "</tr>"
-      );
-    })
-    .join("");
+				/*'<td class="d-flex justify-content-center">' + '<span style=" margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-primary btn-sm" ' +
+				' data-id="' +
+				item.idCursoImg +
+				'"  onclick="baixarImg(this)">Vizualizar Imagem</span>' +*/
 
-  $("#cola-tabela").html(html);
+				'<span style=" margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-danger btn-sm" ' +
+				' data-id="' +
+				item.idCursoImg +
+				'"  onclick="removerImagem(this)">Remover</span>' +
+
+				'</td>' +
+				"</tr>"
+			);
+		})
+		.join("");
+
+	$("#cola-tabela").html(html);
+}
+
+
+function removerImagem(element) {
+	id = element.getAttribute("data-id")
+
+
+	$.ajax({
+		url: url_base + `/cursoImg/cursos/imagem/${id}`,
+		type: "DELETE",
+		contentType: "application/json; charset=utf-8",
+		async: false,
+		headers: {
+			"idConta": contaId
+		},
+		error: function(e) {
+			console.log(e.responseJSON);
+			Swal.fire({
+				icon: "error",
+				title: "Oops...",
+				text: "Falha na requisição",
+			});
+		},
+	}).done(function(data) {
+		getDados();
+		showPage(currentPage);
+		updatePagination();
+		Swal.fire({
+			title: "Removido com sucesso!",
+			icon: "success",
+		});
+	});
+
+	return false
+}
+
+
+
+
+
+function convertToBase64(file, callback) {
+	var reader = new FileReader();
+	reader.onload = function(event) {
+		callback(event.target.result);
+	};
+	reader.readAsDataURL(file);
 }
 
 // Exportar Dados
 
-$("#exportar-excel").click(function () {
-  var planilha = XLSX.utils.json_to_sheet(dados);
+$("#exportar-excel").click(function() {
+	var planilha = XLSX.utils.json_to_sheet(dados);
 
-  var livro = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(livro, planilha, "Planilha1");
+	var livro = XLSX.utils.book_new();
+	XLSX.utils.book_append_sheet(livro, planilha, "Planilha1");
 
-  XLSX.writeFile(livro, "cursos.xlsx");
+	XLSX.writeFile(livro, "cursos.xlsx");
 });
 
+
+
+function cadastrar() {
+
+	let imagem = $("#imagem")[0].files[0];
+	convertToBase64(imagem, function(base64String) {
+		// Pegue apenas a parte base64 da string
+		var base64Data = base64String.split(",")[1];
+
+		var dadosFormulario = {
+			"contaId": contaId,
+			"cursoId": cursoId,
+			"usuarioId": usuarioId,
+			"tipoDispositivo": $("input[name='dispositivo']:checked").val(),
+			"pathImg": base64Data,
+			"ordem": $("#ordem").val(),
+			"url": $("#url").val()
+		};
+
+		console.log(dadosFormulario);
+
+		$.ajax({
+			url: url_base + "/cursoImg/imagem",
+			type: "POST",
+			data: JSON.stringify(dadosFormulario),
+			contentType: "application/json; charset=utf-8",
+			error: function(e) {
+				console.log(e);
+				Swal.fire({
+					icon: "error",
+					title: "Oops...",
+					text: "Não foi possível cadastrar a escola!",
+				});
+			},
+		}).done(function(data) {
+			Swal.fire({
+				title: "Cadastrado com sucesso",
+				icon: "success",
+			});
+			getDados()
+			updatePagination();
+			showPage(currentPage);
+		});
+	});
+}
+
+
+
+$("#formCadastro").on("submit", function(e) {
+	e.preventDefault();
+	cadastrar();
+	return false;
+});
 // Limpa input
 
 function limpaCampo() {
-  $("#escolaId").val("");
-  $("#dependenciaAdmId").val("");
-  $("#codCurso").val("");
-  $("#nome").val("");
-  $("#codCursoInpe").val("");
+	$("#escolaId").val("");
+	$("#dependenciaAdmId").val("");
+	$("#codCurso").val("");
+	$("#nome").val("");
+	$("#codCursoInpe").val("");
 }

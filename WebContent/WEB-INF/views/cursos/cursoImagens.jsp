@@ -213,7 +213,7 @@ String contextPath = request.getContextPath();
 								</div>
 								<div class="form-check form-check-inline">
 									<input class="form-check-input" type="radio" name="dispositivo"
-										id="desktop" value="M" required /> <label
+										id="desktop" value="D" required /> <label
 										class="form-check-label" for="desktop">Desktop</label>
 								</div>
 							</div>
@@ -308,11 +308,11 @@ String contextPath = request.getContextPath();
 		crossorigin="anonymous"></script>
 	<script charset="UTF-8"
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-
-	<script charset="UTF-8"
-		src="<%=contextPath%>/resources/assets/js/cursos/cursoImagens.js"></script>
 	<script charset="UTF-8"
 		src="<%=contextPath%>/resources/assets/js/comum.js"></script>
+	<script charset="UTF-8"
+		src="<%=contextPath%>/resources/assets/js/cursos/cursoImagens.js"></script>
+	
 	<script charset="UTF-8"
 		src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
 </body>
