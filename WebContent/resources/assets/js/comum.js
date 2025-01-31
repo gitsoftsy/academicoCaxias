@@ -9,6 +9,7 @@ const path_base =
 const nomeConta = localStorage.getItem("nomeConta");
 const usuarioId = localStorage.getItem("usuarioId");
 const contaPadraoAcessoId = localStorage.getItem("idContaAcesso");
+const contaId = localStorage.getItem("contaId");
 
 $("#escolaIdStyle").css("display", "none");
 $("#escolaIdStyleEdit").css("display", "none");
