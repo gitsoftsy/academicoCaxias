@@ -244,12 +244,12 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 									<option selected disabled value="">Selecione o período</option>
 								</select>
 							</div>
-							<div class="mb-4">
+							<!-- <div class="mb-4">
 								<label for="editalEdit" class="form-label">Edital: </label> <input
 									autocomplete="off" type="file" id="editalEdit"
 									name="editalEdit" class="form-control" />
 
-							</div>
+							</div> -->
 
 
 							<div class="d-flex justify-content-end gap-2">

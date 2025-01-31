@@ -5,6 +5,7 @@ var rows = 8;
 var currentPage = 1;
 var pagesToShow = 5;
 let dados = []
+let dadosOriginais = []
 
 $(document).ready(function() {
 
@@ -59,6 +60,7 @@ function getDados() {
 	})
 		.done(function(data) {
 			dados = data
+			dadosOriginais = data
 			listarDados(data);
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {

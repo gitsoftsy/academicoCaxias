@@ -369,14 +369,14 @@ $('#formCadastro').on('submit', function(e) {
 	return false;
 });
 
-function cadastrar() {
-
+const enviarCadastro = (edital) => {
 	var objeto = {
 		concurso: $('#cadastro-nome').val(),
 		dataAbertura: $('#dataInicio').val(),
 		dataFechamento: $("#dataFechamento").val(),
 		periodoLetivoId: $("#periodoLetivoId").val(),
-		contaId: contaId
+		contaId: contaId,
+		pathEdital: edital
 	}
 
 	var dataInicio = new Date(objeto.dataAbertura);
@@ -403,7 +403,7 @@ function cadastrar() {
 			Swal.fire({
 				icon: "error",
 				title: "Oops...",
-				text: "Não foi possível realizar esse comando!",
+				text: e.responseJSON.message ? e.responseJSON.message : "Não foi possível realizar esse comando!",
 			});
 		}
 	})
@@ -419,6 +419,26 @@ function cadastrar() {
 				icon: "success",
 			})
 		})
+}
+
+function cadastrar() {
+	const fileInput = $("#edital")[0]
+
+	const file = fileInput.files[0];
+
+	const reader = new FileReader();
+	reader.onload = function(event) {
+		const base64Anexo = event.target.result.split(",")[1];
+		enviarCadastro(base64Anexo);
+	};
+	reader.onerror = function() {
+		Swal.fire({
+			icon: "error",
+			title: "Erro",
+			text: "Não foi possível processar o anexo.",
+		});
+	};
+	reader.readAsDataURL(file);
 	return false;
 }
 
