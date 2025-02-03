@@ -25,6 +25,12 @@ public class Alunos {
 		return "captacao/ofertaConcursoDescricao";
 	}
 	
+	@RequestMapping(value = { "imagem-oferta-concurso" }, method = RequestMethod.GET)
+	public String imagemOfertaConcurso(HttpSession session, Model model) throws Exception {
+
+		return "captacao/ofertaConcursoImagens";
+	}
+	
 	
 	@RequestMapping(value = { "matricular-disciplina" }, method = RequestMethod.GET)
 	public String matricularDisciplina(HttpSession session, Model model) throws Exception {

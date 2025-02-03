@@ -317,7 +317,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
     ></script>
 <script
       charset="UTF-8"
-      src="<%=contextPath%>/resources/assets/js/captacao/ofertaConcursoDescricao.js.js"
+      src="<%=contextPath%>/resources/assets/js/captacao/ofertaConcursoDescricao.js"
     ></script>
     <script
       charset="UTF-8"

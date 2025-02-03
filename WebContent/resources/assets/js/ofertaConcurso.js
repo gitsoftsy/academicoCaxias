@@ -521,6 +521,9 @@ function listarDados(dados) {
 				'" onclick="showRef(this)" data-bs-toggle="modal" data-bs-target="#editAto"><i class="fa-solid fa-pen fa-lg"></i></button>' +
 				'<span style="width:50%; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-primary btn-sm" data-id="' +
 				item.idOfertaConcurso +
+				'" onclick="ofertaConcursoImage(this)"><i class="fa-regular fa-image fa-lg"></i></span>' +
+				'<span style="width:50%; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-primary btn-sm" data-id="' +
+				item.idOfertaConcurso +
 				'" onclick="ofertaConcursoDescricao(this)"><i class="fas fa-sticky-note fa-lg"></i></span>' +
 				'</td>' +
 				"</tr>"
@@ -533,10 +536,16 @@ function listarDados(dados) {
 	// Reaplicar a estilização do toggle
 }
 
+const ofertaConcursoImage = (element) => {
+	const idOfertaConcurso = element.getAttribute("data-id");
+
+	window.location.href = "imagem-oferta-concurso?id=" + idOfertaConcurso;
+}
+
 const ofertaConcursoDescricao = (element) => {
 	const idOfertaConcurso = element.getAttribute("data-id");
 
-	 window.location.href = "descricao-oferta-concurso?id=" + idOfertaConcurso;
+	window.location.href = "descricao-oferta-concurso?id=" + idOfertaConcurso;
 }
 
 function novaOferta() {

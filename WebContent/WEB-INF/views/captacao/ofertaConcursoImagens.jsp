@@ -54,11 +54,10 @@ String contextPath = request.getContextPath();
 	rel="stylesheet" />
 
 <!-- FontAwesome -->
-<script charset="UTF-8" src="
-https://kit.fontawesome.com/3ce21ff22c.js"
+<script charset="UTF-8" src="https://kit.fontawesome.com/3ce21ff22c.js"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet"
-	href="<%=contextPath%>/resources/assets/css/style.css?v=<%=(int)(Math.random()*10000)%>" />
+	href="<%=contextPath%>/resources/assets/css/style.css?v=<%=(int) (Math.random() * 10000)%>" />
 </head>
 
 <body>
@@ -75,7 +74,8 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 		<section class="mb-5">
 			<div class="card">
 				<div class="card-body title">
-					<i class="fa-solid fa-graduation-cap fa-lg"></i> <span>Cursos</span>
+					<i class="fa-solid fa-graduation-cap fa-lg"></i> <span>Imagens
+						da Oferta Concurso</span>
 				</div>
 			</div>
 		</section>
@@ -89,7 +89,10 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 						class="btn btn-sm btn-success d-flex align-items-center gap-2">
 						<i class="fa-solid fa-file-export"></i> Exportar
 					</button>
-					<a href="novo-curso" class="btn btn-primary btn-sm btn-new-alter px-3 py-1 ms-auto">Novo Cadastro</a>
+					<button
+						class="btn btn-primary btn-sm btn-new-alter px-3 py-1 ms-auto"
+						data-bs-toggle="modal" onclick="limpaCampo()"
+						data-bs-target="#newCadastro">Novo Cadastro</button>
 				</div>
 			</div>
 
@@ -98,13 +101,35 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 				<caption>Itens Cadastrados</caption>
 				<thead>
 					<tr>
-						
+						<th scope="col" class="sortable border-end" data-column="escolaId">
+							<div
+								class="d-flex align-items-center justify-content-between pe-2">
+								<div
+									class="col d-flex align-items-center justify-content-between">
+									<span>Ordem </span> <i class="fas fa-sort me-3"
+										style="color: #dddddd"></i>
+								</div>
+								<div class="dropdown-form">
+									<div class="dropdown-toggle-form" id="dropdownButton1">
+										<i class="fas fa-search" style="color: #dddddd"></i>
+									</div>
+									<div
+										class="dropdown-content-form rounded-3 dropdown-content-left"
+										id="dropdownContent1">
+										<input type="text" class="form-control mb-3 searchInput"
+											placeholder="Digite o nome da escola" />
+										<button class="btn btn-sm col-12 btn-success searchButton">
+											Buscar</button>
+									</div>
+								</div>
+							</div>
+						</th>
 						<th scope="col" class="sortable border-end" data-column="codCurso">
 							<div
 								class="d-flex align-items-center justify-content-between pe-2">
 								<div
 									class="col d-flex align-items-center justify-content-between">
-									<span>Código curso</span> <i class="fas fa-sort me-3"
+									<span>Dispositivo</span> <i class="fas fa-sort me-3"
 										style="color: #dddddd"></i>
 								</div>
 								<div class="dropdown-form">
@@ -127,7 +152,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								class="d-flex align-items-center justify-content-between pe-2">
 								<div
 									class="col d-flex align-items-center justify-content-between">
-									<span>Nome</span> <i class="fas fa-sort me-3"
+									<span>URL</span> <i class="fas fa-sort me-3"
 										style="color: #dddddd"></i>
 								</div>
 								<div class="dropdown-form">
@@ -145,8 +170,8 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 								</div>
 							</div>
 						</th>
-						<th scope="col" width="5%" class="border-end pe-2 th-sem-filtro ">Ativo</th>
-						<th scope="col" class="border-end pe-2 th-sem-filtro d-flex justify-content-center">Ações</th>
+
+						<th scope="col" class="border-end pe-2 th-sem-filtro">Ações</th>
 					</tr>
 				</thead>
 				<tbody id="cola-tabela" class="table-group-divider"></tbody>
@@ -161,6 +186,110 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 				</button>
 			</div>
 		</section>
+		<div class="modal fade" id="newCadastro" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="title-novo-ato">Novo
+							Cadastro</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form id="formCadastro">
+							<div class="mb-4">
+								<label for="ordem" class="form-label">Ordem:<span
+									class="red">*</span></label> <input type="text" id="ordem" required
+									autocomplete="off" name="ordem" class="form-control" />
+							</div>
+							<div class="mb-4">
+								<label class="form-label" for="dispositivo">Dispositivo:<span class="red">*</span></label>
+								<div class="form-control">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="dispositivo"
+										id="mobile" value="M" required /> <label
+										class="form-check-label" for="mobile">Mobile</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="dispositivo"
+										id="desktop" value="D" required /> <label
+										class="form-check-label" for="desktop">Desktop</label>
+								</div>
+							</div>
+							</div>
+							<div class="mb-4">
+								<label for="url" class="form-label">URL:</label> <input type="text" id="url" required
+									autocomplete="off" name="url" class="form-control" />
+							</div>
+							<div class="mb-4">
+								<label for="imagem" class="form-label">Imagem:<span
+									class="red">*</span></label> <input type="file" id="imagem"
+									name="imagem" class="form-control" />
+							</div>
+							<div class="d-flex justify-content-end gap-2">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">Fechar</button>
+								<button type="submit" data-bs-dismiss="modal"
+									class="btn btn-primary">Salvar</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="editItem" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="title-edit">Editar</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form id="formEdit">
+							<div class="mb-4">
+								<label for="ordemEdit" class="form-label">Ordem:<span
+									class="red">*</span></label> <input type="text" id="ordemEdit" required
+									autocomplete="off" name="ordemEdit" class="form-control" />
+							</div>
+							<div class="mb-4">
+								<label class="form-label">Dispositivo:<span class="red">*</span></label>
+								<div class="form-control">
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="mobileEdit"
+										id="mobileEdit" value="M" required /> <label
+										class="form-check-label" for="mobileEdit">Mobile</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="desktopEdit"
+										id="desktopEdit" value="M" required /> <label
+										class="form-check-label" for="desktopEdit">Desktop</label>
+								</div>
+							</div>
+							</div>
+							<div class="mb-4">
+								<label for="urlEdit" class="form-label">URL:</label> <input type="text" id="urlEdit" required
+									autocomplete="off" name="urlEdit" class="form-control" />
+							</div>
+							<div class="mb-4">
+								<label for="imagemEdit" class="form-label">Imagem:<span
+									class="red">*</span></label> <input type="file" id="imagemEdit"
+									name="imagemEdit" class="form-control" />
+							</div>
+							<div class="d-flex justify-content-end gap-2">
+								<button type="button" class="btn btn-secondary"
+									data-bs-dismiss="modal">Fechar</button>
+								<button type="submit" data-bs-dismiss="modal"
+									class="btn btn-primary">Salvar</button>
+							</div>
+						</form>
+					</div>
+
+				</div>
+			</div>
+		</div>
 	</main>
 
 	<script charset="UTF-8"
@@ -179,10 +308,10 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 		crossorigin="anonymous"></script>
 	<script charset="UTF-8"
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-<script charset="UTF-8"
+	<script charset="UTF-8"
 		src="<%=contextPath%>/resources/assets/js/comum.js"></script>
 	<script charset="UTF-8"
-		src="<%=contextPath%>/resources/assets/js/matrizCurricular/cursos.js"></script>
+		src="<%=contextPath%>/resources/assets/js/captacao/ofertaConcursoImagens.js"></script>
 	
 	<script charset="UTF-8"
 		src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
