@@ -9,6 +9,7 @@ var id = "";
 var idEscola = "";
 var ativo = "";
 const cursoId = params.get("id")
+const contaId = localStorage.getItem("contaId");
 
 $(document).ready(function() {
 

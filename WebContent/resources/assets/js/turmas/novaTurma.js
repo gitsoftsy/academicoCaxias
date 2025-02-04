@@ -3,7 +3,7 @@ let idGradeCurricularSelecionada
 let listaGrades
 
 $(document).ready(function() {
-	$('select').select2();
+	$('select').select2()
 	$.ajax({
 		url: url_base + "/escolas/conta/" + contaId,
 		type: "GET",
@@ -102,14 +102,14 @@ $(document).ready(function() {
 		console.error("Erro na solicitação AJAX:", textStatus, errorThrown);
 	});
 
-	$('select').select2();
+	$('select').select2()
 
 	$('#cursoIdLista').change(() => {
 		$("#cola-tabela-grade").empty()
 
 		$('#curriculoIdLista').empty()
 		$('#curriculoIdLista').removeAttr('disabled');
-		$('#curriculoIdLista').append(`<option value='0' selected disabled>Selecione o currículo</option>`)
+		$('#curriculoIdLista').append(`<option value='' selected disabled>Selecione o currículo</option>`)
 
 		let curso = $('#cursoIdLista').val()
 		$.ajax({
@@ -233,6 +233,8 @@ const selecionar = (element) => {
 
 $("#formNovoCadastro").submit(function(e) {
 	e.preventDefault();
+	
+		
 
 	var dadosFormulario = {
 		escolaId: Number($('#escolaId').val()),
