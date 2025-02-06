@@ -14,10 +14,15 @@ import br.com.softsy.utils.LoginUtils;
 public class Recebedores {
 	
 	@RequestMapping(value = { "parceiros" }, method = RequestMethod.GET)
-	public String preMatricula(HttpSession session, Model model) throws Exception {
+	public String parceiros(HttpSession session, Model model) throws Exception {
 		
 		return "recebedores/parceiros";
 	}
 	
+	@RequestMapping(value = { "novo-parceiro" }, method = RequestMethod.GET)
+	public String novoParceiro(HttpSession session, Model model) throws Exception {
+		
+		return "recebedores/novoParceiroPagarme";
+	}
 
 }

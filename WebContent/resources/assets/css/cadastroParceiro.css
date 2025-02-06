@@ -1,0 +1,221 @@
+main {
+	height: 90vh;
+	width: 100%;
+}
+
+.container-login {
+	height: 100%;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+}
+
+.container-image {
+	flex: 1;
+	background-color: #031E3B;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 2rem;
+}
+
+.container-image h1{
+	text-decoration: underline;
+	 position: fixed;
+    top: 250px;
+    
+    padding: 10px 20px;
+    z-index: 1000; /* Para ficar acima de outros elementos */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Opcional, adiciona um leve sombreado */
+}
+.container-image p{
+	font-size: 1.5rem;
+	text-align: center;
+}
+
+
+.container-form button {
+    padding: 12px 24px; /* Aumenta o espaçamento interno */
+    font-size: 18px; /* Aumenta o tamanho do texto */
+    min-width: 150px; /* Define uma largura mínima */
+    border-radius: 8px; /* Opcional: arredonda as bordas */
+}
+
+
+.container-form {
+	gap: 5%;
+	width: 50%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center
+}
+
+form {
+	width: 90%
+}
+
+.reveal {
+	width: 10%;
+}
+
+.form-control {
+	width: 100%;
+}
+
+.logo-sumare {
+	width: 15%;
+	cursor: pointer;
+}
+
+.reveal {
+	border: solid 1px #c0c0c0;
+}
+
+.container-btns {
+	width: 90%;
+	display: flex;
+	flex-direction: row;
+	justify-content: start;
+}
+
+header {
+	width: 100%;
+	height: 10vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #031E3B;
+}
+
+.container-section {
+	padding: 2%;
+	width: 100%;
+	height: 90vh;
+}
+
+.card-table {
+	width: 100%
+}
+
+#cardContainer {
+	display: flex;
+	flex-direction: row;
+	gap: 1%;
+}
+
+.form {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: space-around;
+	background-color: #fff;
+	width: 80%;
+	padding: 2%;
+	border-radius: 12px;
+}
+
+.title {
+	font-size: 20px;
+	font-weight: bold;
+	color: black
+}
+
+.message {
+	color: #a3a3a3;
+	font-size: 14px;
+	margin-top: 4px;
+	text-align: center
+}
+
+.inputs {
+	margin-top: 10px
+}
+
+.inputs input {
+	width: 32px;
+	height: 32px;
+	text-align: center;
+	border: none;
+	border-bottom: 1.5px solid #d2d2d2;
+	margin: 0 10px;
+}
+
+.inputs input:focus {
+	border-bottom: 1.5px solid royalblue;
+	outline: none;
+}
+
+.action {
+	margin-top: 24px;
+	padding: 12px 16px;
+	border-radius: 8px;
+	border: none;
+	background-color: royalblue;
+	color: white;
+	cursor: pointer;
+	align-self: end;
+}
+
+@media screen and (max-width: 1279px) {
+	.logo-sumare {
+		width: 20%;
+	}
+	.school-card {
+		width: 100%;
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	.container-form {
+		width: 100%
+	}
+	.container-image {
+		display: none;
+	}
+	/* .logo-login {
+		width: 30%
+	} */
+}
+
+@media screen and (max-width: 500px) {
+	.container-btns button {
+		font-size: 1rem;
+	}
+	.title span {
+		font-size: 1rem
+	}
+	.card-body {
+		width: 100%;
+	}
+	.btn {
+		font-size: 1rem;
+		width: 30%;
+		height: 30%;
+	}
+	.card-table {
+		margin-left: 0;
+		justify-content: center;
+	}
+	.logo {
+		width: 50%;
+	}
+}
+
+@media screen and (max-width: 425px) {
+	.logo-sumare {
+		width: 50%;
+	}
+	.reveal {
+		width: 25%;
+	}
+	.form-check-label {
+		font-size: .8rem;
+	}
+	.school-card {
+		width: 100%;
+	}
+}
