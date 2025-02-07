@@ -82,57 +82,127 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 			alt="Logo Prefeitura Caxias do Sul" />
 	</header>
 
-	   
-   <main>
-    <div class="container-login">
-        <div class="container-image">
-            <h1 class="mb-10">Cadastro de Parceiros</h1>
-            <p>O cadastro de parceiro habilita uma empresa ou uma pessoa a receber valores em parceria com sua Instituição.</p>
-            <p>O cadastro é iniciado por esse formulário e finalizado pelo parceiro após recebimento de e-mail.</p>
-            <p>Informe ao lado o tipo de parceiro que deseja cadastrar.</p>
-        </div>
 
-        <!-- Passo 1: Escolha do Tipo de Parceiro -->
-        <div id="step1" class="container-form">
-            <button class="btn btn-info text-white" id="btnFisica">Pessoa Física</button>
-            <button class="btn btn-primary" id="btnJuridica">Pessoa Jurídica</button>
-        </div>
+	<main>
+		<div class="container-login">
+			<div class="container-image">
+				<h1 class="mb-10">Cadastro de Parceiros</h1>
+				<p>O cadastro de parceiro habilita uma empresa ou uma pessoa a
+					receber valores em parceria com sua Instituição.</p>
+				<p>O cadastro é iniciado por esse formulário e finalizado pelo
+					parceiro após recebimento de e-mail.</p>
+				<p>Informe ao lado o tipo de parceiro que deseja cadastrar.</p>
+			</div>
 
-        <!-- Passo 2: Formulário para Pessoa Física -->
-        <div id="formFisica" class="container-form d-none">
-            <h2>Cadastro - Pessoa Física</h2>
-            <form>
-                <div class="mb-3">
-                    <label for="nome" class="form-label">Nome Completo</label>
-                    <input type="text" class="form-control" id="nome">
-                </div>
-                <div class="mb-3">
-                    <label for="cpf" class="form-label">CPF</label>
-                    <input type="text" class="form-control" id="cpf">
-                </div>
-                <button type="button" class="btn btn-secondary btnVoltar">Voltar</button>
-                <button type="submit" class="btn btn-success">Enviar</button>
-            </form>
-        </div>
+			<!-- Passo 1: Escolha do Tipo de Parceiro -->
+			<div id="step1" class="container-form">
+				<button class="btn btn-info text-white" id="btnFisica">Pessoa
+					Física</button>
+				<button class="btn btn-primary" id="btnJuridica">Pessoa
+					Jurídica</button>
+			</div>
 
-        <!-- Passo 2: Formulário para Pessoa Jurídica -->
-        <div id="formJuridica" class="container-form d-none">
-            <h2>Cadastro - Pessoa Jurídica</h2>
-            <form>
-                <div class="mb-3">
-                    <label for="razaoSocial" class="form-label">Razão Social</label>
-                    <input type="text" class="form-control" id="razaoSocial">
-                </div>
-                <div class="mb-3">
-                    <label for="cnpj" class="form-label">CNPJ</label>
-                    <input type="text" class="form-control" id="cnpj">
-                </div>
-                <button type="button" class="btn btn-secondary btnVoltar">Voltar</button>
-                <button type="submit" class="btn btn-success">Enviar</button>
-            </form>
-        </div>
-    </div>
-</main>
+			<!-- Passo 2: Formulário para Pessoa Física -->
+			<div id="formFisica" class="container-form d-none">
+				<h2>Cadastro - Pessoa Física</h2>
+				<form>
+					<div class="row mb-3">
+						<div class="col-md-6">
+							<label for="nome" class="form-label">Nome Completo</label> <input
+								type="text" class="form-control" id="nome">
+						</div>
+						<div class="col-md-6">
+							<div class="mb-3">
+								<label for="cpf" class="form-label">CPF</label> <input
+									type="text" class="form-control" id="cpf">
+							</div>
+						</div>
+
+					</div>
+					<div class="row mb-3">
+						<div class="col-md-6">
+							<label for="email" class="form-label">E-mail</label> <input
+								type="text" class="form-control" id="email">
+						</div>
+					</div>
+
+
+					<button type="button" class="btn  btn-secondary btnVoltar">Voltar</button>
+					<button type="button" class="btn btnStep btn-success">Próximo</button>
+				</form>
+			</div>
+
+			<!-- Passo 2: Formulário para Pessoa Jurídica -->
+			<div id="formJuridica" class="container-form d-none">
+				<h2>Cadastro - Pessoa Jurídica</h2>
+				<form>
+
+
+
+					<div class=" row mb-3">
+						<div class="col-md-6">
+							<label for="razaoSocial" class="form-label">Razão Social<span class="red">*</span></label>
+							<input type="text" class="form-control" id="razaoSocial">
+						</div>
+
+						<div class="col-md-6">
+							<label for="cnpj" class="form-label">CNPJ<span class="red">*</span></label> <input
+								type="text" class="form-control" id="cnpj">
+						</div>
+					</div>
+
+
+
+
+					<div class=" row mb-3">
+						<div class="col-md-6">
+							<label for="email" class="form-label">E-mail</label> <input
+								type="text" class="form-control" id="email">
+						</div>
+
+					</div>
+					<button type="button" class="btn  btn-secondary btnVoltar">Voltar</button>
+					<button type="button"  class="btn  btnStep btn-success">Próximo</button>
+				</form>
+			</div>
+
+
+			<!-- Passo 3: Forma de Recebimento-->
+			<div id="step3" class="container-form d-none">
+				<h2>Forma de Recebimento</h2>
+				<form>
+
+
+
+					<div class=" row mb-3">
+						<div class="col-md-6">
+							<label for="tranferencia" class="form-label">A transferênncia será: <span class="red">*</span></label> <select class="form-select" aria-label="Turno"
+								id="tranferencia" name="tranferencia">
+								<option selected disabled>Selecione uma opção</option>
+								<option value="M">Mensal</option>
+								<option value="S">Semanal</option>
+								<option value="D">Diária</option>
+							</select>
+						</div>
+
+						<div class="col-md-3">
+							<label for="antecipacaAut" class="form-label">Antecipação Automatica<span class="red">*</span>
+							</label>
+							<div class="form-control card-form-infra">
+								<label for="antecipacaAut">Sim</label> <label class="switch">
+									<input type="checkbox" id="antecipacaAut" name="antecipacaAut">
+									<span class="slider"></span>
+								</label> <label for="antecipacaAut">Não</label>
+
+							</div>
+						</div>
+					</div>
+					<button type="button" class="btn btn-secondary btnVoltar">Voltar</button>
+					<button type="submit" class="btn btn-success">Salvar</button>
+				</form>
+			</div>
+		</div>
+	</main>
 
 	<script charset="UTF-8" src="https://code.jquery.com/jquery-3.7.1.js"
 		integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
