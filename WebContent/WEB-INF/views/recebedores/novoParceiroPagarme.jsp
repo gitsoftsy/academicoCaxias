@@ -63,8 +63,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 <!-- Css -->
 <link rel="stylesheet"
 	href="<%=contextPath%>/resources/assets/css/style.css?v=<%=(int) (Math.random() * 10000)%>" />
-<link rel="stylesheet"
-	href="<%=contextPath%>/resources/assets/css/cadastroParceiro.css" />
+
 </head>
 
 <body>
@@ -76,132 +75,162 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 			<div class="rect4"></div>
 		</div>
 	</div>
-	<header>
-		<img class="logo" style="width: 15%"
-			src="<%=contextPath%>/resources/assets/img/logo-sumare.png"
-			alt="Logo Prefeitura Caxias do Sul" />
-	</header>
+	<header id="menu"> </header>
 
 
-	<main>
-		<div class="container-login">
-			<div class="container-image">
-				<h1 class="mb-10">Cadastro de Parceiros</h1>
-				<p>O cadastro de parceiro habilita uma empresa ou uma pessoa a
-					receber valores em parceria com sua Instituição.</p>
-				<p>O cadastro é iniciado por esse formulário e finalizado pelo
-					parceiro após recebimento de e-mail.</p>
-				<p>Informe ao lado o tipo de parceiro que deseja cadastrar.</p>
+	<main class="container-res py-4">
+
+
+		<section class="mb-5">
+			<div class="card card-title">
+				<div class="card-body title">
+					<i class="fa-solid fa-cogs fa-lg"></i> <span>Cadastro de
+						Parceiro</span>
+				</div>
+				<div class="info">
+					<div class="tooltiptext">O cadastro de parceiro habilita uma
+						empresa ou uma pessoa a receber valores em parceria com sua
+						Instituição. O cadastro é iniciado por esse formulário e
+						finalizado pelo parceiro após recebimento de e-mail. Informe ao
+						lado o tipo de parceiro que deseja cadastrar.</div>
+					<i class="fa-solid fa-info"></i>
+				</div>
 			</div>
+		</section>
 
-			<!-- Passo 1: Escolha do Tipo de Parceiro -->
-			<div id="step1" class="container-form">
-				<button class="btn btn-info text-white" id="btnFisica">Pessoa
-					Física</button>
-				<button class="btn btn-primary" id="btnJuridica">Pessoa
-					Jurídica</button>
-			</div>
 
-			<!-- Passo 2: Formulário para Pessoa Física -->
-			<div id="formFisica" class="container-form d-none">
-				<h2>Cadastro - Pessoa Física</h2>
-				<form>
-					<div class="row mb-3">
-						<div class="col-md-6">
-							<label for="nome" class="form-label">Nome Completo</label> <input
-								type="text" class="form-control" id="nome">
+		<section class="pt-4 card card-table px-5 py-3" style="height: 680px">
+			<div
+				class="container-form d-flex justify-content-center h-100 align-items-center">
+
+
+				<!-- Passo 1: Escolha do Tipo de Parceiro -->
+				<div id="step1"
+					class="container-form w-100 d-flex  justify-content-center align-items-center">
+					<button class="btn btn-info text-white me-2" id="btnFisica">Pessoa
+						Física</button>
+					<button class="btn btn-primary" id="btnJuridica">Pessoa
+						Jurídica</button>
+				</div>
+
+
+				<!-- Passo 2: Formulário para Pessoa Física -->
+				<div id="formFisica" class="container-form d-none w-100">
+					<h2>Cadastro - Pessoa Física</h2>
+					<form>
+						<div class="row mb-3">
+							<div class="col-md-6">
+								<label for="nome" class="form-label">Nome Completo <span
+									class="red">*</span></label> <input type="text" class="form-control"
+									id="nome" required>
+							</div>
+							<div class="col-md-6">
+								<div class="mb-3">
+									<label for="cpf" class="form-label">CPF <span
+										class="red">*</span></label> <input type="text" class="form-control"
+										id="cpf" required>
+									<div id="cpfErro" class="text-danger mt-1"
+										style="display: none;"></div>
+								</div>
+							</div>
+
 						</div>
-						<div class="col-md-6">
-							<div class="mb-3">
-								<label for="cpf" class="form-label">CPF</label> <input
-									type="text" class="form-control" id="cpf">
+						<div class="row mb-3">
+							<div class="col-md-6">
+								<label for="email" class="form-label">E-mail</label> <input
+									type="text" class="form-control" id="email">
+								<div id="emailErro" class="text-danger mt-1"
+									style="display: none;"></div>
 							</div>
 						</div>
 
-					</div>
-					<div class="row mb-3">
-						<div class="col-md-6">
-							<label for="email" class="form-label">E-mail</label> <input
-								type="text" class="form-control" id="email">
-						</div>
-					</div>
 
+						<button type="button" class="btn  btn-secondary btnVoltar">Voltar</button>
+						<button type="button" class="btn btnStep btn-success">Próximo</button>
+					</form>
+				</div>
 
-					<button type="button" class="btn  btn-secondary btnVoltar">Voltar</button>
-					<button type="button" class="btn btnStep btn-success">Próximo</button>
-				</form>
-			</div>
-
-			<!-- Passo 2: Formulário para Pessoa Jurídica -->
-			<div id="formJuridica" class="container-form d-none">
-				<h2>Cadastro - Pessoa Jurídica</h2>
-				<form>
+				<!-- Passo 2: Formulário para Pessoa Jurídica -->
+				<div id="formJuridica" class="container-form d-none w-100">
+					<h2>Cadastro - Pessoa Jurídica</h2>
+					<form>
 
 
 
-					<div class=" row mb-3">
-						<div class="col-md-6">
-							<label for="razaoSocial" class="form-label">Razão Social<span class="red">*</span></label>
-							<input type="text" class="form-control" id="razaoSocial">
-						</div>
+						<div class=" row mb-3">
+							<div class="col-md-6">
+								<label for="razaoSocial" class="form-label">Razão Social<span
+									class="red">*</span></label> <input type="text" class="form-control"
+									id="razaoSocial" required>
+							</div>
 
-						<div class="col-md-6">
-							<label for="cnpj" class="form-label">CNPJ<span class="red">*</span></label> <input
-								type="text" class="form-control" id="cnpj">
-						</div>
-					</div>
-
-
-
-
-					<div class=" row mb-3">
-						<div class="col-md-6">
-							<label for="email" class="form-label">E-mail</label> <input
-								type="text" class="form-control" id="email">
-						</div>
-
-					</div>
-					<button type="button" class="btn  btn-secondary btnVoltar">Voltar</button>
-					<button type="button"  class="btn  btnStep btn-success">Próximo</button>
-				</form>
-			</div>
-
-
-			<!-- Passo 3: Forma de Recebimento-->
-			<div id="step3" class="container-form d-none">
-				<h2>Forma de Recebimento</h2>
-				<form>
-
-
-
-					<div class=" row mb-3">
-						<div class="col-md-6">
-							<label for="tranferencia" class="form-label">A transferênncia será: <span class="red">*</span></label> <select class="form-select" aria-label="Turno"
-								id="tranferencia" name="tranferencia">
-								<option selected disabled>Selecione uma opção</option>
-								<option value="M">Mensal</option>
-								<option value="S">Semanal</option>
-								<option value="D">Diária</option>
-							</select>
-						</div>
-
-						<div class="col-md-3">
-							<label for="antecipacaAut" class="form-label">Antecipação Automatica<span class="red">*</span>
-							</label>
-							<div class="form-control card-form-infra">
-								<label for="antecipacaAut">Sim</label> <label class="switch">
-									<input type="checkbox" id="antecipacaAut" name="antecipacaAut">
-									<span class="slider"></span>
-								</label> <label for="antecipacaAut">Não</label>
-
+							<div class="col-md-6">
+								<label for="cnpj" class="form-label">CNPJ<span
+									class="red">*</span></label> <input type="text" class="form-control"
+									id="cnpj" required>
+								<div id="cnpjErro" class="text-danger mt-1"
+									style="display: none;"></div>
 							</div>
 						</div>
-					</div>
-					<button type="button" class="btn btn-secondary btnVoltar">Voltar</button>
-					<button type="submit" class="btn btn-success">Salvar</button>
-				</form>
+
+
+
+
+						<div class=" row mb-3">
+							<div class="col-md-6">
+								<label for="emailCnpj" class="form-label">E-mail</label> <input
+									type="text" class="form-control" id="emailCnpj" required>
+								<div id="emailCnpjErro" class="text-danger mt-1"
+									style="display: none;"></div>
+							</div>
+
+						</div>
+						<button type="button" class="btn  btn-secondary btnVoltar">Voltar</button>
+						<button type="button" class="btn  btnStep btn-success">Próximo</button>
+					</form>
+				</div>
+
+
+				<!-- Passo 3: Forma de Recebimento-->
+				<div id="step3" class="container-form d-none w-100">
+					<h2>Forma de Recebimento</h2>
+					<form>
+
+
+
+						<div class=" row mb-3">
+							<div class="col-md-6">
+								<label for="tranferencia" class="form-label">A
+									transferênncia será: <span class="red">*</span>
+								</label> <select class="form-select" aria-label="Transferencia"
+									id="tranferencia" name="tranferencia">
+									<option selected disabled>Selecione uma opção</option>
+									<option value="M">Mensal</option>
+									<option value="S">Semanal</option>
+									<option value="D">Diária</option>
+								</select>
+							</div>
+
+							<div class="col-md-3">
+								<label for="antecipacaAut" class="form-label">Antecipação
+									Automatica<span class="red">*</span>
+								</label>
+								<div class="form-control card-form-infra">
+									<label for="antecipacaAut">Sim</label> <label class="switch">
+										<input type="checkbox" id="antecipacaAut" name="antecipacaAut">
+										<span class="slider"></span>
+									</label> <label for="antecipacaAut">Não</label>
+
+								</div>
+							</div>
+						</div>
+						<button type="button" class="btn btn-secondary btnVoltar">Voltar</button>
+						<button type="submit" id="btnNovoCadastro" class="btn btn-success">Cadastrar</button>
+					</form>
+				</div>
 			</div>
-		</div>
+		</section>
+
 	</main>
 
 	<script charset="UTF-8" src="https://code.jquery.com/jquery-3.7.1.js"

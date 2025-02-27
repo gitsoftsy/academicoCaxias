@@ -17,8 +17,8 @@ let concurso = ""
 $(document).ready(function() {
 	$('#grid').hide()
 	$("#containerCadastros").hide();
-/*	getDados();
-*/
+	/*	getDados();
+	*/
 
 	// Dropdown de Pesquisa
 	$(".dropdown-toggle-form").click(function() {
@@ -177,21 +177,20 @@ $("#btn-buscar").click(() => {
 function buscar() {
 	let documentoSearch = $("#documentoSearch").val();
 	let nomeSearch = $("#nomeSearch").val();
-	
-	const urlRquisição = url_base + "/recebedores/filtrar?documento=" + documentoSearch + "&nome=" + nomeSearch
-	
-	console.log(urlRquisição)
+
+	const urlRquisição = url_pagarme + "/recebedores/filtrar?documento=" + documentoSearch + "&nome=" + nomeSearch
+
 
 	$.ajax({
-		url: url_base + "/recebedores/filtrar?documento=" + documentoSearch + "&nome=" + nomeSearch ,
+		url: urlRquisição,
 		type: "GET",
 		async: false,
-		 headers: {
-        "idCconta": contaId
-    }
+		headers: {
+			"idConta": contaId
+		}
 	})
 		.done(function(data) {
-			
+
 			console.log(data)
 			dados =
 				data.message != "Nenhum resultado encontrado para os parâmetros informados."
@@ -328,45 +327,22 @@ function listarDados(dados) {
 	if (dados.length > 0) {
 		var html = dados
 			.map(function(item) {
-				if (item.aprovado == null) {
-					status = "Aguardando";
-				} else if (item.aprovado == "N") {
-					status = "Reprovado";
-				} else {
-					status = "Aprovado";
-				}
 
-				let escolaNome = item.nomeEscola
-					? item.nomeEscola
-					: "Não possui escola";
-				let turno = item.turno ? item.turno : "Não possui turno";
-				let serie = item.serie ? item.serie : "Não possui serie";
+
 
 				return (
 					"<tr>" +
 					"<td>" +
-					item.candidato +
+					(item.tipoPessoa == "PJ" ? "Pessoa Jurídica" : "Pessoa Física") +
 					"</td>" +
 					"<td>" +
-					item.nomeCompleto +
+					item.documento +
 					"</td>" +
 					"<td>" +
-					escolaNome +
+					item.nome +
 					"</td>" +
 					"<td>" +
-					`${item.nome} - ${item.codigoCurso}` +
-					"</td>" +
-					"<td>" +
-					turno +
-					"</td>" +
-					"<td>" +
-					serie +
-					"</td>" +
-					"<td>" +
-					item.tipoIngresso +
-					"</td>" +
-					"<td>" +
-					status +
+					item.statusRecebedor +
 					"</td>" +
 					"</td>" +
 					'<td class="d-flex justify-content-center">' +

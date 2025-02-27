@@ -183,14 +183,36 @@ function getDados() {
 		}
 	})
 		.done(function(data) {
+
+
 			dados = data;
 			dadosOriginais = data;
 			listarDados(data);
 			$('input[data-toggle="toggle"]').bootstrapToggle();
+
+
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
 			console.error("Erro na solicitação AJAX:", textStatus, errorThrown);
+
+			try {
+				let response = JSON.parse(jqXHR.responseText);
+				
+				console.log(response.message)
+				console.log(response.message == `O curso com ID ${cursoId} não possui imagens associadas à conta com ID ${contaId}`)
+				if (response.message == `O curso com ID ${cursoId} não possui imagens associadas à conta com ID ${contaId}`) {
+					
+					dadosOriginais = []
+					dados = []
+					$("#cola-tabela tbody").empty();
+				}
+				
+			} catch (e) {
+				console.error("Erro ao processar a resposta:", e);
+				alert("Ocorreu um erro inesperado.");
+			}
 		});
+
 
 }
 
@@ -251,7 +273,7 @@ function listarDados(dados) {
 				"<td>" +
 				item.url +
 				"</td>" +
-
+				"<td>" +
 				/*'<td class="d-flex justify-content-center">' + '<span style=" margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-primary btn-sm" ' +
 				' data-id="' +
 				item.idCursoImg +
@@ -275,7 +297,6 @@ function listarDados(dados) {
 function removerImagem(element) {
 	id = element.getAttribute("data-id")
 
-
 	$.ajax({
 		url: url_base + `/cursoImg/cursos/imagem/${id}`,
 		type: "DELETE",
@@ -293,13 +314,15 @@ function removerImagem(element) {
 			});
 		},
 	}).done(function(data) {
-		getDados();
-		showPage(currentPage);
-		updatePagination();
 		Swal.fire({
 			title: "Removido com sucesso!",
 			icon: "success",
 		});
+
+		getDados();
+		showPage(currentPage);
+		updatePagination();
+
 	});
 
 	return false

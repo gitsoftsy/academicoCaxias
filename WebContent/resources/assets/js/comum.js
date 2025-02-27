@@ -1,4 +1,5 @@
 var url_base = "https://api.softsy.io/api-educacional-dev";
+var url_pagarme = "https://api.softsy.io/api-educacional-recebedor"
 const queryString = window.location.search;
 const params = new URLSearchParams(queryString);
 const path_base =
@@ -96,7 +97,7 @@ $(document).ready(function () {
 			Object.keys(linkData).forEach(attr => {
 				link.setAttribute(attr, linkData[attr]);
 			});
-			document.head.appendChild(link);
+			document.head.appendChild(lin1);
 		});*/
 
   sessionStorage.setItem("nomeConta", nomeConta);
