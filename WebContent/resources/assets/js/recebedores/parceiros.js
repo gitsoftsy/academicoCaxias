@@ -178,7 +178,7 @@ function buscar() {
 	let documentoSearch = $("#documentoSearch").val();
 	let nomeSearch = $("#nomeSearch").val();
 
-	const urlRquisição = url_pagarme + "/recebedores/filtrar?documento=" + documentoSearch + "&nome=" + nomeSearch
+	const urlRquisição = url_pagarme + "/pagarmeRecebedor/recebedores/filtrar?documento=" + documentoSearch + "&nome=" + nomeSearch
 
 
 	$.ajax({
