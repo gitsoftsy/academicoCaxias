@@ -24,14 +24,14 @@ $(document).ready(function () {
         })
       );
     });
-    
-    console.log(idConcurso)
+
+    console.log(idConcurso);
     $("#concursoId").val(idConcurso);
     $("#concursoId").prop("disabled", true);
   });
 
   $.ajax({
-    url: url_base + "/cursos/ativos/conta/" + contaId,
+    url: url_base + "/cursos/conta/" + contaId,
     type: "get",
     async: false,
     error: function (e) {
@@ -144,7 +144,8 @@ $(document).ready(function () {
       );
 
       $.ajax({
-        url: url_base + `/curriculo/ativos/curso/${data.cursoId}/conta/${contaId}`,
+        url:
+          url_base + `/curriculo/ativos/curso/${data.cursoId}/conta/${contaId}`,
         type: "get",
         async: false,
       }).done(function (data) {
@@ -202,7 +203,6 @@ function cadastrar() {
     vagas: $("#vagas").val(),
     minVagasAbertTurma: $("#vagasMin").val(),
   };
-
 
   $.ajax({
     url: url_base + "/ofertasConcurso",

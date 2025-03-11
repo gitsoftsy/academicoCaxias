@@ -129,7 +129,7 @@ $(document).ready(function () {
   });
 
   $.ajax({
-    url: url_base + "/cursos/ativos/conta/" + contaId,
+    url: url_base + "/cursos/ativos/" + contaId,
     type: "get",
     async: false,
     error: function (e) {
@@ -137,7 +137,7 @@ $(document).ready(function () {
     },
   }).done(function (data) {
     $.each(data, function (index, item) {
-      if (item.ativo == "S") {
+      
         $("#curso").append(
           $("<option>", {
             value: item.idCurso,
@@ -145,7 +145,7 @@ $(document).ready(function () {
             name: item.nome,
           })
         );
-      }
+      
     });
   });
 
