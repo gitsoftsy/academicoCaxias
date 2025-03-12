@@ -12,32 +12,59 @@ const contaId = localStorage.getItem("contaId");
 const escolaId = sessionStorage.getItem("escolaId");
 const idUsuario = sessionStorage.getItem("usuarioId");
 let idCandidato = "";
-let concurso = ""
+let concurso = "";
 let containerPrincipal = "#step1"
 let lastContainer = "#step1";
+let dadosFormulario = {}
 $(document).ready(function() {
 	// Começa no primeiro passo
 
-	$(".btnStep").click(function() {
-		// Esconde o container atual e guarda seu ID
+	$("#formFisica").on("submit", function(e) {
+
+		e.preventDefault();
+		
+		dadosFormulario = {
+			"tipoPessoa": "PF",
+			"nome": $("#nome").val(),
+			"documento": $("#cpf").val().replace(/\D/g, ""),
+			"email": $("#email").val(),
+		}
+
 		let currentContainer = $(this).closest(".container-form");
 		lastContainer = "#" + currentContainer.attr("id");
 		currentContainer.addClass("d-none");
 
-		// Exibe o próximo passo
-		if (currentContainer.is("#formFisica")) {
-			$("#step3").removeClass("d-none");
-		} else if (currentContainer.is("#formJuridica")) {
-			$("#step3").removeClass("d-none");
-		}
+		
+		$("#step3").removeClass("d-none");
 	});
+
+	$("#formJuridica").on("submit", function(e) {
+
+		e.preventDefault();
+
+		dadosFormulario = {
+			"tipoPessoa": "PJ",
+			"nome": $("#razaoSocial").val(),
+			"documento": $("#cnpj").val().replace(/\D/g, ""),
+			"email": $("#emailCnpj").val(),
+		}
+
+		// Esconde o container atual e guarda seu ID
+		let currentContainer = $(this).closest(".container-form");
+		lastContainer = "#" + currentContainer.attr("id");
+		currentContainer.addClass("d-none");
+		
+		$("#step3").removeClass("d-none");
+	});
+
+
 
 	$(".btnVoltar").click(function() {
 		// Esconde o container atual e volta para o anterior
 		$(this).closest(".container-form").addClass("d-none");
 
 
-		if (lastContainer == "#formFisica" || lastContainer == "#formJuridica") {
+		if (lastContainer == "#containerFisica" || lastContainer == "#containerJuridica") {
 			$(lastContainer).removeClass("d-none");
 			lastContainer = "#step1"
 		} else {
@@ -48,13 +75,13 @@ $(document).ready(function() {
 	// Botões para escolher o tipo de parceiro
 	$("#btnFisica").click(function() {
 		$("#step1").addClass("d-none");
-		$("#formFisica").removeClass("d-none");
+		$("#containerFisica").removeClass("d-none");
 		lastContainer = "#step1";
 	});
 
 	$("#btnJuridica").click(function() {
 		$("#step1").addClass("d-none");
-		$("#formJuridica").removeClass("d-none");
+		$("#containerJuridica").removeClass("d-none");
 		lastContainer = "#step1";
 	});
 });
@@ -80,7 +107,7 @@ $("#cpf").on("blur", function() {
 		}
 
 		$.ajax({
-			url: url_pagarme + "/recebedores/existByCpf?cpf=" + cpf, // Substitua pela URL correta
+			url: url_pagarme + "/recebedoresPf/existByCpf?cpf=" + cpf, // Substitua pela URL correta
 			type: "GET",
 			contentType: "application/json; charset=utf-8",
 			headers: {
@@ -119,7 +146,7 @@ $("#cpf").on("blur", function() {
 
 			}
 		});
-	}else{
+	} else {
 		return;
 	}
 });
@@ -135,7 +162,7 @@ $("#cnpj").on("blur", function() {
 		}
 
 		$.ajax({
-			url: url_pagarme + "/recebedoresPf/existByCpf?cnpj=" + cnpj,
+			url: url_pagarme + "/recebedorPj/recebedores/existByCnpj?cnpj=" + cnpj,
 			type: "GET",
 			contentType: "application/json; charset=utf-8",
 			headers: {
@@ -162,13 +189,17 @@ $("#cnpj").on("blur", function() {
 				}
 			},
 			error: function(error) {
+				
 				if (error.responseJSON.mensagem != "CNPJ não encontrado em nenhuma tabela.") {
+					console.log(error)
 					Swal.fire({
 						icon: "error",
 						title: "Erro!",
 						text: "Não foi possível verificar o CNPJ.",
 						confirmButtonText: "OK"
 					});
+				}else{
+					
 				}
 
 			},
@@ -176,7 +207,7 @@ $("#cnpj").on("blur", function() {
 				$("#cnpj").prop("disabled", false); // Reativa o campo após a requisição
 			}
 		});
-	}else{
+	} else {
 		return;
 	}
 });
@@ -236,16 +267,10 @@ function validarEmail(email) {
 $("#btnNovoCadastro").click(async function(e) {
 	e.preventDefault();
 
-
-	const dadosFormulario = {
-		"idUsuario": usuarioId,
-		"tipoPessoa": lastContainer == "#formFisica" ? "PF" : "PJ",
-		"nome": lastContainer == "#formFisica" ? $("#nome").val() : $("#razaoSocial").val(),
-		"documento": lastContainer == "#formFisica" ? $("#cpf").val().replace(/\D/g, "") : $("#cnpj").val().replace(/\D/g, ""),
-		"email": lastContainer == "#formFisica" ? $("#email").val() : $("#emailCnpj").val(),
-		"transfIntervalo": $("#tranferencia").val(),
-		"antecipAut": getAswer("#antecipacaAut")
-	};
+	
+	dadosFormulario.idUsuario = usuarioId
+	dadosFormulario.transfIntervalo = $("#tranferencia").val()
+	dadosFormulario.antecipAut = getAswer("#antecipacaAut")
 
 	console.log(dadosFormulario);
 

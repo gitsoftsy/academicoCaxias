@@ -115,9 +115,9 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 
 
 				<!-- Passo 2: Formulário para Pessoa Física -->
-				<div id="formFisica" class="container-form d-none w-100">
+				<div id="containerFisica" class="container-form d-none w-100">
 					<h2>Cadastro - Pessoa Física</h2>
-					<form>
+					<form id="formFisica">
 						<div class="row mb-3">
 							<div class="col-md-6">
 								<label for="nome" class="form-label">Nome Completo <span
@@ -137,8 +137,9 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 						</div>
 						<div class="row mb-3">
 							<div class="col-md-6">
-								<label for="email" class="form-label">E-mail</label> <input
-									type="text" class="form-control" id="email">
+								<label for="email" class="form-label">E-mail<span
+									class="red">*</span></label> <input
+									type="text" class="form-control" id="email" required>
 								<div id="emailErro" class="text-danger mt-1"
 									style="display: none;"></div>
 							</div>
@@ -146,14 +147,14 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 
 
 						<button type="button" class="btn  btn-secondary btnVoltar">Voltar</button>
-						<button type="button" class="btn btnStep btn-success">Próximo</button>
+						<button type="submit" class="btn btnStep btn-success">Próximo</button>
 					</form>
 				</div>
 
 				<!-- Passo 2: Formulário para Pessoa Jurídica -->
-				<div id="formJuridica" class="container-form d-none w-100">
+				<div id="containerJuridica" class="container-form d-none w-100">
 					<h2>Cadastro - Pessoa Jurídica</h2>
-					<form>
+					<form id="formJuridica">
 
 
 
@@ -178,7 +179,8 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 
 						<div class=" row mb-3">
 							<div class="col-md-6">
-								<label for="emailCnpj" class="form-label">E-mail</label> <input
+								<label for="emailCnpj" class="form-label">E-mail<span
+									class="red">*</span></label> <input
 									type="text" class="form-control" id="emailCnpj" required>
 								<div id="emailCnpjErro" class="text-danger mt-1"
 									style="display: none;"></div>
@@ -186,7 +188,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 
 						</div>
 						<button type="button" class="btn  btn-secondary btnVoltar">Voltar</button>
-						<button type="button" class="btn  btnStep btn-success">Próximo</button>
+						<button type="submit" class="btn  btnStep btn-success">Próximo</button>
 					</form>
 				</div>
 
