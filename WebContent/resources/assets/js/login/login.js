@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+	// if (logoConta != undefined) {
+	// 	$("#logo-login").attr("src", `data:image/png;base64,${logoConta}`);
+	// }
 
 	$(".reveal").on('click', function() {
 		let pwd = $(".pwd");

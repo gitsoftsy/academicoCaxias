@@ -1,4 +1,4 @@
-var url_base = "https://api.softsy.io/api-educacional-dev";
+// var url_base = "https://api.softsy.io/api-educacional-dev";
 var url_pagarme = "https://api.softsy.io/api-educacional-recebedor"
 var url_base = "https://api.softsy.io/api-educacional-hml";
 const queryString = window.location.search;
