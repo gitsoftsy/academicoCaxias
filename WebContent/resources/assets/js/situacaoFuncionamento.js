@@ -4,6 +4,7 @@ var nome = '';
 var rows = 8;
 var currentPage = 1;
 var pagesToShow = 5;
+var dadosOriginais = [];
 
 $(document).ready(function() {
 
@@ -50,6 +51,7 @@ function getDados() {
 		async: false,
 	})
 		.done(function(data) {
+			dadosOriginais = data
 			listarAtos(data);
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {

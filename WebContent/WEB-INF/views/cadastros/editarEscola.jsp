@@ -54,11 +54,12 @@ String contextPath = request.getContextPath();
 	rel="stylesheet" />
 
 <!-- FontAwesome -->
-<script charset="UTF-8" src="
+<script charset="UTF-8"
+	src="
 https://kit.fontawesome.com/3ce21ff22c.js"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet"
-	href="<%=contextPath%>/resources/assets/css/style.css?v=<%=(int)(Math.random()*10000)%>" />
+	href="<%=contextPath%>/resources/assets/css/style.css?v=<%=(int) (Math.random() * 10000)%>" />
 
 </head>
 
@@ -117,8 +118,8 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 				<div class="row mb-3">
 					<div class="col-md-6 mt-3" id="divLogoEscola">
 						<label for="logoEscola" class="form-label">Logo:<span
-							class="red">*</span></label> <input class="form-control "
-							type="file" id="logoEscola" name="logoEscola">
+							class="red">*</span></label> <input class="form-control " type="file"
+							id="logoEscola" name="logoEscola">
 					</div>
 				</div>
 
@@ -147,11 +148,14 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 							class="form-control" data-mask="00.000.000/0000-00" />
 					</div>
 					<div class="col-md-6">
-						<label for="codigoInep" class="form-label">Código Inep:<span
-							class="red">*</span></label> <input type="tel" id="codigoInep" required
-							autocomplete="off" name="codigoInep"
-							class="form-control " />
+						<label for="codigoInep" class="form-label"> Código Inep: <span
+							class="red">*</span>
+						</label> <input type="tel" id="codigoInep" required autocomplete="off"
+							name="codigoInep" class="form-control" pattern="\d{1,8}"
+							title="O Código INEP deve ter no máximo 8 dígitos"
+							oninput="this.value = this.value.replace(/\D/g, '').slice(0, 8)" />
 					</div>
+
 
 				</div>
 				<!-- 

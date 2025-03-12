@@ -116,8 +116,9 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 						<label for="codigoInep" class="form-label">Código Inep:<span
 							class="red">*</span></label> <input type="number" id="codigoInep"
 							required autocomplete="off" name="codigoInep"
-							class="form-control" min='0'
-							oninput="this.value = Math.abs(this.value)" />
+							class="form-control" min="0"
+							oninput="this.value = this.value.slice(0, 8)" />
+
 					</div>
 
 					<div class="col-md-6" id="cardCNPJ">
@@ -291,7 +292,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 					</div>
 				</div>
  -->
-				
+
 
 				<!--
 					<div class="col-md-6" hidden>

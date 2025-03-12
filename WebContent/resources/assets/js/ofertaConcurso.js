@@ -54,7 +54,7 @@ $(document).ready(function() {
 				return value.includes(searchInput);
 			});
 		}
-		
+
 		else if (columnToSearch === "nomeEscolaPes") {
 			filteredData = dadosOriginais.filter(function(item) {
 				var value = item.escola
@@ -63,7 +63,7 @@ $(document).ready(function() {
 				return value.includes(searchInput);
 			});
 		}
-		
+
 		else if (columnToSearch === "turnoPes") {
 			filteredData = dadosOriginais.filter(function(item) {
 				var value = item.turno
@@ -72,7 +72,7 @@ $(document).ready(function() {
 				return value.includes(searchInput);
 			});
 		}
-		
+
 		else if (columnToSearch === "seriePes") {
 			filteredData = dadosOriginais.filter(function(item) {
 				var value = item.serie.serie && item.serie.serie
@@ -81,7 +81,7 @@ $(document).ready(function() {
 				return value.includes(searchInput);
 			});
 		}
-		
+
 		else if (columnToSearch === "descricaoOfertaPes") {
 			filteredData = dadosOriginais.filter(function(item) {
 				var value = item.descricaoOferta
@@ -518,7 +518,14 @@ function listarDados(dados) {
 				item.idOfertaConcurso +
 				'" data-ativo="' +
 				item.ativo +
-				'" onclick="showRef(this)" data-bs-toggle="modal" data-bs-target="#editAto"><i class="fa-solid fa-pen fa-lg"></i></button></td>' +
+				'" onclick="showRef(this)" data-bs-toggle="modal" data-bs-target="#editAto"><i class="fa-solid fa-pen fa-lg"></i></button>' +
+				'<span style="width:50%; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-primary btn-sm" data-id="' +
+				item.idOfertaConcurso +
+				'" onclick="ofertaConcursoImage(this)"><i class="fa-regular fa-image fa-lg"></i></span>' +
+				'<span style="width:50%; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-primary btn-sm" data-id="' +
+				item.idOfertaConcurso +
+				'" onclick="ofertaConcursoDescricao(this)"><i class="fas fa-sticky-note fa-lg"></i></span>' +
+				'</td>' +
 				"</tr>"
 			);
 		})
@@ -527,6 +534,24 @@ function listarDados(dados) {
 	$("#cola-tabela").html(html);
 
 	// Reaplicar a estilização do toggle
+}
+
+const ofertaConcursoImage = (element) => {
+	const idOfertaConcurso = element.getAttribute("data-id");
+
+	window.location.href = "imagem-oferta-concurso?id=" + idOfertaConcurso;
+}
+
+const ofertaConcursoDescricao = (element) => {
+	const idOfertaConcurso = element.getAttribute("data-id");
+
+	window.location.href = "descricao-oferta-concurso?id=" + idOfertaConcurso;
+}
+
+function novaOferta() {
+	let concursoId = $("#concursoSearch").val();
+
+	window.location.href = "nova-oferta-co	ncurso?concurso=" + concursoId;
 }
 
 const showRef = (ref) => {

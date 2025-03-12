@@ -2,6 +2,7 @@ const contaId = localStorage.getItem("contaId");
 let idGradeCurricularSelecionada;
 let listaGrades;
 const idOfertaConcurso = params.get("id");
+const idConcurso = params.get("concurso");
 
 $(document).ready(function () {
   $("select").select2();
@@ -23,10 +24,14 @@ $(document).ready(function () {
         })
       );
     });
+
+    console.log(idConcurso);
+    $("#concursoId").val(idConcurso);
+    $("#concursoId").prop("disabled", true);
   });
 
   $.ajax({
-    url: url_base + "/cursos/ativos/conta/" + contaId,
+    url: url_base + "/cursos/conta/" + contaId,
     type: "get",
     async: false,
     error: function (e) {
@@ -139,7 +144,8 @@ $(document).ready(function () {
       );
 
       $.ajax({
-        url: url_base + `/curriculo/ativos/curso/${data.cursoId}/conta/${contaId}`,
+        url:
+          url_base + `/curriculo/ativos/curso/${data.cursoId}/conta/${contaId}`,
         type: "get",
         async: false,
       }).done(function (data) {
@@ -197,7 +203,6 @@ function cadastrar() {
     vagas: $("#vagas").val(),
     minVagasAbertTurma: $("#vagasMin").val(),
   };
-
 
   $.ajax({
     url: url_base + "/ofertasConcurso",

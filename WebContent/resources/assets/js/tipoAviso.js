@@ -4,6 +4,7 @@ var nome = '';
 var rows = 8;
 var currentPage = 1;
 var pagesToShow = 5;
+var dadosOriginais = [];
 
 $(document).ready(function() {
 
@@ -52,6 +53,7 @@ function getDados() {
 	})
 		.done(function(data) {
 			dados = data
+			dadosOriginais = data
 			listarDados(data);  $('input[data-toggle="toggle"]').bootstrapToggle();$('input[data-toggle="toggle"]').bootstrapToggle();
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {

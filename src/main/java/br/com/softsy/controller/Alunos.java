@@ -16,7 +16,19 @@ public class Alunos {
 	@RequestMapping(value = { "pre-matricula" }, method = RequestMethod.GET)
 	public String preMatricula(HttpSession session, Model model) throws Exception {
 		
-		return "alunos/preMatricula";
+		return "alunos/alunos";
+	}
+	
+	@RequestMapping(value = { "descricao-oferta-concurso" }, method = RequestMethod.GET)
+	public String descricaoOfertaConcurso(HttpSession session, Model model) throws Exception {
+
+		return "captacao/ofertaConcursoDescricao";
+	}
+	
+	@RequestMapping(value = { "imagem-oferta-concurso" }, method = RequestMethod.GET)
+	public String imagemOfertaConcurso(HttpSession session, Model model) throws Exception {
+
+		return "captacao/ofertaConcursoImagens";
 	}
 	
 	

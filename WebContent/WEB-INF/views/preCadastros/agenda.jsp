@@ -115,9 +115,9 @@ String contextPath = request.getContextPath();
 				</div>
 
 				<div class="col-md-5 mb-3">
-					<label for="turma" class="form-label">Turma</label> <select
-						id="turma" class="form-select">
-						<option value="">Selecione uma disciplina</option>
+					<label for="turmaSearch" class="form-label">Turma</label> <select
+						id="turmaSearch" class="form-select">
+						<option value="">Selecione uma turma</option>
 					</select>
 				</div>
 
@@ -162,98 +162,8 @@ String contextPath = request.getContextPath();
 							<tr>
 								<th scope="col" class="border-end pe-2 th-sem-filtro">
 									Selecionar</th>
-								<th scope="col" class="sortable border-end"
-									data-column="nomeEscola">
-									<div
-										class="d-flex align-items-center justify-content-between pe-2">
-										<div
-											class="col d-flex align-items-center justify-content-between">
-											<span>Escola</span> <i class="fas fa-sort mx-2"
-												style="color: #dddddd"></i>
-										</div>
-										<div class="dropdown-form">
-											<div class="dropdown-toggle-form" id="dropdownButton1">
-												<i class="fas fa-search" style="color: #dddddd"></i>
-											</div>
-											<div
-												class="dropdown-content-form rounded-3 dropdown-content-left"
-												id="dropdownContent1">
-												<input type="text" class="form-control mb-3 searchInput"
-													placeholder="Digite a Escola" />
-												<button class="btn btn-sm col-12 btn-success searchButton">
-													Buscar Escola</button>
-											</div>
-										</div>
-									</div>
-								</th>
-								<th scope="col" class="sortable border-end" data-column="ano">
-									<div
-										class="d-flex align-items-center justify-content-between pe-2">
-										<div
-											class="col d-flex align-items-center justify-content-between">
-											<span>Período</span> <i class="fas fa-sort mx-2"
-												style="color: #dddddd"></i>
-										</div>
-									</div>
-								</th>
-								<th scope="col" class="sortable border-end" data-column="turno">
-									<div
-										class="d-flex align-items-center justify-content-between pe-2">
-										<div
-											class="col d-flex align-items-center justify-content-between">
-											<span>Turno</span> <i class="fas fa-sort mx-2"
-												style="color: #dddddd"></i>
-										</div>
-									</div>
-								</th>
-								<th scope="col" class="sortable border-end"
-									data-column="nomeTurma">
-									<div
-										class="d-flex align-items-center justify-content-between pe-2">
-										<div
-											class="col d-flex align-items-center justify-content-between">
-											<span>Turma</span> <i class="fas fa-sort mx-2"
-												style="color: #dddddd"></i>
-										</div>
-										<div class="dropdown-form">
-											<div class="dropdown-toggle-form" id="dropdownButton1">
-												<i class="fas fa-search" style="color: #dddddd"></i>
-											</div>
-											<div
-												class="dropdown-content-form rounded-3 dropdown-content-left"
-												id="dropdownContent1">
-												<input type="text" class="form-control mb-3 searchInput"
-													placeholder="Digite o Nome da Turma" />
-												<button class="btn btn-sm col-12 btn-success searchButton">
-													Buscar Turma</button>
-											</div>
-										</div>
-									</div>
-								</th>
-								<th scope="col" class="sortable border-end"
-									data-column="nomeDisciplina">
-									<div
-										class="d-flex align-items-center justify-content-between pe-2">
-										<div
-											class="col d-flex align-items-center justify-content-between">
-											<span>Disciplina</span> <i class="fas fa-sort mx-2"
-												style="color: #dddddd"></i>
-										</div>
-										<div class="dropdown-form">
-											<div class="dropdown-toggle-form" id="dropdownButton1">
-												<i class="fas fa-search" style="color: #dddddd"></i>
-											</div>
-											<div
-												class="dropdown-content-form rounded-3 dropdown-content-left"
-												id="dropdownContent1">
-												<input type="text" class="form-control mb-3 searchInput"
-													placeholder="Digite a Disciplina" />
-												<button class="btn btn-sm col-12 btn-success searchButton">
-													Buscar Disciplina</button>
-											</div>
-										</div>
-									</div>
-								</th>
+								
+								
 
 								<th scope="col" class="sortable border-end"
 									data-column="dataAgenda">
@@ -472,13 +382,8 @@ String contextPath = request.getContextPath();
 								<label for="turmaId" class="form-label"> Turma:<span
 									class="red">*</span>
 								</label>
-								<div class="custom-select">
-									<input type="text" id="turmaSearch" class="form-control"
-										placeholder="Selecione ou pesquise..." autocomplete="off" />
-									<ul class="options-list" id="turmaOptions"></ul>
-								</div>
 								<select class="form-select" aria-label="Turma" id="turmaId"
-									required name="turmaId" style="display: none">
+									required name="turmaId">
 									<option selected disabled value="">Selecione a Turma</option>
 								</select>
 							</div>

@@ -83,7 +83,7 @@ https://kit.fontawesome.com/3ce21ff22c.js"
         <div class="container-form">
           <img
             class="logo-login"
-            src="<%=contextPath%>/resources/assets/img/logoPrefeitura.png"
+            src="<%=contextPath%>/resources/assets/img/logo-softsy.png"
             alt="Logo"
             id="logo-login"
           />

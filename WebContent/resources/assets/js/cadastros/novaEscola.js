@@ -177,8 +177,8 @@ $("#formNovoCadastro").submit(async function(e) {
 			console.error(e);
 			Swal.fire({
 				icon: "error",
-				title: "Oops...",
-				text: "Não foi possível cadastrar a escola!",
+				title: e.responseJSON.error,
+				text: e.responseJSON.message,
 			});
 		}
 	}).done(function(data) {

@@ -18,11 +18,83 @@ var listaAgenda;
 var descricaoAgendaAnexo = "";
 const contaId = localStorage.getItem("contaId");
 
+function preencherOpcoes(
+	turmas,
+	optionsListId,
+	selectId,
+	searchId,
+	turmaIdPreSelecionada = null
+) {
+	const $optionsList = $(optionsListId);
+	const $turmaId = $(selectId);
+
+	// Limpa as opções anteriores
+	$optionsList.empty();
+	$turmaId
+		.empty()
+		.append(
+			'<option value="" disabled selected>Selecione uma opção</option>'
+		);
+
+	// Itera sobre as turmas retornadas pela API
+	$.each(turmas, function(index, item) {
+		$optionsList.append(
+			`<li data-value="${item.idTurma}">${item.nomeTurma}</li>`
+		);
+		$turmaId.append(
+			$("<option>", {
+				value: item.idTurma,
+				text: item.nomeTurma,
+			})
+		);
+	});
+
+	// Se houver um turmaId para ser pré-selecionado
+	if (turmaIdPreSelecionada) {
+		$turmaId.val(turmaIdPreSelecionada);
+		const turmaSelecionada = $turmaId.find("option:selected").text();
+		$(searchId).val(turmaSelecionada);
+	}
+
+	// Exibe as opções ao focar no campo de busca
+	$(searchId).on("focus", function() {
+		$optionsList.show();
+	});
+
+	// Filtra as opções conforme o usuário digita
+	$(searchId).on("input", function() {
+		const searchValue = $(this).val().toLowerCase();
+		$optionsList.find("li").each(function() {
+			const text = $(this).text().toLowerCase();
+			$(this).toggle(text.includes(searchValue));
+		});
+	});
+
+	// Ao clicar em uma opção, atualiza o campo de busca e o select oculto
+	$optionsList.on("click", "li", function() {
+		const selectedText = $(this).text();
+		const selectedValue = $(this).data("value");
+
+		$(searchId).val(selectedText); // Preenche o campo de pesquisa
+		$turmaId.val(selectedValue); // Preenche o select oculto com o ID da turma
+		$optionsList.hide(); // Esconde a lista de opções
+	});
+
+	// Fecha a lista se o usuário clicar fora
+	$(document).on("click", function(e) {
+		if (!$(e.target).closest(".custom-select").length) {
+			$optionsList.hide();
+		}
+	});
+}
+
 $(document).ready(function() {
 	$("#boxAgenda").hide();
 	$("#containerAnexos").hide();
 	$("#tableTurma").hide();
-	$("select").select2();
+	$("#anexo-agenda").hide();
+	$("#escola, #disciplina, #periodoLetivo, #turmaSearch").select2();
+	/*$("#turma").attr('disabled', true)*/
 
 	$.ajax({
 		url: url_base + "/agendas",
@@ -71,19 +143,31 @@ $(document).ready(function() {
 		type: "GET",
 		async: false,
 	}).done(function(data) {
+		console.log(data)
 		$.each(data, function(index, item) {
 			let tipoPeriodicidade;
 
+			console.log(item.tipoPeriodicidade)
+
+			console.log(item.tipoPeriodicidade == 'A')
+
 			switch (item.tipoPeriodicidade) {
-				case 'A':
+				case "A":
 					tipoPeriodicidade = 'Anual'
-				case 'B':
+					break;
+				case "B":
 					tipoPeriodicidade = 'Bimestral'
-				case 'T':
-					tipoPeriodicidade = 'Trimestral'
-				case 'S':
+					break;
+				case "S":
 					tipoPeriodicidade = 'Semestral'
+					break;
+				case "T":
+					tipoPeriodicidade = 'Trimestral'
+					break;
+
 			}
+
+			console.log(tipoPeriodicidade)
 
 			$("#periodoLetivo").append(
 				$("<option>", {
@@ -97,76 +181,6 @@ $(document).ready(function() {
 		console.error("Erro na solicitação AJAX:", textStatus, errorThrown);
 	});
 
-	function preencherOpcoes(
-		turmas,
-		optionsListId,
-		selectId,
-		searchId,
-		turmaIdPreSelecionada = null
-	) {
-		const $optionsList = $(optionsListId);
-		const $turmaId = $(selectId);
-
-		// Limpa as opções anteriores
-		$optionsList.empty();
-		$turmaId
-			.empty()
-			.append(
-				'<option value="" disabled selected>Selecione uma opção</option>'
-			);
-
-		// Itera sobre as turmas retornadas pela API
-		$.each(turmas, function(index, item) {
-			$optionsList.append(
-				`<li data-value="${item.idTurma}">${item.nomeTurma}</li>`
-			);
-			$turmaId.append(
-				$("<option>", {
-					value: item.idTurma,
-					text: item.nomeTurma,
-				})
-			);
-		});
-
-		// Se houver um turmaId para ser pré-selecionado
-		if (turmaIdPreSelecionada) {
-			$turmaId.val(turmaIdPreSelecionada);
-			const turmaSelecionada = $turmaId.find("option:selected").text();
-			$(searchId).val(turmaSelecionada);
-		}
-
-		// Exibe as opções ao focar no campo de busca
-		$(searchId).on("focus", function() {
-			$optionsList.show();
-		});
-
-		// Filtra as opções conforme o usuário digita
-		$(searchId).on("input", function() {
-			const searchValue = $(this).val().toLowerCase();
-			$optionsList.find("li").each(function() {
-				const text = $(this).text().toLowerCase();
-				$(this).toggle(text.includes(searchValue));
-			});
-		});
-
-		// Ao clicar em uma opção, atualiza o campo de busca e o select oculto
-		$optionsList.on("click", "li", function() {
-			const selectedText = $(this).text();
-			const selectedValue = $(this).data("value");
-
-			$(searchId).val(selectedText); // Preenche o campo de pesquisa
-			$turmaId.val(selectedValue); // Preenche o select oculto com o ID da turma
-			$optionsList.hide(); // Esconde a lista de opções
-		});
-
-		// Fecha a lista se o usuário clicar fora
-		$(document).on("click", function(e) {
-			if (!$(e.target).closest(".custom-select").length) {
-				$optionsList.hide();
-			}
-		});
-	}
-
 	$.ajax({
 		url: url_base + "/turma",
 		type: "GET",
@@ -174,7 +188,7 @@ $(document).ready(function() {
 	})
 		.done(function(data) {
 			turmas = data;
-			preencherOpcoes(turmas, "#turmaOptions", "#turmaId", "#turmaSearch");
+			/*preencherOpcoes(turmas, "#turmaOptions", "#turmaId", "#turmaSearch");*/
 			preencherOpcoes(
 				turmas,
 				"#turmaOptionsEdit",
@@ -424,13 +438,13 @@ $(document).ready(function() {
 		$('input[data-toggle="toggle"]').bootstrapToggle();
 	}
 
-	$("#escola, #disciplina, #turma").attr('disabled', true)
+	$("#escola, #disciplina").attr('disabled', true)
 
-
-	getDados();
 	showPage(currentPage);
 	updatePagination();
-	$("select").select2();
+	$("#turmaSearch").attr('disabled', true)
+
+	$("#escola, #disciplina, #periodoLetivo, #turmaSearch").select2();
 });
 
 $("#limpa-filtros").click(function() {
@@ -471,41 +485,98 @@ $("#periodoLetivo").change(() => {
 
 $("#escola").change(() => {
 	$("#disciplina").empty();
-	$("#disciplina").removeAttr("disabled");
+	$("#disciplina").attr('disabled', false);
 	$("#disciplina").append(
-		`<option value='0' selected disabled>Selecione uma escola</option>`
+		`<option value='0' selected disabled>Selecione uma disciplina</option>`
 	);
+	$("#turmaSearch").attr('disabled', true)
 
+	let periodoLetivo = $("#periodoLetivo").val();
 	let escola = $("#escola").val();
+
 	$.ajax({
-		url: url_base + `/turma/filtroDisciplina?idEscola=59&idPeriodoLetivo=3&idTurno=6`,
+		url: url_base + `/turma/filtroDisciplina?idEscola=${escola}&idPeriodoLetivo=${periodoLetivo}`,
 		type: "get",
 		async: false,
 	}).done(function(data) {
-		$.each(data.data, function(index, item) {
+		$.each(data, function(index, item) {
 			$("#disciplina").append(
 				$("<option>", {
-					value: item.idEscola,
-					text: item.nomeEscola,
-					name: item.nomeEscola,
+					value: item.idDiciplina,
+					text: `${item.codDiscip} - ${item.nome}`,
+					name: item.nome,
 				})
 			);
 		});
 	});
 })
 
-function getDados() {
+$("#disciplina").change(() => {
+	$("#turmaSearch").empty();
+	$("#turmaSearch").attr('disabled', false)
+	$("#turmaSearch").append(
+		`<option value='0' selected disabled>Selecione uma turma</option>`
+	);
+
+
+	let periodoLetivo = $("#periodoLetivo").val();
+	let escola = $("#escola").val();
+	let disciplina = $("#disciplina").val();
+
 	$.ajax({
-		url: url_base + "/agendas",
+		url: url_base + `/turma/prematricula?idDisciplina=${disciplina}&idEscola=${escola}&idPeriodoLetivo=${periodoLetivo}`,
+		type: "get",
+		async: false,
+	}).done(function(data) {
+		preencherOpcoes(data.data, "#turmaOptions", "#turmaId", "#turmaSearch");
+		$.each(data.data, function(index, item) {
+			$("#turmaSearch").append(
+				$("<option>", {
+					value: item.idTurma,
+					text: item.nomeTurma,
+					name: item.nomeTurma,
+				})
+			);
+		});
+	});
+})
+
+const buscar = () => {
+	const periodoLetivo = $("#periodoLetivo").val();
+	const escola = $("#escola").val();
+	const disciplina = $("#disciplina").val();
+	const turma = $("#turmaSearch").val();
+
+	$("#turmaId").val(turma)
+	$("#turmaId").attr('disabled', true)
+	$("#turmaIdEdit").attr('disabled', true)
+	
+	if (periodoLetivo && escola && disciplina && turma) {
+		$("#boxAgenda").show();
+		$("#agenda").show();
+		$("#tableTurma").show();
+		getDados()
+	}
+}
+
+$('#btn-buscar').click(() => {
+	buscar()
+})
+
+function getDados() {
+	const turma = $("#turmaSearch").val();
+
+	$.ajax({
+		url: url_base + `/agendas/turma/${turma}/conta/${contaId}`,
 		type: "GET",
 		async: false,
 	})
 		.done(function(data) {
-			dados = data;
-			dadosOriginais = data;
-			listarDados(data);
+			dados = data.data;
+			dadosOriginais = data.data;
+			listarDados(data.data);
 			$('input[data-toggle="toggle"]').bootstrapToggle();
-			listaAgenda = data;
+			listaAgenda = data.data;
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
 			console.error("Erro na solicitação AJAX:", textStatus, errorThrown);
@@ -557,12 +628,6 @@ function listarDados(dados) {
 				item.idAgenda +
 				'" onclick="selecionar(this)"><i class="fa-solid fa-right-to-bracket fa-lg"></i></span></td>' +
 				"<td>" +
-				item.turma.turno.turno +
-				"</td>" +
-				"<td>" +
-				item.turma.gradeCurricular.disciplina.nome +
-				"</td>" +
-				"<td>" +
 				dataFormatada +
 				"</td>" +
 				"<td>" +
@@ -593,7 +658,7 @@ function listarDados(dados) {
 				' data-id="' +
 				item.idAgenda +
 				'" data-turmaId="' +
-				item.turmaId +
+				item.idTurma +
 				'" data-horaInicioFormatada="' +
 				item.horaInicio +
 				'" data-horaFimFormatada="' +
@@ -655,6 +720,7 @@ const getAnexos = () => {
 					title: "Essa agenda não possui nenhum anexo!",
 				});
 				listarAnexos(data);
+				$('input[data-toggle="toggle"]').bootstrapToggle();
 			}
 		})
 		.fail(function(jqXHR, textStatus, errorThrown) {
@@ -745,7 +811,7 @@ function alteraStatus(element) {
 			});
 		},
 	}).then((data) => {
-		window.location.href = "agenda";
+		getDados()
 	});
 }
 
@@ -780,7 +846,7 @@ function alteraStatusAgendaAnexo(element) {
 			});
 		},
 	}).then((data) => {
-		window.location.href = "agenda";
+		getAnexos()
 	});
 }
 
@@ -904,7 +970,7 @@ function editar() {
 			title: "Editado com sucesso",
 			icon: "success",
 		}).then(() => {
-			window.location.href = "agenda";
+			getDados()
 		});
 	});
 
@@ -971,7 +1037,7 @@ function cadastrar() {
 			title: "Cadastrado com sucesso",
 			icon: "success",
 		}).then(() => {
-			window.location.href = "agenda";
+			getDados()
 		});
 	});
 	return false;

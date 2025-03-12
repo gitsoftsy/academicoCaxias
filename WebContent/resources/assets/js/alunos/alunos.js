@@ -129,7 +129,7 @@ $(document).ready(function () {
   });
 
   $.ajax({
-    url: url_base + "/cursos/ativos/conta/" + contaId,
+    url: url_base + "/cursos/ativos/" + contaId,
     type: "get",
     async: false,
     error: function (e) {
@@ -137,7 +137,7 @@ $(document).ready(function () {
     },
   }).done(function (data) {
     $.each(data, function (index, item) {
-      if (item.ativo == "S") {
+      
         $("#curso").append(
           $("<option>", {
             value: item.idCurso,
@@ -145,7 +145,7 @@ $(document).ready(function () {
             name: item.nome,
           })
         );
-      }
+      
     });
   });
 
@@ -331,39 +331,30 @@ function getDados(filtros) {
 }
 
 $("#limpa-filtros").click(function () {
-  currentPage = 1;
-  dados = [...dadosOriginais];
-
-  updatePagination();
-  showPage(currentPage);
-
-  $(".searchInput").val("");
-  $('input[data-toggle="toggle"]').bootstrapToggle();
+  $("#tableAlunos").hide();
+  $("#textoInicial").show();
+  $("#matricula").val();
+  $("#nome").val("");
+  $("#cpf").val("");
+  $("#escola").val("");
+  $("#curso").val("");
 });
 
 function listarDados(dados) {
   var html = dados
     .map(function (item) {
-      // var ativo;
-
-      // if (item.ativo == "N") {
-      //   ativo =
-      //     '<i  style="color:#ff1f00" class="fa-solid iconeTabela fa-circle-xmark"></i> Não';
-      // } else {
-      //   ativo =
-      //     "<i style='color:#2eaa3a' class='fa-solid iconeTabela fa-circle-check'></i> Sim";
-      // }
-
       const cpf =
         item.cpf == null
           ? "Não informado"
-          : item.cpf.replace(
-              /(\d{3})(\d{3})(\d{3})(\d{2})/,
-              "$1.$2.$3-$4"
-            );
+          : item.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
 
       return (
         "<tr>" +
+        `<td class="d-flex justify-content-center">
+				      <span class="btn btn-warning btn-sm" onclick="acessar(${item.idAluno})">
+				     <i class="fa-solid fa-right-to-bracket fa-lg"></i>
+				      </span>
+				</td>` +
         "<td>" +
         item.aluno +
         "</td>" +
@@ -391,19 +382,6 @@ function listarDados(dados) {
         "<td>" +
         item.situacaoAluno +
         "</td>" +
-        '<td class="d-flex justify-content-center">' +
-        '<span style="width:50%; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-primary btn-sm" ' +
-        "data-id=" +
-        item.idAluno +
-        ' onclick="showModal(this)"><i class="fa-solid fa-user "></i></span>' +
-        '<span style="width:50%; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-primary btn-sm" ' +
-        "data-id=" +
-        item.idAluno +
-        ' onclick="verAvisosAluno(this)"><i class="fa-solid fa-bell"></i></span>' +
-        /*			'<span style="width: 63px; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-warning btn-sm" data-id="' +
-						item.idAluno +
-						'" onclick="showModal(this)"><i class="fa-solid fa-pen fa-lg"></i></span>' +*/
-        "</td>" +
         "</tr>"
       );
     })
@@ -413,6 +391,23 @@ function listarDados(dados) {
   $("#textoInicial").hide();
   $("#cola-tabela").html(html);
 }
+
+const acessar = (id) => {
+  const urlAtual = window.location.pathname;
+
+  const rotas = {
+    "nova-pre-matricula": "matricular-disciplina",
+    "pre-matricula": "pre-matricula-disciplina",
+    aluno: "consulta-aluno",
+  };
+
+  for (const rota in rotas) {
+    if (urlAtual.includes(rota)) {
+      window.location.href = `${rotas[rota]}?id=${id}`;
+      return;
+    }
+  }
+};
 
 function alteraStatus(element) {
   var id = element.getAttribute("data-id");
@@ -446,16 +441,4 @@ function alteraStatus(element) {
   }).then((data) => {
     getDados();
   });
-}
-
-function showModal(ref) {
-  id = ref.getAttribute("data-id");
-
-  window.location.href = "consulta-aluno?id=" + id;
-}
-
-function verAvisosAluno(ref) {
-  id = ref.getAttribute("data-id");
-
-  window.location.href = "avisos?idAluno=" + id;
 }

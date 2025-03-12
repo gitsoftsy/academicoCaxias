@@ -1,4 +1,5 @@
 var dados = [];
+var dadosOriginais = [];
 var ufs = [];
 var id = '';
 var motivo = '';
@@ -70,6 +71,7 @@ function getDados() {
 	})
 		.done(function(data) {
 			dados = data
+			dadosOriginais = data
 			listarDados(data);
 			$('input[data-toggle="toggle"]').bootstrapToggle(); 
 		})

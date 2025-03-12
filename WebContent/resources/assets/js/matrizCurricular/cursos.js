@@ -11,17 +11,7 @@ var ativo = "";
 const contaId = localStorage.getItem("contaId");
 
 $(document).ready(function () {
-  $.ajax({
-    url: url_base + "/escolas",
-    type: "GET",
-    async: false,
-  })
-    .done(function (data) {
-      escolas = data;
-    })
-    .fail(function (jqXHR, textStatus, errorThrown) {
-      console.error("Erro na solicitação AJAX:", textStatus, errorThrown);
-    });
+ 
 
   getDados();
 
@@ -284,7 +274,14 @@ function listarDados(dados) {
         item.codCurso +
         '" data-ativo="' +
         item.ativo +
-        '"  onclick="editar(this)" data-bs-toggle="modal" data-bs-target="#editItem"><i class="fa-solid fa-pen fa-lg"></i></span></td>' +
+        '"  onclick="editar(this)" data-bs-toggle="modal" data-bs-target="#editItem"><i class="fa-solid fa-pen fa-lg"></i></span>' +
+        '<span style="width:50%; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-primary btn-sm" data-id="' +
+        item.idCurso +
+        '" onclick="cursoImage(this)"><i class="fa-regular fa-image fa-lg"></i></span>' +
+        '<span style="width:50%; margin-right: 5px; height: 31px; padding: 8px; display: flex; align-items: center; justify-content: center;" class="btn btn-primary btn-sm" data-id="' +
+        item.idCurso +
+        '" onclick="cursoDescricao(this)"><i class="fas fa-sticky-note fa-lg"></i></span>' +
+        "</td>" +
         "</tr>"
       );
     })
@@ -305,6 +302,18 @@ $("#exportar-excel").click(function () {
 });
 
 // Limpa input
+
+function cursoImage(element) {
+  const cursoId = element.getAttribute("data-id");
+
+  window.location.href = "curso-imagem?id=" + cursoId;
+}
+
+function cursoDescricao(element) {
+  const cursoId = element.getAttribute("data-id");
+
+  window.location.href = "curso-descricao?id=" + cursoId;
+}
 
 function limpaCampo() {
   $("#escolaId").val("");

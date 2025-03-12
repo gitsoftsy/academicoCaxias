@@ -6,6 +6,7 @@ var rows = 8;
 var currentPage = 1;
 var pagesToShow = 5;
 const contaId = localStorage.getItem('contaId')
+var dadosOriginais = [];
 
 $(document).ready(function() {
 
@@ -59,6 +60,7 @@ function getDados() {
 	})
 		.done(function(data) {
 			dados = data
+			dadosOriginais = data
 			listarDados(data);
 			$('input[data-toggle="toggle"]').bootstrapToggle();
 		})

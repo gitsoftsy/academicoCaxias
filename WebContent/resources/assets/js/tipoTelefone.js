@@ -4,6 +4,7 @@ var nome = "";
 var rows = 8;
 var currentPage = 1;
 var pagesToShow = 5;
+var dadosOriginais = [];
 
 $(document).ready(function () {
   // Carrega os dados ao iniciar a página
@@ -14,6 +15,7 @@ $(document).ready(function () {
   })
     .done(function (data) {
       dados = data; // Armazena os dados na variável global
+      dadosOriginais = data;	  
       listarDados(dados); // Lista todos os dados inicialmente
       $('input[data-toggle="toggle"]').bootstrapToggle();
     })
@@ -171,6 +173,7 @@ function recarregarDados() {
     async: false,
   }).done(function (data) {
     dados = data; // Atualiza os dados em memória
+    dadosOriginais = data	
     listarDados(dados); // Exibe os dados atualizados
     showPage(currentPage); // Volta para a página atual
     updatePagination(); // Atualiza a paginação

@@ -145,7 +145,7 @@ $(document).ready(function() {
 	});
 
 	$.ajax({
-		url: url_base + "/serie",
+		url: url_base + "/serie/conta/" + contaId,
 		type: "GET",
 		async: false,
 	}).done(function(data) {
@@ -185,7 +185,7 @@ $(document).ready(function() {
 
 
 	$.ajax({
-		url: url_base + "/disciplina",
+		url: url_base + "/disciplina/conta/" + contaId,
 		type: "GET",
 		async: false,
 	}).done(function(data) {
@@ -257,6 +257,7 @@ function getDados(idCurriculo) {
 		if (data.length > 0) {
 			console.log(data)
 			dados = data
+			$("caption").text(`Itens Cadastrados Total: ${data.length}`)
 			listarDados(data)
 			$('input[data-toggle="toggle"]').bootstrapToggle();
 		} else {

@@ -1073,6 +1073,7 @@ a {
 }
 
 .img-menu {
+  
   width: 100%;
   display: flex;
   align-items: center;
@@ -1081,12 +1082,14 @@ a {
 }
 
 .logoSumare {
+	background-color: #fff;
+  border-radius: 20px;
   cursor: pointer;
   width: 100%;
   /* background: #fff; */
   /* border-radius: 25px; */
   /* padding: 10px 20px; */
-  padding: 0 10px;
+  padding:  10px;
   /* box-shadow: 0px 7px 10px 1px #171717; */
 }
 

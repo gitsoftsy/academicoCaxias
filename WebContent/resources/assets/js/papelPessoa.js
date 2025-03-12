@@ -1,4 +1,5 @@
 var dados = [];
+var dadosOriginais = [];
 const contaId = localStorage.getItem('contaId');
 var nome = '';
 var rows = 8;
@@ -32,6 +33,7 @@ function getDados() {
     })
     .done(function (data) {
         dados = data; // Armazena os dados globalmente
+        dadosOriginais = data; // Armazena os dados globalmente
         listarDados(dados); // Exibe todos os dados
         $('input[data-toggle="toggle"]').bootstrapToggle();
     })
