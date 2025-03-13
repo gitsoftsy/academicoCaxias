@@ -11,7 +11,10 @@ header{
 	background-color: #031E3B;
 }
 
-
+.logo{
+	background-color: #fff;
+	border-radius: 20px;
+}
 .row-cards{
 	width: 100%;
 	display: flex;
