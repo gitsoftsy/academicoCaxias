@@ -44,7 +44,7 @@ $(document).ready(function() {
 
 		dadosFormulario = {
 			"tipoPessoa": "PJ",
-			"nome": $("#razaoSocial").val(),
+			"nome": $("#nomeFantasia").val(),
 			"documento": $("#cnpj").val().replace(/\D/g, ""),
 			"email": $("#emailCnpj").val(),
 		}

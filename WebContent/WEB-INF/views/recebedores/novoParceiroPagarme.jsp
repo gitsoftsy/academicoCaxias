@@ -160,9 +160,9 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 
 						<div class=" row mb-3">
 							<div class="col-md-6">
-								<label for="razaoSocial" class="form-label">Razão Social<span
+								<label for="nomeFantasia" class="form-label">Nome Fantasia<span
 									class="red">*</span></label> <input type="text" class="form-control"
-									id="razaoSocial" required>
+									id="nomeFantasia" required>
 							</div>
 
 							<div class="col-md-6">
