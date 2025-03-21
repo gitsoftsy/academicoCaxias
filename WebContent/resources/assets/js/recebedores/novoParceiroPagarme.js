@@ -190,7 +190,7 @@ $("#cnpj").on("blur", function() {
 			},
 			error: function(error) {
 				
-				if (error.responseJSON.mensagem != "CNPJ não encontrado em nenhuma tabela.") {
+				if (error.responseJSON.mensagem != "CNPJ não encontrado em nenhuma tabela." && error.responseJSON.mensagem != "ID da conta não encontrado em nenhuma tabela de recebedores.") {
 					console.log(error)
 					Swal.fire({
 						icon: "error",
