@@ -119,7 +119,7 @@ $("#cpf").on("blur", function() {
 			success: function(response) {
 				console.log(response)
 				if (response.encontrado) {
-					$("#cpfErro").text("CPF já cadastrado!").show();
+				
 					$("#cpf").val(""); // Limpa o campo CPF
 					Swal.fire({
 						icon: "error",
@@ -175,7 +175,6 @@ $("#cnpj").on("blur", function() {
 			success: function(response) {
 				console.log(response)
 				if (response.encontrado) {
-					$("#cnpjErro").text("CNPJ já cadastrado!").show();
 					$("#cnpj").val("").prop("disabled", false);
 
 					Swal.fire({
@@ -235,7 +234,6 @@ $("#email, #emailCnpj").on("blur", function() {
 		success: function(response) {
 			console.log(response);
 			if (response.encontrado) {
-				$(campoErro).text("E-mail já cadastrado!").show();
 				$(`#${$(this).attr("id")}`).val(""); // Limpa o campo correto
 				Swal.fire({
 					icon: "error",
