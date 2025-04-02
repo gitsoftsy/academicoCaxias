@@ -99,139 +99,120 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 		</section>
 
 
-		<section class="pt-4 card card-table px-5 py-3" style="height: 680px">
-			<div
-				class="container-form d-flex justify-content-center h-100 align-items-center">
+		<section class="pt-4 card card-table px-5 py-3 d-flex justify-content-center align-items-center" style="height: 680px;">
+    <div class="container-form d-flex justify-content-center align-items-center flex-column w-100 h-100">
+
+        <!-- Passo 1: Escolha do Tipo de Parceiro -->
+        <div id="step1" class="container-form w-75 p-4 ">
+            <div class="d-flex align-items-center mb-3">
+                <h2 class="m-0">Cadastro de Parceiro</h2>
+            </div>
+
+            <p class="text-secondary">
+                O cadastro de parceiro habilita uma empresa ou uma pessoa a receber valores em parceria com sua Instituição.
+                Escolha abaixo o tipo de parceiro:
+            </p>
+
+            <div class="d-flex gap-3 mt-3">
+                <button class="btn btn-info text-white flex-grow-1 px-4 py-2" id="btnFisica">Pessoa Física</button>
+                <button class="btn btn-primary flex-grow-1 px-4 py-2" id="btnJuridica">Pessoa Jurídica</button>
+            </div>
+        </div>
+
+        <!-- Passo 2: Formulário para Pessoa Física -->
+        <div id="containerFisica" class="container-form d-none w-100 p-4 ">
+            <h2>Cadastro - Pessoa Física</h2>
+            <form id="formFisica">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="nome" class="form-label">Nome Completo <span class="red">*</span></label>
+                        <input type="text" class="form-control" id="nome" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="cpf" class="form-label">CPF <span class="red">*</span></label>
+                        <input type="text" class="form-control" id="cpf" required>
+                        <div id="cpfErro" class="text-danger mt-1" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">E-mail <span class="red">*</span></label>
+                        <input type="text" class="form-control" id="email" required>
+                        <div id="emailErro" class="text-danger mt-1" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-secondary btnVoltar">Voltar</button>
+                <button type="submit" class="btn btn-success">Próximo</button>
+            </form>
+        </div>
+
+        <!-- Passo 2: Formulário para Pessoa Jurídica -->
+        <div id="containerJuridica" class="container-form d-none w-100 p-4 ">
+            <h2>Cadastro - Pessoa Jurídica</h2>
+            <form id="formJuridica">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="nomeFantasia" class="form-label">Nome Fantasia <span class="red">*</span></label>
+                        <input type="text" class="form-control" id="nomeFantasia" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="cnpj" class="form-label">CNPJ <span class="red">*</span></label>
+                        <input type="text" class="form-control" id="cnpj" required>
+                        <div id="cnpjErro" class="text-danger mt-1" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="emailCnpj" class="form-label">E-mail <span class="red">*</span></label>
+                        <input type="text" class="form-control" id="emailCnpj" required>
+                        <div id="emailCnpjErro" class="text-danger mt-1" style="display: none;"></div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-secondary btnVoltar">Voltar</button>
+                <button type="submit" class="btn btn-success">Próximo</button>
+            </form>
+        </div>
+
+        <!-- Passo 3: Forma de Recebimento -->
+        <div id="step3" class="container-form d-none w-100 p-4 ">
+            <h2>Forma de Recebimento</h2>
+            <form>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="tranferencia" class="form-label">A transferência será: <span class="red">*</span></label>
+                        <select class="form-select" id="tranferencia" name="tranferencia">
+                            <option selected disabled>Selecione uma opção</option>
+                            <option value="M">Mensal</option>
+                            <option value="S">Semanal</option>
+                            <option value="D">Diária</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="antecipacaAut" class="form-label">Antecipação Automática <span class="red">*</span></label>
+                        <div class="form-control card-form-infra d-flex align-items-center">
+                            <label for="antecipacaAut" class="me-2">Sim</label>
+                            <label class="switch">
+                                <input type="checkbox" id="antecipacaAut" name="antecipacaAut">
+                                <span class="slider"></span>
+                            </label>
+                            <label for="antecipacaAut" class="ms-2">Não</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="btn btn-secondary btnVoltar">Voltar</button>
+                <button type="submit" id="btnNovoCadastro" class="btn btn-success">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+</section>
 
 
-				<!-- Passo 1: Escolha do Tipo de Parceiro -->
-				<div id="step1"
-					class="container-form w-100 d-flex  justify-content-center align-items-center">
-					<button class="btn btn-info text-white me-2" id="btnFisica">Pessoa
-						Física</button>
-					<button class="btn btn-primary" id="btnJuridica">Pessoa
-						Jurídica</button>
-				</div>
 
-
-				<!-- Passo 2: Formulário para Pessoa Física -->
-				<div id="containerFisica" class="container-form d-none w-100">
-					<h2>Cadastro - Pessoa Física</h2>
-					<form id="formFisica">
-						<div class="row mb-3">
-							<div class="col-md-6">
-								<label for="nome" class="form-label">Nome Completo <span
-									class="red">*</span></label> <input type="text" class="form-control"
-									id="nome" required>
-							</div>
-							<div class="col-md-6">
-								<div class="mb-3">
-									<label for="cpf" class="form-label">CPF <span
-										class="red">*</span></label> <input type="text" class="form-control"
-										id="cpf" required>
-									<div id="cpfErro" class="text-danger mt-1"
-										style="display: none;"></div>
-								</div>
-							</div>
-
-						</div>
-						<div class="row mb-3">
-							<div class="col-md-6">
-								<label for="email" class="form-label">E-mail<span
-									class="red">*</span></label> <input
-									type="text" class="form-control" id="email" required>
-								<div id="emailErro" class="text-danger mt-1"
-									style="display: none;"></div>
-							</div>
-						</div>
-
-
-						<button type="button" class="btn  btn-secondary btnVoltar">Voltar</button>
-						<button type="submit" class="btn btnStep btn-success">Próximo</button>
-					</form>
-				</div>
-
-				<!-- Passo 2: Formulário para Pessoa Jurídica -->
-				<div id="containerJuridica" class="container-form d-none w-100">
-					<h2>Cadastro - Pessoa Jurídica</h2>
-					<form id="formJuridica">
-
-
-
-						<div class=" row mb-3">
-							<div class="col-md-6">
-								<label for="nomeFantasia" class="form-label">Nome Fantasia<span
-									class="red">*</span></label> <input type="text" class="form-control"
-									id="nomeFantasia" required>
-							</div>
-
-							<div class="col-md-6">
-								<label for="cnpj" class="form-label">CNPJ<span
-									class="red">*</span></label> <input type="text" class="form-control"
-									id="cnpj" required>
-								<div id="cnpjErro" class="text-danger mt-1"
-									style="display: none;"></div>
-							</div>
-						</div>
-
-
-
-
-						<div class=" row mb-3">
-							<div class="col-md-6">
-								<label for="emailCnpj" class="form-label">E-mail<span
-									class="red">*</span></label> <input
-									type="text" class="form-control" id="emailCnpj" required>
-								<div id="emailCnpjErro" class="text-danger mt-1"
-									style="display: none;"></div>
-							</div>
-
-						</div>
-						<button type="button" class="btn  btn-secondary btnVoltar">Voltar</button>
-						<button type="submit" class="btn  btnStep btn-success">Próximo</button>
-					</form>
-				</div>
-
-
-				<!-- Passo 3: Forma de Recebimento-->
-				<div id="step3" class="container-form d-none w-100">
-					<h2>Forma de Recebimento</h2>
-					<form>
-
-
-
-						<div class=" row mb-3">
-							<div class="col-md-6">
-								<label for="tranferencia" class="form-label">A
-									transferênncia será: <span class="red">*</span>
-								</label> <select class="form-select" aria-label="Transferencia"
-									id="tranferencia" name="tranferencia">
-									<option selected disabled>Selecione uma opção</option>
-									<option value="M">Mensal</option>
-									<option value="S">Semanal</option>
-									<option value="D">Diária</option>
-								</select>
-							</div>
-
-							<div class="col-md-3">
-								<label for="antecipacaAut" class="form-label">Antecipação
-									Automatica<span class="red">*</span>
-								</label>
-								<div class="form-control card-form-infra">
-									<label for="antecipacaAut">Sim</label> <label class="switch">
-										<input type="checkbox" id="antecipacaAut" name="antecipacaAut">
-										<span class="slider"></span>
-									</label> <label for="antecipacaAut">Não</label>
-
-								</div>
-							</div>
-						</div>
-						<button type="button" class="btn btn-secondary btnVoltar">Voltar</button>
-						<button type="submit" id="btnNovoCadastro" class="btn btn-success">Cadastrar</button>
-					</form>
-				</div>
-			</div>
-		</section>
 
 	</main>
 
