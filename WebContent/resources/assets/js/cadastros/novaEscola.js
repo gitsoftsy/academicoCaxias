@@ -212,8 +212,10 @@ $("#formNovoCadastro").submit(async function(e) {
 			Swal.fire({
 				title: "Cadastrado com sucesso",
 				icon: "success",
+			}).then(()=> {
+				window.location.href = "acessar-escolas";
 			});
-			window.location.href = "acessar-escolas";
+			
 		});
 
 

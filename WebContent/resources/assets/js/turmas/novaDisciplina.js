@@ -115,7 +115,9 @@ $("#formNovoCadastro").submit(function(e) {
 		Swal.fire({
 				title: "Cadastrado com sucesso",
 				icon: "success",
-			})
-		window.location.href = "turmas-disciplina";
+			}).then(()=> {
+				window.location.href = "turmas-disciplina";
+			});
+		
 	});
 });

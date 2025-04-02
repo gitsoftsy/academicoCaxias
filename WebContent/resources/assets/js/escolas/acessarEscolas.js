@@ -157,7 +157,7 @@ function listarDados(dados) {
                 <td>${item.nomeEscola}</td>
                 <td>${item.municipio}</td>
                 <td>${item.uf}</td>
-                <td>${item.codigoInep}</td>
+                <td>${item.codigoInep == null ? "Não Possui" : item.codigoInep}</td>
                 <td>
                     <input type="checkbox" data-id="${item.idEscola
 				}" data-status="${item.ativo}" onChange="alteraStatus(this)"

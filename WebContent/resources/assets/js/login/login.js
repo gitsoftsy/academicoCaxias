@@ -110,7 +110,10 @@ $('#btnLogin').click(function() {
 					}
 				}).done((res) => {
 					$.ajax({
-						url: url_base + `/conta/${responseData.contaId}/logo/`,
+						url: url_base + `/contaLogo?aplicacao="secretaria"`,
+						headers: {
+							'idConta': responseData.contaId
+						},
 						type: "get",
 						contentType: "application/json; charset=utf-8",
 						error: function(e) {

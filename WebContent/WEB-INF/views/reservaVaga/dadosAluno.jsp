@@ -67,23 +67,20 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 	href="<%=contextPath%>/resources/assets/css/login.css" />
 </head>
 
-  <body>
-    <div class="bg-loading">
-      <div class="spinner">
-        <div class="rect1"></div>
-        <div class="rect2"></div>
-        <div class="rect3"></div>
-        <div class="rect4"></div>
-      </div>
-    </div>
-    <header>
-      <img
-        class="logo"
-        style="width: 15%"
-        src="<%=contextPath%>/resources/assets/img/logoPrefeitura.png"
-        alt="Logo Prefeitura Caxias do Sul"
-      />
-    </header>
+<body>
+	<div class="bg-loading">
+		<div class="spinner">
+			<div class="rect1"></div>
+			<div class="rect2"></div>
+			<div class="rect3"></div>
+			<div class="rect4"></div>
+		</div>
+	</div>
+	<header>
+		<img class="logoSumare" style="width: 15%"
+			src="<%=contextPath%>/resources/assets/img/logo-softsy.png"
+			alt="Logo da Softsy" />
+	</header>
 
 	<main class="container-section">
 		<form class="container-section pb-5" id="formSubmit">

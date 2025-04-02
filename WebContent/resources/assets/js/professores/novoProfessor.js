@@ -417,8 +417,10 @@ $('#formNovoCadastro').submit(function(event) {
 			Swal.fire({
 				title: "Cadastrado com sucesso",
 				icon: "success",
-			})
-			window.location.href = "professores";
+			}).then(()=> {
+				window.location.href = "professores";
+			});
+			
 		});
 
 	}

@@ -72,12 +72,9 @@ https://kit.fontawesome.com/3ce21ff22c.js"
 
   <body>
     <header>
-      <img
-        class="logo"
-        style="width: 15%"
-        src="<%=contextPath%>/resources/assets/img/logoPrefeitura.png"
-        alt="Logo Prefeitura Caxias do Sul"
-      />
+     <img class="logoSumare" style="width: 15%"
+			src="<%=contextPath%>/resources/assets/img/logo-softsy.png"
+			alt="Logo da Softsy" />
     </header>
 
     <main class="container-section">
